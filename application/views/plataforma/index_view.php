@@ -40,6 +40,7 @@
             </div>
         </div><!-- contentpanel -->
 
+
       </div>
       <!-- /.box-body -->
       <div class="box-footer">
@@ -74,7 +75,7 @@
     ,validate:function(){}
     ,listar:function()
     {
-        var wurl="<?php echo base_url('clientes/list'); ?>";
+        var wurl="<?php echo base_url('plataforma/list'); ?>";
         $("#tdatos").jqGrid({
                 url: wurl,
                 mtype: "get",
@@ -84,15 +85,13 @@
                 datatype: "json",
                 colModel: [
                     { label: '...', name: 'accion', frozen:true , width: 80, formatter:function(cellValue, opts, rowObject){return '<button class="btn btn-success btn-xs edit-modal" data-id=' + rowObject.idsucursal + '><span class="fa fa-pencil"></span></button> <button class="btn btn-danger btn-xs delete-modal" data-id=' + rowObject.idsucursal + '><span class="fa fa-trash-o"></span></button>';}},
-                    { label: 'Ide. Cliente', name: 'IdCliente', key: true, width: 75 },
-                    { label: 'Id. Actor', name: 'IdActor', key: true, width: 75 },
-                    { label: 'Apellido Paterno', name: 'Apellido_Paterno', width: 75 },
-                    { label: 'Apellido Materno', name: 'Apellido_Materno', width: 200 },
-              			{ label: 'Nombre', name: 'PrimerNombre', width: 200 },
-              			{ label: 'Razon Social', name: 'RazonSocial', width: 100 },
-              			{ label: 'Tipo Doc', name: 'TipoDocumento', width: 100 },
-                    { label: 'Nro Doc', name: 'CodigoIdentificacion', width: 100 },
-                    { label: 'RUC', name: 'RUC', width: 300 },
+                    { label: 'Id. Acceso', name: 'IdAcceso', key: true, width: 100 },
+                    { label: 'Id. Cliente', name: 'IdCliente', key: true, width: 100 },
+                    { label: 'Acceso App', name: 'FlgAccesoApp', key: true, width: 100 },
+                    { label: 'Acceso web', name: 'FlgAccesoWeb', key: true, width: 100 },
+                    { label: 'Conex. Max.', name: 'MaxConexiones', key: true, width: 100 },
+                    { label: 'Login', name: 'LoginAcceso', key: true, width: 100 },
+                    { label: 'Acceso', name: 'EstadoAcceso', key: true, width: 100 },
                 ],
                 viewrecords: true,
                 height: 300,
@@ -108,7 +107,7 @@
                 gridComplete: function(){
                     //sucursal.eventload();
                 },
-                sortname: 'idcliente',
+                sortname: 'IdAcceso',
                 sortorder: 'desc',
                 pager: "#pager"
                     });
@@ -123,7 +122,7 @@
 
               $("#tdatos").jqGrid('filterToolbar', { stringResult: true, searchOnEnter: true });
               $("#tdatos").jqGrid('setFrozenColumns');
-              $("#tdatos").jqGrid('hideCol',['IdActor']);
+              $("#tdatos").jqGrid('hideCol',['idmodelo']);
       }
    }
 
