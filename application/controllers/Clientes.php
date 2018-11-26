@@ -34,6 +34,10 @@ class Clientes extends My_Controller {
       }
 	}
 
+  public function create(){
+
+  }
+
 
 
  }
