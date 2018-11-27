@@ -5,7 +5,7 @@ class OrdenesModel extends CI_Model
   function Listar($sidx,$sord,$attr,$idempresa)
 	{
     $parameters=array($sidx,$sord,$attr["start"],$attr["limit"],$attr["filter"],$idempresa);
-		$sql = 'CALL sp_get_ordenes(?,?,?,?,?,?)';
+		$sql = 'CALL sp_get_listarordenes(?,?,?,?,?,?)';
 		$q = $this->db->query($sql, $parameters);
 		if($q -> num_rows() >= 1)
 		{

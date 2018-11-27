@@ -12,7 +12,7 @@ class Clientes extends My_Controller {
 	 public function index()
  	{
  		$data = array('titulo' => 'Clientes','token'  => $this->auth->token());
- 		$this->layout('clientes/index_view',$data);
+ 		$this->layout('clientes/create_view',$data);
   }
 
 
