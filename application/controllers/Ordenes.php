@@ -1,18 +1,18 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Clientes extends My_Controller {
+class Ordenes extends My_Controller {
 
   public function __construct()
 	{
 		  parent::__construct();
-      $this->load->model('ClientesModel');
+      $this->load->model('OrdenesModel');
 	}
 
 	 public function index()
  	{
- 		$data = array('titulo' => 'Clientes','token'  => $this->auth->token());
- 		$this->layout('clientes/create_view',$data);
+ 		$data = array('titulo' => 'Ordenes','token'  => $this->auth->token());
+ 		$this->layout('ordenes/index_view',$data);
   }
 
 
@@ -25,19 +25,14 @@ class Clientes extends My_Controller {
           $sord =$_GET['sord'];
           $atrr=$this->grilla->param;
           //Obteniendo el Count
-          $datacount=$this->ClientesModel->Listar($sidx,$sord,$atrr,$this->auth->getidempresa()); //count
+          $datacount=$this->OrdenesModel->Listar($sidx,$sord,$atrr,$this->auth->getidempresa()); //count
           $atrr=$this->grilla->jq_getatributes($this->input->get(),$datacount);
           //Obteniendo la Data
-          $data=$this->ClientesModel->Listar($sidx,$sord,$atrr,$this->auth->getidempresa()); //data
+          $data=$this->OrdenesModel->Listar($sidx,$sord,$atrr,$this->auth->getidempresa()); //data
           $json=$this->grilla->jq_getdata($this->input->get(),$data);
           echo $json;
       }
 	}
 
-  public function create(){
-
-  }
-
-
-
  }
+ ?>

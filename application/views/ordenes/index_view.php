@@ -40,6 +40,7 @@
             </div>
         </div><!-- contentpanel -->
 
+
       </div>
       <!-- /.box-body -->
       <div class="box-footer">
@@ -49,7 +50,7 @@
     </div>
     <!-- /.box -->
 
-   </section>
+  </section>
   <!-- /.content -->
 </div>
 <!-- /.content-wrapper -->
@@ -74,7 +75,7 @@
     ,validate:function(){}
     ,listar:function()
     {
-        var wurl="<?php echo base_url('clientes/list'); ?>";
+        var wurl="<?php echo base_url('ordenes/list'); ?>";
         $("#tdatos").jqGrid({
                 url: wurl,
                 mtype: "get",
@@ -83,18 +84,19 @@
                 postData: {'token':$('input[name=token]').val()},
                 datatype: "json",
                 colModel: [
-                    { label: '...', name: 'accion', frozen:true , width: 80, formatter:function(cellValue, opts, rowObject){return '<button class="btn btn-success btn-xs edit-modal" data-id=' + rowObject.IdCliente + '><span class="fa fa-pencil"></span></button> <button class="btn btn-danger btn-xs delete-modal" data-id=' + rowObject.idsucursal + '><span class="fa fa-trash-o"></span></button>';}},
-                    { label: 'Ide. Cliente', name: 'IdCliente', key: true, width: 75 },
-                    { label: 'Id. Actor', name: 'IdActor', key: true, width: 75 },
-                    { label: 'Apellido Paterno', name: 'Apellido_Paterno', width: 75 },
-                    { label: 'Apellido Materno', name: 'Apellido_Materno', width: 200 },
-              			{ label: 'Nombre', name: 'PrimerNombre', width: 200 },
-              			{ label: 'Razon Social', name: 'RazonSocial', width: 100 },
-              			{ label: 'Tipo Doc', name: 'TipoDocumento', width: 100 },
-                    { label: 'Nro Doc', name: 'CodigoIdentificacion', width: 100 },
-                    { label: 'RUC', name: 'RUC', width: 300 },
-
-
+                    { label: '...', name: 'accion', frozen:true , width: 80, formatter:function(cellValue, opts, rowObject){return '<button class="btn btn-success btn-xs edit-modal" data-id=' + rowObject.idsucursal + '><span class="fa fa-pencil"></span></button> <button class="btn btn-danger btn-xs delete-modal" data-id=' + rowObject.idsucursal + '><span class="fa fa-trash-o"></span></button>';}},
+                    { label: 'Id. Orden', name: 'IdOrden', key: true, width: 100 },
+                    { label: 'Id. OrdenDetalle', name: 'IdOrdenDetalle', key: true, width: 100 },
+                    { label: 'Cliente', name: 'NomCli', key: true, width: 100 },
+                    { label: 'Dispositivo', name: 'IdDispositivo', key: true, width: 100 },
+                    { label: 'Mecanico', name: 'NomMec', key: true, width: 100 },
+                    { label: 'Empresa', name: 'NombreComercial', key: true, width: 100 },
+                    { label: 'Taller', name: 'Taller', key: true, width: 100 },
+                    { label: 'Fecha Inicio', name: 'FechaInicio', key: true, width: 100 },
+                    { label: 'Fecha Fin', name: 'FechaFin', key: true, width: 100 },
+                    { label: 'Estado', name: 'EstadoOrden', key: true, width: 100 },
+                    { label: 'Programacion', name: 'FechaProgramada', key: true, width: 100 },
+                    { label: 'Ejecucion', name: 'FechaEjecutada', key: true, width: 100 },
                 ],
                 viewrecords: true,
                 height: 300,
@@ -110,7 +112,7 @@
                 gridComplete: function(){
                     //sucursal.eventload();
                 },
-                sortname: 'idcliente',
+                sortname: 'IdOrden',
                 sortorder: 'desc',
                 pager: "#pager"
                     });
@@ -125,7 +127,7 @@
 
               $("#tdatos").jqGrid('filterToolbar', { stringResult: true, searchOnEnter: true });
               $("#tdatos").jqGrid('setFrozenColumns');
-              $("#tdatos").jqGrid('hideCol',['IdActor']);
+              $("#tdatos").jqGrid('hideCol',['idmodelo']);
       }
    }
 
