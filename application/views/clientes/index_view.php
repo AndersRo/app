@@ -50,7 +50,7 @@
     </div>
     <!-- /.box -->
 
-  </section>
+   </section>
   <!-- /.content -->
 </div>
 <!-- /.content-wrapper -->
@@ -94,6 +94,8 @@
               			{ label: 'Tipo Doc', name: 'TipoDocumento', width: 100 },
                     { label: 'Nro Doc', name: 'CodigoIdentificacion', width: 100 },
                     { label: 'RUC', name: 'RUC', width: 300 },
+
+
                 ],
                 viewrecords: true,
                 height: 300,
