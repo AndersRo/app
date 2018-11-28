@@ -1,11 +1,11 @@
 <?php
-class DispositivosModel extends CI_Model
+class ContratosModel extends CI_Model
 {
 
   function Listar($sidx,$sord,$attr,$idempresa)
 	{
     $parameters=array($sidx,$sord,$attr["start"],$attr["limit"],$attr["filter"],$idempresa);
-		$sql = 'call sp_get_listadispositivosall(?,?,?,?,?,?)';
+		$sql = 'call sp_get_listarcontratos(?,?,?,?,?,?)';
 		$q = $this->db->query($sql, $parameters);
 		if($q -> num_rows() >= 1)
 		{
