@@ -8,7 +8,7 @@
             <h4><i class="fa fa-plus"></i> &nbsp; Nuevo Usuario</h4>
           </div>
           <div class="col-md-6 text-right">
-            <a href="http://site.codeglamour.com/ci_adminlte/admin/users" class="btn btn-success"><i class="fa fa-list"></i> Users List</a>
+            <a href="#" class="btn btn-success"><i class="fa fa-list"></i> Users List</a>
           </div>
         </div>
       </div>
@@ -20,8 +20,8 @@
         <!-- form start -->
         <div class="box-body my-form-body">
 
-            <form action="http://site.codeglamour.com/ci_adminlte/admin/users/add" class="form-horizontal" method="post" accept-charset="utf-8">
-            <input type="hidden" name="csrf_test_name" value="a94bd3f1468814952008f1b454e90452">
+            <form action="" class="form-horizontal" method="post" accept-charset="utf-8">
+            <?php echo form_hidden('token', $token) ?>
 
               <div class="form-group">
                 <label for="username" class="col-sm-2 control-label">Nombre de Usuario</label>
@@ -43,7 +43,7 @@
                 <label for="firstname" class="col-sm-2 control-label">Segundo Nombre</label>
 
                 <div class="col-sm-9">
-                  <input type="text" name="firstname" class="form-control" id="firstname" placeholder="">
+                  <input type="text" name="firstname" class="form-control" id="secondname" placeholder="">
                 </div>
               </div>
 
@@ -60,7 +60,7 @@
                 <label for="lastname" class="col-sm-2 control-label">Segundo Apellido</label>
 
                 <div class="col-sm-9">
-                  <input type="text" name="lastname" class="form-control" id="lastname" placeholder="">
+                  <input type="text" name="lastname" class="form-control" id="secondlastname" placeholder="">
                 </div>
               </div>
 
@@ -111,4 +111,5 @@
   </div>
 
 </section> 						<!-- page end-->
+
 </div>

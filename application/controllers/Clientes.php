@@ -7,12 +7,30 @@ class Clientes extends My_Controller {
 	{
 		  parent::__construct();
       $this->load->model('ClientesModel');
+      $this->load->model('TablasModel');
+      //Modelo Tablas
 	}
 
 	 public function index()
  	{
- 		$data = array('titulo' => 'Clientes','token'  => $this->auth->token());
- 		$this->layout('clientes/create_view',$data);
+
+    $lista=array();
+    $item = array('codigo' =>'002001' , 'descripcion'=>'DNI' );
+    array_push ($lista,$item);
+    $item2 = array('codigo' =>'002002' , 'descripcion'=>'RUC' );
+    array_push ($lista,$item2);
+
+
+
+    /*$reresult=array();
+    $item= $this->TablasModel->Listar("001"); //TipoDocumento
+    array_push ($reresult,$item);*/
+
+ 		$data = array('titulo' => 'Clientes'
+    ,'token'  => $this->auth->token()
+    ,'tipodocumento'=>$lista //$reresult
+    );
+ 		$this->layout('clientes/index_view',$data);
   }
 
 
