@@ -5,7 +5,7 @@
     <h1>
       <?php echo $titulo; ?>
       <a class="btn btn-primary btn-xs new-modal" data-toggle="modal" data-target="#modal-default"><span class="fa fa-plus"></span></a>
-	  <a class="btn btn-primary btn-xs new-modal" data-toggle="modal" data-target="#pepe"><span class="fa fa-plus"></span></a>
+	    <a class="btn btn-primary btn-xs new-modal" data-toggle="modal" data-target="#pepe"><span class="fa fa-plus"></span></a>
       <a class="btn btn-danger"  data-toggle="modal" data-target="#josemanuel"><span class="fa fa-car"></span></a>
 	 <small></small>
     </h1>
@@ -61,18 +61,18 @@
 <div class="modal-content">
 
 		<div class="modal-header">
-          <h1>header</h1>      
+          <h1>header</h1>
         </div>
-		
+
 		 <div class="modal-body">
-          <h1>body</h1>      
+          <h1>body</h1>
 		</div>
-		  
+
 		   <div class="modal-footer">
 		   <h1>footer</h1>
           </div>
-		  
-		  
+
+
 </div>
 </div>
 </div>
@@ -81,30 +81,30 @@
 <div class="modal-content">
 
 		<div class="modal-header">
-          <h1>jose manuel</h1>      
+          <h1>jose manuel</h1>
         </div>
-		
+
 		 <div class="modal-body">
-          <h1>fajardo gutierrez</h1>    
+          <h1>fajardo gutierrez</h1>
            <div class="form-group">
 			<label for="exampleInputEmail1">Marca</label>
 			<input type="email" class="form-control" id="txtmarca" aria-describedby="emailHelp" placeholder="escribir marca">
 			<small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-		</div>		  
+		</div>
   <div class="form-group">
     <label for="exampleInputEmail1">Modelo</label>
     <input type="email" class="form-control" id="txtmodelo" aria-describedby="emailHelp" placeholder="escribir modelo">
     <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-  </div>		 
+  </div>
 		</div>
-		  
+
 		   <div class="modal-footer">
 		   <h1>footer</h1>
           <button type="button" id="btnguardar"  name="btnguardar" class="btn btn-warning">Guardar</button>
 		  </div>
-		  
-		  
-		  
+
+
+
 </div>
 </div>
 </div>
@@ -129,7 +129,7 @@
                   <?php echo form_hidden('token', $token) ?>
 
                     <div class="form-group">
-                      <label for="codigo" class="col-sm-2 control-label">Codigosss</label>
+                      <label for="codigo" class="col-sm-2 control-label">Codigos</label>
 
                       <div class="col-sm-4">
                         <input type="text" name="codigo" class="form-control" id="codigo" placeholder="">
@@ -245,10 +245,10 @@
   $.jgrid.defaults.width = newWidth;
   $.jgrid.defaults.responsive = true;
   $.jgrid.defaults.styleUI = 'Bootstrap';
-  
 
 
-	  
+
+
 </script>
 
 <script type="text/javascript">
@@ -258,38 +258,38 @@
       dispositivo.event();
       dispositivo.validate();
       dispositivo.listar();
-	    
+
 		$( "#btnguardar" ).on( "click", function() {
 		dispositivo.guardar();
-	  
+
 		});
     }
     ,event:function()  {}
     ,validate:function(){}
 	,guardar:function()
 	{
-		
+
 
 		  var wurl="<?php echo base_url('clientes/guardar'); ?>";
-		
+
 		  $.ajax({
 				async: true,
 				url: wurl,
 				type: "post",
-				dataType: 'json',  
-				contentType: 'application/x-www-form-urlencoded', 
+				dataType: 'json',
+				contentType: 'application/x-www-form-urlencoded',
 				data://$("#frm-clientes").serialize(),
 				{
 					'marcacampo':$("#txtmarca").val()
 				,	'modelocampo':$("#txtmodelo").val()
 				},
-				beforeSend: function(data){  
-					 
+				beforeSend: function(data){
+
 				},
-				complete: function(data, status){                          
+				complete: function(data, status){
 					alert('completado');
 				}
-		  }); 
+		  });
 	}
     ,listar:function()
     {

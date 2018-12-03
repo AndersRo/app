@@ -20,7 +20,8 @@ class Clientes extends My_Controller {
     $item2 = array('codigo' =>'002002' , 'descripcion'=>'RUC' );
     array_push ($lista,$item2);
 
-
+    /*$tipodoc="002"; //Tabla Tipos Documentos
+		$items=$this->TablasModel->Listar($tipodoc);*/
 
     /*$reresult=array();
     $item= $this->TablasModel->Listar("001"); //TipoDocumento
@@ -28,7 +29,7 @@ class Clientes extends My_Controller {
 
  		$data = array('titulo' => 'Clientes'
     ,'token'  => $this->auth->token()
-    ,'tipodocumento'=>$lista //$reresult
+    ,'tipodocumento'=>$lista//$reresult
     );
  		$this->layout('clientes/index_view',$data);
   }
@@ -55,12 +56,12 @@ class Clientes extends My_Controller {
   public function guardar()
   {
    //$response=array();
-    
+
     $rows=array("Correcto");
-       
+
       if ($this->input->server('REQUEST_METHOD') == 'POST')
       {
-         
+
 
       $valormarca= $_POST['marcacampo'];
       $valormodelo= $_POST['modelocampo'];
@@ -68,17 +69,17 @@ class Clientes extends My_Controller {
 
 
 
-  
+
           //Obteniendo el Count
           $datacount=$this->ClientesModel->guardar($valormarca,$valormodelo);
-          
 
 
-      header("Content-type:application/json"); 
+
+      header("Content-type:application/json");
       echo json_encode($rows);
 
-      } 
-      
+      }
+
   }
   public function create(){
 

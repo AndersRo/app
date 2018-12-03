@@ -4,6 +4,7 @@
   <section class="content-header">
     <h1>
       <?php echo $titulo; ?>
+      <a class="btn btn-primary btn-xs new-modal" data-toggle="modal" data-target="#modal-default"><span class="fa fa-plus"></span></a>
       <small></small>
     </h1>
     <ol class="breadcrumb">
@@ -55,6 +56,50 @@
 </div>
 <!-- /.content-wrapper -->
 
+<div class="modal fade" id="modal-default">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Nueva marca</h4>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="box border-top-solid">
+              <!-- /.box-header -->
+              <!-- form start -->
+              <div class="box-body my-form-body">
+
+                  <form action="" class="form" method="post" accept-charset="utf-8">
+                  <?php echo form_hidden('token', $token) ?>
+
+                    <div class="form-group">
+                      <label for="marca" class="col-sm-12 control-label">Marca</label>
+
+                      <div class="col-sm-6">
+                        <input type="text" name="marca" class="form-control" id="txtmarca" placeholder="Ingrese marca">
+                      </div>
+                    </div>
+
+                  </form>
+                </div>
+                <!-- /.box-body -->
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" name="btnguardar" id="btnguardar" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+
 <script type="text/javascript">
   var $grid = $("#tdatos"),
       newWidth = $grid.closest(".ui-jqgrid").parent().width();
@@ -70,9 +115,35 @@
       dispositivo.event();
       dispositivo.validate();
       dispositivo.listar();
+      $( "#btnguardar" ).on( "click", function() {
+  		dispositivo.guardar();
+
+  		});
     }
     ,event:function()  {}
     ,validate:function(){}
+    ,guardar:function(){
+      var wurl="<?php echo base_url('marcas/guardar'); ?>";
+
+		  $.ajax({
+				async: true,
+				url: wurl,
+				type: "post",
+				dataType: 'json',
+				contentType: 'application/x-www-form-urlencoded',
+				data://$("#frm-clientes").serialize(),
+				{
+					'marcacampo':$("#txtmarca").val()
+				
+				},
+				beforeSend: function(data){
+
+				},
+				complete: function(data, status){
+					alert('completado');
+				}
+		  });
+    }
     ,listar:function()
     {
         var wurl="<?php echo base_url('marcas/list'); ?>";

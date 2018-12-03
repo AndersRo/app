@@ -4,6 +4,7 @@
   <section class="content-header">
     <h1>
       <?php echo $titulo; ?>
+      <a class="btn btn-primary btn-xs new-modal" data-toggle="modal" data-target="#modal-default"><span class="fa fa-plus"></span></a>
       <small></small>
     </h1>
     <ol class="breadcrumb">
@@ -54,6 +55,127 @@
   <!-- /.content -->
 </div>
 <!-- /.content-wrapper -->
+
+<div class="modal fade" id="modal-default">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Registrar </h4>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="box border-top-solid">
+              <!-- /.box-header -->
+              <!-- form start -->
+              <div class="box-body my-form-body">
+
+                  <form action="" class="" role="form" method="post" accept-charset="utf-8">
+                  <?php echo form_hidden('token', $token) ?>
+
+                    <div class="form-group">
+                      <label for="codigo" class="col-sm-2 control-label">Codigos</label>
+
+                      <div class="col-sm-4">
+                        <input type="text" name="codigo" class="form-control" id="codigo" placeholder="">
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <label for="role" class="col-sm-2 control-label">Tipo Documento</label>
+
+                      <div class="col-sm-4">
+                        <select name="group" class="form-control">
+                          <?php
+                              foreach ($tipodocumento as $key => $value) {
+                                  echo '<option value="'.$value["codigo"].'">'.$value["descripcion"].'</option>';
+                              }
+
+                           ?>
+                      </select>
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <label for="CodigoIdentificacion" class="col-sm-2 control-label">Nro. Documento</label>
+
+                      <div class="col-sm-4">
+                        <input type="text" name="CodigoIdentificacion" class="form-control" id="CodigoIdentificacion" placeholder="">
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <label for="lastname" class="col-sm-2 control-label">Primer Apellido</label>
+
+                      <div class="col-sm-4">
+                        <input type="text" name="lastname" class="form-control" id="lastname" placeholder="">
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <label for="lastname1" class="col-sm-2 control-label">Segundo Apellido</label>
+
+                      <div class="col-sm-4">
+                        <input type="text" name="lastname1" class="form-control" id="lastname1" placeholder="">
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <label for="firstname" class="col-sm-2 control-label">Primer Nombre</label>
+
+                      <div class="col-sm-4">
+                        <input type="text" name="firstname" class="form-control" id="firstname" placeholder="">
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <label for="firstname2" class="col-sm-2 control-label">Segundo Nombre</label>
+
+                      <div class="col-sm-4">
+                        <input type="text" name="firstname2" class="form-control" id="firstname2" placeholder="">
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <label for="telefono" class="col-sm-2 control-label">Telefono</label>
+
+                      <div class="col-sm-4">
+                        <input type="text" name="telefono" class="form-control" id="telefono" placeholder="">
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label for="direccion" class="col-sm-2 control-label">Direccion</label>
+
+                      <div class="col-sm-4">
+                        <input type="text" name="direccion" class="form-control" id="direccion" placeholder="">
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label for="ubigeo" class="col-sm-2 control-label">Ubigeo</label>
+
+                      <div class="col-sm-4">
+                        <input type="text" name="ubigeo" class="form-control" id="ubigeo" placeholder="">
+                      </div>
+                    </div>
+
+                  </form>
+                </div>
+                <!-- /.box-body -->
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
 
 <script type="text/javascript">
   var $grid = $("#tdatos"),
