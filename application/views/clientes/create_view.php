@@ -24,7 +24,7 @@
             <?php echo form_hidden('token', $token) ?>
 
               <div class="form-group">
-                <label for="username" class="col-sm-2 control-label">Nombre de Usuario</label>
+                <label for="username" class="col-sm-2 control-label">NombreSs de Usuario</label>
 
                 <div class="col-sm-9">
                   <input type="text" name="username" class="form-control" id="username" placeholder="">

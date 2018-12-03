@@ -52,6 +52,34 @@ class Clientes extends My_Controller {
       }
 	}
 
+  public function guardar()
+  {
+   //$response=array();
+    
+    $rows=array("Correcto");
+       
+      if ($this->input->server('REQUEST_METHOD') == 'POST')
+      {
+         
+
+      $valormarca= $_POST['marcacampo'];
+      $valormodelo= $_POST['modelocampo'];
+
+
+
+
+  
+          //Obteniendo el Count
+          $datacount=$this->ClientesModel->guardar($valormarca,$valormodelo);
+          
+
+
+      header("Content-type:application/json"); 
+      echo json_encode($rows);
+
+      } 
+      
+  }
   public function create(){
 
   }
