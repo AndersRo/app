@@ -24,7 +24,7 @@ class ClientesModel extends CI_Model
 	{
     	
     	$parameters=array($valormarca,$valormodelo);
-		$sql = 'CALL sp_prueba(?,?)';
+		$sql = 'CALL sp_set_actor(?,?)';
 		$q = $this->db->query($sql, $parameters);
 		
 		if($q -> num_rows() >= 1)
