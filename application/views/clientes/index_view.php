@@ -140,7 +140,7 @@
                       <label for="role" class="col-sm-2 control-label">Tipo Documento</label>
 
                       <div class="col-sm-4">
-                        <select name="group" class="form-control">
+                        <select name="tipodoc" id="tipodoc" class="form-control">
                           <?php
                               foreach ($tipodocumento as $row) {
                                   echo '<option value="'.$row->codigo.'">'.$row->Descripcion.'</option>';
@@ -191,7 +191,7 @@
                       </div>
                     </div>
 
-                    <div class="form-group" hidden>
+                    <div class="form-group" id="razonsoc">
                       <label for="razonso" class="col-sm-2 control-label">Razon Social</label>
 
                       <div class="col-sm-4">
@@ -245,10 +245,6 @@
   $.jgrid.defaults.width = newWidth;
   $.jgrid.defaults.responsive = true;
   $.jgrid.defaults.styleUI = 'Bootstrap';
-
-
-
-
 </script>
 
 <script type="text/javascript">
@@ -261,11 +257,39 @@
 
 		$( "#btnguardar" ).on( "click", function() {
 		dispositivo.guardar();
-
 		});
+
+    dispositivo.seleccion();
     }
     ,event:function()  {}
     ,validate:function(){}
+    ,seleccion:function(){
+      /*var opt = $('#tipodoc').val();
+      if (opt=="002003") {
+        $('#razonsoc').hide();
+      }else{
+        $('#razonsoc').show();
+      }*/
+
+      $("#tipodoc").on('change', function() {
+
+          var selectValue = $(this).val();
+          switch (selectValue) {
+
+           case "002003":
+             $("#razonsoc").hide();
+             break;
+
+           case "002004":
+             $("#razonsoc").show();
+             break;
+
+           }
+
+         }).change();
+
+       }
+
 	,guardar:function()
 	{
 

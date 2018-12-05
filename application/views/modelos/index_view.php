@@ -87,7 +87,7 @@
                       <label for="marca" class="col-sm-12 control-label">Marca</label>
 
                       <div class="col-sm-6">
-                        <select name="group" class="form-control">
+                        <select name="marca" id="txtmarca" class="form-control">
                           <?php
                               foreach ($marcas as $row) {
                                   echo '<option value="'.$row->IdMarca.'">'.$row->Descripcion.'</option>';
@@ -105,11 +105,12 @@
                         <div class="file-field big">
                           <a class="btn-floating btn-lg amber darken-2 mt-0 float-left">
                               <i class="fa fa-cloud-upload" aria-hidden="true"></i>
-                              <input type="file" multiple>
+                              <input type="file" id="fileimg" multiple>
                           </a>
                         </div>
                       </div>
                     </div>
+                    <input type="text" name="option1" id="option1" value="N" hidden>
 
                   </form>
                 </div>
@@ -120,7 +121,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-        <button type="button" class="btn btn-primary">Guardar</button>
+        <button type="button" name="btnguardar" id="btnguardar" class="btn btn-primary">Guardar</button>
       </div>
     </div>
     <!-- /.modal-content -->
@@ -143,9 +144,36 @@
       dispositivo.event();
       dispositivo.validate();
       dispositivo.listar();
+      $( "#btnguardar" ).on( "click", function() {
+  		dispositivo.guardar();
+  		});
     }
     ,event:function()  {}
     ,validate:function(){}
+    ,guardar:function(){
+      var wurl="<?php echo base_url('modelos/store'); ?>";
+
+		  $.ajax({
+				async: true,
+				url: wurl,
+				type: "post",
+				dataType: 'json',
+				contentType: 'application/x-www-form-urlencoded',
+				data://$("#frm-clientes").serialize(),
+				{
+          'opcion':$("#option1").val()
+        , 'modelocampo':$("#txtmodelo").val()
+				,	'marcacampo':$("#txtmarca").val()
+				,	'filecampo':$("#fileimg").val()
+				},
+				beforeSend: function(data){
+
+				},
+				complete: function(data, status){
+					alert('completado');
+				}
+		  });
+    }
     ,listar:function()
     {
         var wurl="<?php echo base_url('modelos/list'); ?>";
