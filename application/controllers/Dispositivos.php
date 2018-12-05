@@ -7,11 +7,15 @@ class Dispositivos extends My_Controller {
 	{
 		  parent::__construct();
       $this->load->model('DispositivosModel');
+      $this->load->model('ModelosModel');
+      $this->load->model('EmpresasModel');
 	}
 
 	 public function index()
  	{
- 		$data = array('titulo' => 'Dispositivos','token'  => $this->auth->token());
+    $modelos=$this->ModelosModel->listmodel();
+    $empresas=$this->EmpresasModel->listmodel();
+ 		$data = array('titulo' => 'Dispositivos','token'  => $this->auth->token(), 'modelos'=>$modelos, 'empresas'=>$empresas);
  		$this->layout('dispositivos/index_view',$data);
   }
 
@@ -32,6 +36,40 @@ class Dispositivos extends My_Controller {
           $json=$this->grilla->jq_getdata($this->input->get(),$data);
           echo $json;
       }
+	}
+
+  public function store() //Create, Update / Delete
+	{
+		//sleep(5);
+		$response=array();
+        if ($this->input->server('REQUEST_METHOD') == 'POST')
+        {
+        	$request=$this->input->post();
+        	$dispositivo=new DispositivosModel();
+        	$dispositivo->opcion 			=isset($request["opcion"]) 			? $request["opcion"] 	: "";
+        	$dispositivo->iddispositivo		=isset($request["iddispositivo"]) 	? $request["iddispositivo"] 	: "0" ;
+          $dispositivo->serie		=isset($request["seriecampo"]) 	? $request["seriecampo"] 	: "" ;
+        	$dispositivo->imei		=isset($request["imeicampo"]) ? $request["imeicampo"] 	: "";
+          $dispositivo->modelo		=isset($request["modelocampo"]) ? $request["modelocampo"] 	: "";
+          $dispositivo->sim		=isset($request["simcampo"]) ? $request["simcampo"] 	: "";
+          $dispositivo->idn		=isset($request["idncampo"]) ? $request["idncampo"] 	: "";
+          $dispositivo->empresa		=isset($request["empresacampo"]) ? $request["empresacampo"] 	: "";
+        	$dispositivo->usuario		=$this->auth->getuser();
+
+        	$data=$this->DispositivosModel->registra($dispositivo);
+			if ($data)
+			{
+				if ($data[0]->Code==0)
+					$response=array('error'=>$data[0]->Code,'mensaje'=>$data[0]->Message,'id'=>$data[0]->Id);
+				else
+					$response=array('error'=>$data[0]->Code,'mensaje'=>$data[0]->Message);
+			}
+			else{
+				$response=array('error'=>'1','mensaje'=>'Error');
+			}
+
+	   		$this->output->set_status_header(200)->set_content_type('application/json')->set_output(json_encode($response));
+        }
 	}
 
 

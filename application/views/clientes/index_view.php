@@ -142,8 +142,8 @@
                       <div class="col-sm-4">
                         <select name="group" class="form-control">
                           <?php
-                              foreach ($tipodocumento as $key => $value) {
-                                  echo '<option value="'.$value["codigo"].'">'.$value["descripcion"].'</option>';
+                              foreach ($tipodocumento as $row) {
+                                  echo '<option value="'.$row->codigo.'">'.$row->Descripcion.'</option>';
                               }
 
                            ?>
@@ -307,9 +307,9 @@
                     { label: 'Id. Actor', name: 'IdActor', key: true, width: 75 },
                     { label: 'Apellido Paterno', name: 'Apellido_Paterno', width: 75 },
                     { label: 'Apellido Materno', name: 'Apellido_Materno', width: 200 },
-					{ label: 'Nombre', name: 'PrimerNombre', width: 200 },
-					{ label: 'Razon Social', name: 'RazonSocial', width: 100 },
-					{ label: 'Tipo Doc', name: 'TipoDocumento', width: 100 },
+					          { label: 'Nombre', name: 'PrimerNombre', width: 200 },
+					          { label: 'Razon Social', name: 'RazonSocial', width: 100 },
+					          { label: 'Tipo Doc', name: 'TipoDocumento', width: 100 },
                     { label: 'Nro Doc', name: 'CodigoIdentificacion', width: 100 },
                     { label: 'RUC', name: 'RUC', width: 300 },
 

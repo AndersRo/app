@@ -20,5 +20,22 @@ class EmpresasModel extends CI_Model
 		}
 	}
 
+  function listmodel(){
+      $parameters=array();
+      $sql = 'call sp_get_empresas()';
+      $q = $this->db->query($sql, $parameters);
+      if($q -> num_rows() >= 1)
+      {
+               mysqli_next_result($this->db->conn_id);
+               $data = $q->result();
+               $q->free_result();
+               return $data;
+      }
+      else
+      {
+        return false;
+      }
+  }
+
 }
 ?>

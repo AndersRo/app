@@ -7,11 +7,15 @@ class Modelos extends My_Controller {
 	{
 		  parent::__construct();
       $this->load->model('ModelosModel');
+      $this->load->model('MarcasModel');
 	}
 
 	 public function index()
  	{
- 		$data = array('titulo' => 'Modelos','token'  => $this->auth->token());
+
+    $marcas=$this->MarcasModel->listmodel();
+
+ 		$data = array('titulo' => 'Modelos','token'  => $this->auth->token(),'marcas'=>$marcas);
  		$this->layout('modelos/index_view',$data);
   }
 

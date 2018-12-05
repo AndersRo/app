@@ -83,26 +83,18 @@
                       </div>
                     </div>
 
-                    <div class="form-group" hidden>
-                      <label for="role" class="col-sm-12 control-label">Modelo</label>
-
-                      <div class="col-sm-6">
-                        <select name="group" class="form-control">
-                          <?php
-                              foreach ($tipodoc as $key => $value) {
-                                  echo '<option value="'.$value["codigo"].'">'.$value["Descripcion"].'</option>';
-                              }
-
-                           ?>
-                      </select>
-                      </div>
-                    </div>
-
                     <div class="form-group">
                       <label for="marca" class="col-sm-12 control-label">Marca</label>
 
                       <div class="col-sm-6">
-                        <input type="text" name="marca" class="form-control" id="txtMarca" placeholder="">
+                        <select name="group" class="form-control">
+                          <?php
+                              foreach ($marcas as $row) {
+                                  echo '<option value="'.$row->IdMarca.'">'.$row->Descripcion.'</option>';
+                              }
+
+                           ?>
+                      </select>
                       </div>
                     </div>
 
@@ -127,8 +119,8 @@
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-primary">Guardar</button>
       </div>
     </div>
     <!-- /.modal-content -->

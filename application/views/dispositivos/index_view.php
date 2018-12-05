@@ -4,7 +4,7 @@
   <section class="content-header">
     <h1>
       <?php echo $titulo; ?>
-      <a class="btn btn-primary btn-xs new-modal" data-toggle="modal" data-target="#modal-default"><span class="fa fa-plus"></span></a>
+      <a class="btn btn-danger btn-sm new-modal" data-toggle="modal" data-target="#modal-default"><span class="fa fa-map-marker"></span></a>
       <small></small>
     </h1>
     <ol class="breadcrumb">
@@ -77,15 +77,13 @@
 
                     <div class="form-group">
                       <label for="serie" class="col-sm-1 control-label">Serie</label>
-
                       <div class="col-sm-5">
                         <input type="text" name="serie" class="form-control" id="txtserie" placeholder="escriba la serie">
                       </div>
                     </div>
 
                     <div class="form-group">
-                      <label for="imei" class="col-sm-1 control-label">IMEI</label>
-
+                      <label for="imei" class="control-label">IMEI</label>
                       <div class="col-sm-5">
                         <input type="text" name="imei" class="form-control" id="txtimei" placeholder="IMEI del dispositivo">
                       </div>
@@ -93,12 +91,12 @@
 
                     <div class="form-group">
                       <label for="role" class="col-sm-1 control-label">Modelo</label>
+                      <div class="col-sm-5" hi>
 
-                      <div class="col-sm-5">
-                        <select name="group" class="form-control">
+                        <select name="modelo" id="txtmodelo" class="form-control">
                           <?php
-                              foreach ($tipodoc as $key => $value) {
-                                  echo '<option value="'.$value["codigo"].'">'.$value["Descripcion"].'</option>';
+                              foreach ($modelos as $row) {
+                                  echo '<option value="'.$row->IdModelo.'">'.$row->Descripcion.'</option>';
                               }
 
                            ?>
@@ -107,35 +105,34 @@
                     </div>
 
                     <div class="form-group">
-                      <label for="sim" class="col-sm-1 control-label">Sim</label>
-
+                      <label for="sim" class="control-label">Sim</label>
                       <div class="col-sm-5">
-                        <input type="text" name="sim" class="form-control" id="sim" placeholder="ingrese numero de Sim">
+                        <input type="text" name="sim" class="form-control" id="txtsim" placeholder="ingrese numero de Sim">
                       </div>
                     </div>
 
                     <div class="form-group">
                       <label for="idn" class="col-sm-1 control-label">Nro. IDN</label>
-
                       <div class="col-sm-5">
-                        <input type="text" name="idn" class="form-control" id="idn" placeholder="escriba la IDN">
+                        <input type="text" name="idn" class="form-control" id="txtidn" placeholder="escriba la IDN">
                       </div>
                     </div>
 
                     <div class="form-group">
-                      <label for="role" class="col-sm-1 control-label">Empresa</label>
-
+                      <label for="role" class="control-label">Empresa</label>
                       <div class="col-sm-5">
-                        <select name="group" class="form-control">
+
+                        <select name="empresa" id="txtempresa" class="form-control">
                           <?php
-                              foreach ($tipodoc as $key => $value) {
-                                  echo '<option value="'.$value["codigo"].'">'.$value["Descripcion"].'</option>';
+                              foreach ($empresas as $row) {
+                                  echo '<option value="'.$row->IdEmpresa.'">'.$row->NombreComercial.'</option>';
                               }
 
                            ?>
                       </select>
                       </div>
                     </div>
+                    <input type="text" name="option" value="N" id="option1" hidden>
 
                   </form>
                 </div>
@@ -145,8 +142,8 @@
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-primary" name="btnguardar" id="btnguardar">Guardar</button>
       </div>
     </div>
     <!-- /.modal-content -->
@@ -169,9 +166,40 @@
       dispositivo.event();
       dispositivo.validate();
       dispositivo.listar();
+      $( "#btnguardar" ).on( "click", function() {
+  		dispositivo.guardar();
+  		});
     }
     ,event:function()  {}
     ,validate:function(){}
+    ,guardar:function(){
+
+      var wurl="<?php echo base_url('dispositivos/store'); ?>";
+
+		  $.ajax({
+				async: true,
+				url: wurl,
+				type: "post",
+				dataType: 'json',
+				contentType: 'application/x-www-form-urlencoded',
+				data://$("#frm-clientes").serialize(),
+				{
+          'opcion':$("#option1").val()
+				,	'seriecampo':$("#txtserie").val()
+				,	'imeicampo':$("#txtimei").val()
+        , 'modelocampo':$("#txtmodelo").val()
+        , 'simcampo':$("#txtsim").val()
+        , 'idncampo':$("#txtidn").val()
+        , 'empresacampo':$("#txtempresa").val()
+				},
+				beforeSend: function(data){
+
+				},
+				complete: function(data, status){
+					alert('completado');
+				}
+		  });
+    }
     ,listar:function()
     {
         var wurl="<?php echo base_url('dispositivos/list'); ?>";

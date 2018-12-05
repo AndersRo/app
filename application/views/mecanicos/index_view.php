@@ -89,10 +89,9 @@
                       <div class="col-sm-4">
                         <select name="group" class="form-control">
                           <?php
-                              foreach ($tipodocumento as $key => $value) {
-                                  echo '<option value="'.$value["codigo"].'">'.$value["descripcion"].'</option>';
+                              foreach ($tipodocumento as $row) {
+                                  echo '<option value="'.$row->codigo.'">'.$row->Descripcion.'</option>';
                               }
-
                            ?>
                       </select>
                       </div>

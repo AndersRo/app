@@ -76,21 +76,19 @@
                   <?php echo form_hidden('token', $token) ?>
 
                     <div class="form-group">
-                      <label for="codigo" class="col-sm-12 control-label">Tipo Comandos</label>
-
-                      <div class="col-sm-6">
+                      <div class="col-sm-4">
+                        <label for="codigo" class="control-label">Tipo Comandos</label>
                         <input type="text" name="codigo" class="form-control" id="codigo" placeholder="">
                       </div>
                     </div>
 
                     <div class="form-group">
-                      <label for="role" class="col-sm-12 control-label">Modelo</label>
-
-                      <div class="col-sm-6">
+                      <div class="col-sm-4">
+                        <label for="role" class="control-label">Modelo</label>
                         <select name="group" class="form-control">
                           <?php
-                              foreach ($tipodoc as $key => $value) {
-                                  echo '<option value="'.$value["codigo"].'">'.$value["Descripcion"].'</option>';
+                              foreach ($modelos as $row) {
+                                  echo '<option value="'.$row->IdModelo.'">'.$row->Descripcion.'</option>';
                               }
 
                            ?>
@@ -99,9 +97,8 @@
                     </div>
 
                     <div class="form-group">
-                      <label for="Comandos" class="col-sm-12 control-label">Comandos</label>
-
-                      <div class="col-sm-6">
+                      <div class="col-sm-4">
+                        <label for="Comandos" class="control-label">Comandos</label>
                         <input type="text" name="Comandos" class="form-control" id="Comandos" placeholder="">
                       </div>
                     </div>
@@ -114,8 +111,8 @@
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-primary">Guardar</button>
       </div>
     </div>
     <!-- /.modal-content -->

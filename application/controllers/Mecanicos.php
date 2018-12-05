@@ -7,11 +7,15 @@ class Mecanicos extends My_Controller {
 	{
 		  parent::__construct();
       $this->load->model('MecanicosModel');
+      $this->load->model('TablasModel');
 	}
 
 	 public function index()
  	{
- 		$data = array('titulo' => 'Mecanicos','token'  => $this->auth->token());
+    $tipodoc="002"; //Tabla Tipos Documentos
+    $documentos=$this->TablasModel->Listar($tipodoc);
+
+ 		$data = array('titulo' => 'Mecanicos','token'  => $this->auth->token(), 'tipodocumento'=>$documentos);
  		$this->layout('mecanicos/index_view',$data);
   }
 

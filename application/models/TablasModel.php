@@ -5,7 +5,7 @@ class TablasModel extends CI_Model
   function Listar($cod)
 	{
     $parameters=array($cod);
-		$sql = 'CALL sp_get_tablas(?)';
+		$sql = 'call sp_get_tablas(?)';
 		$q = $this->db->query($sql, $parameters);
 		if($q -> num_rows() >= 1)
 		{

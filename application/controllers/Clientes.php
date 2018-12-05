@@ -14,14 +14,14 @@ class Clientes extends My_Controller {
 	 public function index()
  	{
 
-    $lista=array();
+    /*$lista=array();
     $item = array('codigo' =>'002001' , 'descripcion'=>'DNI' );
     array_push ($lista,$item);
     $item2 = array('codigo' =>'002002' , 'descripcion'=>'RUC' );
-    array_push ($lista,$item2);
+    array_push ($lista,$item2);*/
 
-    /*$tipodoc="002"; //Tabla Tipos Documentos
-		$items=$this->TablasModel->Listar($tipodoc);*/
+    $tipodoc="002"; //Tabla Tipos Documentos
+		$documentos=$this->TablasModel->Listar($tipodoc);
 
     /*$reresult=array();
     $item= $this->TablasModel->Listar("001"); //TipoDocumento
@@ -29,7 +29,7 @@ class Clientes extends My_Controller {
 
  		$data = array('titulo' => 'Clientes'
     ,'token'  => $this->auth->token()
-    ,'tipodocumento'=>$lista//$reresult
+    ,'tipodocumento'=>$documentos//$lista//$reresult
     );
  		$this->layout('clientes/index_view',$data);
   }
@@ -62,13 +62,8 @@ class Clientes extends My_Controller {
       if ($this->input->server('REQUEST_METHOD') == 'POST')
       {
 
-
       $valormarca= $_POST['marcacampo'];
       $valormodelo= $_POST['modelocampo'];
-
-
-
-
 
           //Obteniendo el Count
           $datacount=$this->ClientesModel->guardar($valormarca,$valormodelo);
@@ -81,10 +76,5 @@ class Clientes extends My_Controller {
       }
 
   }
-  public function create(){
-
-  }
-
-
 
  }

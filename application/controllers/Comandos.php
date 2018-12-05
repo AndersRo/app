@@ -7,12 +7,14 @@ class Comandos extends My_Controller {
 	{
 		  parent::__construct();
       $this->load->model('ComandosModel');
+      $this->load->model('ModelosModel');
 
 	}
 
 	 public function index()
  	{
- 		$data = array('titulo' => 'Comandos','token'  => $this->auth->token());
+    $modelos=$this->ModelosModel->listmodel();
+ 		$data = array('titulo' => 'Comandos','token'  => $this->auth->token(),'modelos'=>$modelos);
  		$this->layout('comandos/index_view',$data);
   }
 

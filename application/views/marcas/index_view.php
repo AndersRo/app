@@ -82,6 +82,7 @@
                         <input type="text" name="marca" class="form-control" id="txtmarca" placeholder="Ingrese marca">
                       </div>
                     </div>
+                    <input type="text" name="option1" id="option1" value="N" hidden>
 
                   </form>
                 </div>
@@ -91,8 +92,8 @@
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" name="btnguardar" id="btnguardar" class="btn btn-primary">Save changes</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+        <button type="button" name="btnguardar" id="btnguardar" class="btn btn-primary">Guardar</button>
       </div>
     </div>
     <!-- /.modal-content -->
@@ -123,18 +124,19 @@
     ,event:function()  {}
     ,validate:function(){}
     ,guardar:function(){
-      var wurl="<?php echo base_url('marcas/guardar'); ?>";
+      var wurl="<?php echo base_url('marcas/store'); ?>";
 
 		  $.ajax({
 				async: true,
 				url: wurl,
 				type: "post",
 				dataType: 'json',
+        postData: {'token':$('input[name=token]').val()},
 				contentType: 'application/x-www-form-urlencoded',
 				data://$("#frm-clientes").serialize(),
 				{
 					'marcacampo':$("#txtmarca").val()
-				
+          ,'opcion':$("#option1").val()
 				},
 				beforeSend: function(data){
 

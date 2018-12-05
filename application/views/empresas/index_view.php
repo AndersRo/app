@@ -62,7 +62,8 @@
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title">Nuevo Comando </h4>
+        <h4 class="modal-title">Datos de la Empresa</h4>
+        <small id="infoemp" class="form-text text-muted">Informacion Basica de la empresa.</small>
       </div>
       <div class="modal-body">
         <div class="row">
@@ -75,47 +76,95 @@
                   <form action="" class="form" method="post" accept-charset="utf-8">
                   <?php echo form_hidden('token', $token) ?>
 
-                    <div class="form-group">
-                      <label for="codigo" class="col-sm-12 control-label">Tipo Comandos</label>
-
-                      <div class="col-sm-6">
-                        <input type="text" name="codigo" class="form-control" id="codigo" placeholder="">
-                      </div>
+                  <div class="box-body">
+                    <div class="form-group col-sm-4">
+                        <label for="ruc" class="control-label">RUC*</label>
+                        <input type="text" name="ruc" class="form-control input-sm" id="txtruc" placeholder="escriba su ruc">
                     </div>
 
-                    <div class="form-group">
-                      <label for="role" class="col-sm-12 control-label">Modelo</label>
-
-                      <div class="col-sm-6">
-                        <select name="group" class="form-control">
-                          <?php
-                              foreach ($tipodoc as $key => $value) {
-                                  echo '<option value="'.$value["codigo"].'">'.$value["Descripcion"].'</option>';
-                              }
-
-                           ?>
-                      </select>
-                      </div>
+                    <div class="form-group col-sm-4">
+                        <label for="razonsocial" class="control-label">Razon Social*</label>
+                        <input type="text" name="razonsocial" class="form-control input-sm" id="txtrazonsocial" placeholder="su razon social">
                     </div>
 
-                    <div class="form-group">
-                      <label for="Comandos" class="col-sm-12 control-label">Comandos</label>
-
-                      <div class="col-sm-6">
-                        <input type="text" name="Comandos" class="form-control" id="Comandos" placeholder="">
-                      </div>
+                    <div class="form-group col-sm-4">
+                        <label for="nombrecomercial" class="control-label">Nombre Comercial*</label>
+                        <input type="text" name="nombrecomercial" class="form-control input-sm" id="txtnombrecomercial" placeholder="escriba su nombre comercial">
                     </div>
+                  </div>
+
+
+                    <div class="box border-top-solid">
+
+                      <div class="box-body my-form-body col-sm-6">
+
+                        <div class="modal-header">
+                          <h4 class="modal-title">Ubicaciones y Referencias</h4>
+                          <small id="infoemp" class="form-text text-muted">Informacion de direccion, ubigeo, teléfonos.</small>
+                        </div>
+
+                            <div class="form-group">
+                              <label for="direccion" class="col-sm-3 control-label">Direccion*</label>
+                              <div class="col-sm-9">
+                                <input type="text" name="direccion" class="form-control input-sm" id="txtdireccion" placeholder="escriba su direccion">
+                              </div>
+                            </div>
+                            <br>
+                            <div class="form-group">
+                              <label for="ubigeo" class="col-sm-3 control-label">Ubigeo*</label>
+                              <div class="col-sm-9">
+                                <input type="text" name="ubigeo" class="form-control input-sm" id="txtubigeo" placeholder="">
+                              </div>
+                            </div>
+                            <br>
+                            <div class="form-group">
+                              <label for="ubigeo" class="col-sm-3 control-label">tel/Cel*</label>
+                              <div class="col-sm-4">
+                                <input type="text" name="tel" class="form-control input-sm" id="txttel" placeholder="">
+                              </div>
+                              <div class="col-sm-5">
+                                <input type="text" name="cel" class="form-control input-sm" id="txtcel" placeholder="">
+                              </div>
+                            </div>
+                            <br>
+                            <div class="form-group">
+                              <label for="repre" class="col-sm-3 control-label">Representante*</label>
+                              <div class="col-sm-9">
+                                <input type="text" name="repre" class="form-control input-sm" id="txtrepre" placeholder="">
+                              </div>
+                            </div>
+
+                      </div>
+
+                      <div class="box-body my-form-body col-sm-6">
+                        <div class="modal-header">
+                          <h4 class="modal-title">Logo</h4>
+                          <small id="infolog" class="form-text text-muted">La imagen debe de ser de 500x500 pixeles en formato png o jpg.</small>
+                        </div>
+                        <div class="form-group">
+                            <div class="file-field big">
+                              <a class="btn-floating btn-lg amber darken-2 mt-0 float-left">
+                                  <i class="fa fa-cloud-upload" aria-hidden="true"></i>
+                                  <input type="file" multiple>
+                              </a>
+                            </div>
+                        </div>
+
+                      </div>
+                      <!-- /.box-body -->
+                  </div>
 
                   </form>
                 </div>
-                <!-- /.box-body -->
+
+
             </div>
           </div>
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-primary">Guardar</button>
       </div>
     </div>
     <!-- /.modal-content -->

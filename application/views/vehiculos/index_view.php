@@ -96,7 +96,7 @@
                       </div>
                     </div>
 
-                    <div class="form-group" hidden>
+                    <div class="form-group">
                       <div class="col-sm-6">
                         <label for="modelo" class="control-label">Modelo</label>
                         <input type="text" name="modelo" class="form-control" id="txtmodelo" placeholder="escriba el modelo">
@@ -110,19 +110,7 @@
                       </div>
                     </div>
 
-                    <div class="form-group">
-                      <div class="col-sm-6" hi>
-                        <label for="role" class="control-label">Modelo</label>
-                        <select name="group" class="form-control">
-                          <?php
-                              foreach ($tipodoc as $key => $value) {
-                                  echo '<option value="'.$value["codigo"].'">'.$value["Descripcion"].'</option>';
-                              }
 
-                           ?>
-                      </select>
-                      </div>
-                    </div>
 
                   </form>
                 </div>
