@@ -4,7 +4,7 @@
   <section class="content-header">
     <h1>
       <?php echo $titulo; ?>
-      <a class="btn btn-primary btn-xs new-modal" data-toggle="modal" data-target="#modal-default"><span class="fa fa-plus"></span></a>
+      <a class="btn btn-primary btn-xs new-modal" data-toggle="modal" id="btnNuevo"><span class="fa fa-plus"></span></a>
 	    <a class="btn btn-primary btn-xs new-modal" data-toggle="modal" data-target="#pepe"><span class="fa fa-plus"></span></a>
       <a class="btn btn-danger"  data-toggle="modal" data-target="#josemanuel"><span class="fa fa-car"></span></a>
 	 <small></small>
@@ -128,6 +128,15 @@
                   <form action="" class="" role="form" method="post" accept-charset="utf-8">
                   <?php echo form_hidden('token', $token) ?>
 
+
+                  <div class="form-group">
+                    <label for="txttipm" class="col-sm-2 control-label">Tipo Mant</label>
+
+                    <div class="col-sm-4">
+                      <input type="text" name="txttipm" class="form-control" id="txttipm" placeholder="">
+                    </div>
+                  </div>
+
                     <div class="form-group">
                       <label for="codigo" class="col-sm-2 control-label">Codigos</label>
 
@@ -159,7 +168,7 @@
                       </div>
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group" id="glastname">
                       <label for="lastname" class="col-sm-2 control-label">Primer Apellido</label>
 
                       <div class="col-sm-4">
@@ -167,7 +176,7 @@
                       </div>
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group" id="glastname1">
                       <label for="lastname1" class="col-sm-2 control-label">Segundo Apellido</label>
 
                       <div class="col-sm-4">
@@ -175,7 +184,7 @@
                       </div>
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group" id="gfirstname">
                       <label for="firstname" class="col-sm-2 control-label">Primer Nombre</label>
 
                       <div class="col-sm-4">
@@ -183,11 +192,11 @@
                       </div>
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group" id="gfirstname1">
                       <label for="firstname2" class="col-sm-2 control-label">Segundo Nombre</label>
 
                       <div class="col-sm-4">
-                        <input type="text" name="firstname2" class="form-control" id="firstname2" placeholder="">
+                        <input type="text" name="firstname2" class="form-control" id="firstname1" placeholder="">
                       </div>
                     </div>
 
@@ -245,6 +254,14 @@
   $.jgrid.defaults.width = newWidth;
   $.jgrid.defaults.responsive = true;
   $.jgrid.defaults.styleUI = 'Bootstrap';
+
+  $("#btnNuevo").click(function(){
+
+    $("#txttipm").val('N');
+
+    $('#modal-default').modal('show');
+  });
+
 </script>
 
 <script type="text/javascript">
@@ -254,15 +271,58 @@
       dispositivo.event();
       dispositivo.validate();
       dispositivo.listar();
+    //  dispositivo.some_function('');
 
 		$( "#btnguardar" ).on( "click", function() {
-		dispositivo.guardar();
+		    dispositivo.guardar();
 		});
 
     dispositivo.seleccion();
     }
     ,event:function()  {}
     ,validate:function(){}
+    ,some_function:function(strA_valor)
+    {
+
+
+          var wurl="<?php echo base_url('clientes/listgg'); ?>";
+
+          $.ajax({
+            async: true,
+            url: wurl,
+            type: "post",
+            dataType: 'json',
+            contentType: 'application/x-www-form-urlencoded',
+            data://$("#frm-clientes").serialize(),
+            {
+              'idactor':strA_valor
+            ,
+            },
+            beforeSend: function(data){
+
+            },
+            complete: function(data, status){
+
+              var json = JSON.parse(data.responseText);
+
+                //  alert( json[0].Apellido_Paterno );
+
+
+                $("#lastname").val( json[0].Apellido_Paterno );
+
+              //var yourData = json.Data; // or json["Data"]
+                    //alert(JSON.stringify(data.responseText));
+                    /*$.each(json[0], function(i, item) {
+                        alert(item);
+                    });
+                    */
+              }
+          });
+
+      //alert(strA_valor);
+        $("#txttipm").val('U');
+        $('#modal-default').modal('show');
+    }
     ,seleccion:function(){
       /*var opt = $('#tipodoc').val();
       if (opt=="002003") {
@@ -278,10 +338,18 @@
 
            case "002003":
              $("#razonsoc").hide();
+             $("#glastname").show();
+             $("#glastname1").show();
+             $("#gfirstname").show();
+             $("#gfirstname1").show();
              break;
 
            case "002004":
              $("#razonsoc").show();
+             $("#glastname").hide();
+             $("#glastname1").hide();
+             $("#gfirstname").hide();
+             $("#gfirstname1").hide();
              break;
 
            }
@@ -326,8 +394,10 @@
                 postData: {'token':$('input[name=token]').val()},
                 datatype: "json",
                 colModel: [
-                    { label: '...', name: 'accion', frozen:true , width: 80, formatter:function(cellValue, opts, rowObject){return '<button class="btn btn-success btn-xs edit-modal" data-id=' + rowObject.IdCliente + '><span class="fa fa-pencil"></span></button> <button class="btn btn-danger btn-xs delete-modal" data-id=' + rowObject.idsucursal + '><span class="fa fa-trash-o"></span></button>';}},
-                    { label: 'Ide. Cliente', name: 'IdCliente', key: true, width: 75 },
+                    { label: '...', name: 'accion', frozen:true , width: 80, formatter:function(cellValue, opts, rowObject){return '<button class="btn btn-success btn-xs edit-modal" data-id=' + rowObject.IdCliente + '    ><span class="fa fa-pencil" ></span></button> <button class="btn btn-danger btn-xs delete-modal" data-id=' + rowObject.idsucursal + '><span class="fa fa-trash-o"></span></button>';}},
+                    { label: 'Ide. Cliente', name: 'IdCliente', key: true, width: 75, formatter:function (cellvalue, options, rowObject) {
+    return "<input type='button' value='somevalue' onclick='dispositivo.some_function("+rowObject.IdActor+")'\>";
+} },
                     { label: 'Id. Actor', name: 'IdActor', key: true, width: 75 },
                     { label: 'Apellido Paterno', name: 'Apellido_Paterno', width: 75 },
                     { label: 'Apellido Materno', name: 'Apellido_Materno', width: 200 },
@@ -352,11 +422,29 @@
                 gridview: true,
                 gridComplete: function(){
                     //sucursal.eventload();
+
                 },
                 sortname: 'idcliente',
                 sortorder: 'desc',
-                pager: "#pager"
-                    });
+                pager: "#pager",
+                gridComplete: function(){
+
+
+                    /*
+                  var ids = jQuery("#tdatos").getDataIDs();
+                  //alert(ids);
+
+                  for(var i=0;i<ids.length;i++){
+                      var cl = ids[i];
+                      be = "<input style='height:22px;width:20px;' type='button' value='E' onclick=jQuery('#rowed2').editRow("+cl+"); ></ids>";
+                      se = "<input style='height:22px;width:20px;' type='button' value='S' onclick=jQuery('#rowed2').saveRow("+cl+"); />";
+                      ce = "<input style='height:22px;width:20px;' type='button' value='C' onclick=jQuery('#rowed2').restoreRow("+cl+"); />";
+                      jQuery("#tdatos").setRowData(ids[i],{act:be+se+ce})
+                    }
+                    */
+
+                }
+                });
 
               $("#tdatos").jqGrid('navGrid','#pager',
               {edit: false, add: false, del: false, search: false, refresh:true},

@@ -77,4 +77,19 @@ class Clientes extends My_Controller {
 
   }
 
+  public function listgg()
+	{
+    $response=array();
+    if ($this->input->server('REQUEST_METHOD') == 'POST')
+    {
+        $sidx =$_POST['idactor'];
+
+         //$rows = array($sidx);
+        $datacount=$this->ClientesModel->lisgg($sidx); //count
+
+        header("Content-type:application/json");
+        echo json_encode($datacount);
+    }
+	}
+
  }
