@@ -20,7 +20,7 @@ class Clientes extends My_Controller {
     $item2 = array('codigo' =>'002002' , 'descripcion'=>'RUC' );
     array_push ($lista,$item2);*/
 
-    $tipodoc="001";//"002"; //Tabla Tipos Documentos
+    $tipodoc="002"; //Tabla Tipos Documentos
 		$documentos=$this->TablasModel->Listar($tipodoc);
 
     /*$reresult=array();
@@ -31,7 +31,6 @@ class Clientes extends My_Controller {
     ,'token'  => $this->auth->token()
     ,'tipodocumento'=>$documentos//$lista//$reresult
     );
-    
  		$this->layout('clientes/index_view',$data);
   }
 
@@ -63,27 +62,11 @@ class Clientes extends My_Controller {
       if ($this->input->server('REQUEST_METHOD') == 'POST')
       {
 
-//acá se captura los datos del controaldor osealos qu me dijistes que solo estaban en m
-       $IdActor=$_POST['IdActor'];
-       $TipoPersona= $_POST['TipoPersona'];
-       $Apellido_Paterno=$_POST['Apellido_Paterno'];
-       $Apellido_Materno=$_POST['Apellido_Materno'];
-       $PrimerNombre=$_POST['PrimerNombre'];
-       $SegundoNombre=$_POST['SegundoNombre'];
-       $RazonSocial=$_POST['RazonSocial'];
-       $TipoDocumento=$_POST['TipoDocumento'];
-       $CodigoIdentificacion=$_POST['CodigoIdentificacion'];
-       $RUC=$_POST['RUC'];
-       $IdEmpresa=$_POST['IdEmpresa'];
-       $UsrCrea=$_POST['UsrCrea'];
-       $WksCrea=$_POST['WksCrea'];
-       $WksMod=$_POST['WksMod'];
-       $UsrMod=$_POST['UsrMod'];
-       
-       
-       //esto est mal ... acá falta agregar....... lo parámetros de actor sisi miaamigo loborroestaba presionando coontol z para retroceder
+      $valormarca= $_POST['marcacampo'];
+      $valormodelo= $_POST['modelocampo'];
+
           //Obteniendo el Count
-          $datacount=$this->ClientesModel->guardar($IdActor,$TipoPersona,$Apellido_Paterno,$Apellido_Materno,$PrimerNombre,$SegundoNombre,$RazonSocial,$TipoDocumento,$CodigoIdentificacion,$RUC,$IdEmpresa,$UsrCrea,$WksCrea,$WksMod,$UsrMod);
+          $datacount=$this->ClientesModel->guardar($valormarca,$valormodelo);
 
 
 
