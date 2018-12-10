@@ -137,11 +137,34 @@
                     </div>
                   </div>
 
+                  <div class="form-group">
+                    <label for="txtcli" class="col-sm-2 control-label">cliente</label>
+
+                    <div class="col-sm-4">
+                      <input type="text" name="txtcli" class="form-control" id="txtcli" placeholder="">
+                    </div>
+                  </div>
+
                     <div class="form-group">
                       <label for="codigo" class="col-sm-2 control-label">Codigos</label>
 
                       <div class="col-sm-4">
                         <input type="text" name="codigo" class="form-control" id="codigo" placeholder="">
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <label for="role" class="col-sm-2 control-label">Tipo Persona</label>
+
+                      <div class="col-sm-4">
+                        <select name="tipoper" id="tipoper" class="form-control">
+                          <?php
+                              foreach ($tipopersonas as $row) {
+                                  echo '<option value="'.$row->codigo.'">'.$row->Descripcion.'</option>';
+                              }
+
+                           ?>
+                      </select>
                       </div>
                     </div>
 
@@ -257,6 +280,7 @@
 
   $("#btnNuevo").click(function(){
     $("#txttipm").val('N');
+    $("txtcli").val('C');
     $('#modal-default').modal('show');
   });
 
@@ -276,6 +300,7 @@
 		});
 
     dispositivo.seleccion();
+    dispositivo.personas();
     }
     ,event:function()  {}
     ,validate:function(){}
@@ -329,6 +354,33 @@
         $("#txttipm").val('U');
         $('#modal-default').modal('show');
     }
+    ,personas:function(){
+      $("#tipoper").on('change', function(){
+        var selectValue = $(this).val();
+        switch (selectValue) {
+          case "003005":
+            $("#tipodoc").val("002003");
+            $("#tipodoc").removeAttr("disabled");
+            $("#razonsoc").hide();
+            $("#glastname").show();
+            $("#glastname1").show();
+            $("#gfirstname").show();
+            $("#gfirstname1").show();
+            break;
+          case "003006":
+              $("#tipodoc").val("002004");
+              $("#tipodoc").attr("disabled", "disabled");
+              $("#razonsoc").show();
+              $("#glastname").hide();
+              $("#glastname1").hide();
+              $("#gfirstname").hide();
+              $("#gfirstname1").hide();
+            break;
+          default:
+
+        }
+      })
+    }
     ,seleccion:function(){
       /*var opt = $('#tipodoc').val();
       if (opt=="002003") {
@@ -368,7 +420,7 @@
 	{
 
 
-		  var wurl="<?php echo base_url('clientes/guardar'); ?>";
+		  var wurl="<?php echo base_url('clientes/store'); ?>";
 
 		  $.ajax({
 				async: true,
@@ -378,6 +430,7 @@
 				contentType: 'application/x-www-form-urlencoded',
 				data://$("#frm-clientes").serialize(),
 				{
+          //'opcion':$("#txttipm").val()
 					'marcacampo':$("#txtmarca").val()
 				,	'modelocampo':$("#txtmodelo").val()
 				},

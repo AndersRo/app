@@ -23,6 +23,9 @@ class Clientes extends My_Controller {
     $tipodoc="002"; //Tabla Tipos Documentos
 		$documentos=$this->TablasModel->Listar($tipodoc);
 
+    $tipoper="003"; //Tabla Tipos Documentos
+		$personas=$this->TablasModel->Listar($tipoper);
+
     /*$reresult=array();
     $item= $this->TablasModel->Listar("001"); //TipoDocumento
     array_push ($reresult,$item);*/
@@ -30,6 +33,7 @@ class Clientes extends My_Controller {
  		$data = array('titulo' => 'Clientes'
     ,'token'  => $this->auth->token()
     ,'tipodocumento'=>$documentos//$lista//$reresult
+    ,'tipopersonas'=>$personas
     );
  		$this->layout('clientes/index_view',$data);
   }
