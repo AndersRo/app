@@ -145,8 +145,12 @@
                             <div class="file-field big">
                               <a class="btn-floating btn-lg amber darken-2 mt-0 float-left">
                                   <i class="fa fa-cloud-upload" aria-hidden="true"></i>
-                                  <input type="file" multiple>
+                                  <input type="file" id="uploadImage" onchange="PreviewImage()" multiple>
                               </a>
+                              <div class="form-group col-sm-12">
+                                <img src="#" alt="your image" id="uploadPreview" height="200" width="auto">
+                              </div>
+
                             </div>
                         </div>
 
@@ -242,5 +246,18 @@
    }
 
    dispositivo.init();
+
+</script>
+
+<script type="text/javascript">
+
+    function PreviewImage() {
+        var oFReader = new FileReader();
+        oFReader.readAsDataURL(document.getElementById("uploadImage").files[0]);
+
+        oFReader.onload = function (oFREvent) {
+            document.getElementById("uploadPreview").src = oFREvent.target.result;
+        };
+    };
 
 </script>
