@@ -34,10 +34,10 @@
       </div>
       <div class="box-body">
 
-        <div class="contentpanel">
             <?php echo form_hidden('token', $token) ?>
-            <!-- CONTENT GOES HERE -->
+         <div class="contentpanel">
             <div>
+           <!-- CONTENT GOES HERE -->
                 <table id="tdatos"></table>
                 <div id="pager"></div>
             </div>
@@ -86,11 +86,21 @@
 
 		 <div class="modal-body">
           <h1>fajardo gutierrez</h1>
+           
            <div class="form-group">
 			<label for="exampleInputEmail1">Marca</label>
 			<input type="email" class="form-control" id="txtmarca" aria-describedby="emailHelp" placeholder="escribir marca">
 			<small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
 		</div>
+
+   <div class="form-group">
+      <label for="exampleInputEmail1">RUC</label>
+      <input type="email" class="form-control" id="txtRUC" name="txtRUC" 
+      aria-describedby="emailHelp" placeholder="escribir RUC">
+      <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+    </div>
+
+
   <div class="form-group">
     <label for="exampleInputEmail1">Modelo</label>
     <input type="email" class="form-control" id="txtmodelo" aria-describedby="emailHelp" placeholder="escribir modelo">
@@ -98,7 +108,7 @@
   </div>
 		</div>
 
-		   <div class="modal-footer">
+		 <div class="modal-footer">
 		   <h1>footer</h1>
           <button type="button" id="btnguardar"  name="btnguardar" class="btn btn-warning">Guardar</button>
 		  </div>
@@ -153,12 +163,12 @@
 
                     <div class="form-group">
                       <label for="CodigoIdentificacion" class="col-sm-2 control-label">Nro. Documento</label>
-
-                      <div class="col-sm-4">
+                   
+                   <div class="col-sm-4">
                         <input type="text" name="CodigoIdentificacion" class="form-control" id="CodigoIdentificacion" placeholder="">
                       </div>
                     </div>
-
+                    
                     <div class="form-group">
                       <label for="lastname" class="col-sm-2 control-label">Primer Apellido</label>
 
@@ -206,6 +216,7 @@
                         <input type="text" name="telefono" class="form-control" id="telefono" placeholder="">
                       </div>
                     </div>
+                   
                     <div class="form-group">
                       <label for="direccion" class="col-sm-2 control-label">Direccion</label>
 
@@ -213,6 +224,7 @@
                         <input type="text" name="direccion" class="form-control" id="direccion" placeholder="">
                       </div>
                     </div>
+                   
                     <div class="form-group">
                       <label for="ubigeo" class="col-sm-2 control-label">Ubigeo</label>
 
@@ -230,7 +242,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="button" class="btn btn-primary" id= "btnguardarNew" name="btnguardarNew" >GUARDAR</button>
       </div>
     </div>
     <!-- /.modal-content -->
@@ -246,27 +258,31 @@
   $.jgrid.defaults.responsive = true;
   $.jgrid.defaults.styleUI = 'Bootstrap';
 
-
-
-
 </script>
 
 <script type="text/javascript">
   dispositivo={
     init:function()
     {
+
       dispositivo.event();
       dispositivo.validate();
       dispositivo.listar();
+  
+      ///Mira .... ese id del button, btnguardar no existe.,,
+      //ya existía un id con el mismo nombre...
+		$( "#btnguardarNew" ).on( "click", function() {
 
-		$( "#btnguardar" ).on( "click", function() {
-		dispositivo.guardar();
+      //alert('mensaje de prueba');
+		   dispositivo.guardar();
 
 		});
     }
     ,event:function()  {}
     ,validate:function(){}
+
 	,guardar:function()
+
 	{
 
 
@@ -280,8 +296,27 @@
 				contentType: 'application/x-www-form-urlencoded',
 				data://$("#frm-clientes").serialize(),
 				{
-					'marcacampo':$("#txtmarca").val()
-				,	'modelocampo':$("#txtmodelo").val()
+					'IdActor':$("#txtIdActor").val()
+				,	'TIpoPersona':$("#txtTIpoPersona").val()
+        , 'Apellido_Paterno':$('#txtApellido_Paterno').val()
+        , 'Apellido_Materno':$('#ttApellido_Materno').val()
+        , 'PrimerNombre':$('#PrimerNombre').val()
+        , 'SegundoNombre':$('#SegundoNombre').val()
+        , 'RazonSocial':$('#RazonSocial').val()
+        , 'TipoDocumento':$('#TipoDocumento').val()
+        , 'CodigoIdentificacion':$('#CodigoIdentificacion').val()
+        , 'RUC':$('#txtRUC').val() // como se llama tu caja de texto donde ???????
+        , 'IdEmpresa':'2' 
+        , 'UsrCrea':'jMANUEL'
+        , 'WksCra':'jMANUEL'
+        , 'WksMod':'JMANUEL'
+        , 'UsrMod':'jMANUEL'
+      
+//eduardo peroen todos tiene que estar asi verdad , si pero... tengo
+// q explicarte como capturar una variable global..
+//por eso estoy q pongo data en duro...kookok
+
+
 				},
 				beforeSend: function(data){
 
@@ -312,7 +347,6 @@
 					          { label: 'Tipo Doc', name: 'TipoDocumento', width: 100 },
                     { label: 'Nro Doc', name: 'CodigoIdentificacion', width: 100 },
                     { label: 'RUC', name: 'RUC', width: 300 },
-
 
                 ],
                 viewrecords: true,

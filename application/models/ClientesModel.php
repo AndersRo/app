@@ -40,6 +40,5 @@ class ClientesModel extends CI_Model
         }
 
 	}
-
 }
 ?>
