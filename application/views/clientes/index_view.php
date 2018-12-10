@@ -309,7 +309,15 @@
 
 
                 $("#lastname").val( json[0].Apellido_Paterno );
-
+                $("#lastname1").val( json[0].Apellido_Materno );
+                $("#firstname").val( json[0].PrimerNombre );
+                $("#firstname1").val( json[0].SegundoNombre );
+                $("#razonso").val( json[0].RazonSocial );
+                $("#CodigoIdentificacion").val( json[0].CodigoIdentificacion );
+                $("#Ruc").val( json[0].Ruc );
+                $("#Direccion").val( json[0].Direccion );
+                $("#Telefono").val( json[0].Telefono );
+                $("#Ubigeo").val( json[0].Ubigeo );
               //var yourData = json.Data; // or json["Data"]
                     //alert(JSON.stringify(data.responseText));
                     /*$.each(json[0], function(i, item) {
@@ -394,10 +402,10 @@
                 postData: {'token':$('input[name=token]').val()},
                 datatype: "json",
                 colModel: [
-                    { label: '...', name: 'accion', frozen:true , width: 80, formatter:function(cellValue, opts, rowObject){return '<button class="btn btn-success btn-xs edit-modal" data-id=' + rowObject.IdCliente + '    ><span class="fa fa-pencil" ></span></button> <button class="btn btn-danger btn-xs delete-modal" data-id=' + rowObject.idsucursal + '><span class="fa fa-trash-o"></span></button>';}},
-                    { label: 'Ide. Cliente', name: 'IdCliente', key: true, width: 75, formatter:function (cellvalue, options, rowObject) {
-    return "<input type='button' value='somevalue' onclick='dispositivo.some_function("+rowObject.IdActor+")'\>";
-} },
+                    { label: '...', name: 'accion', frozen:true , width: 80, formatter:function(cellValue, opts, rowObject){return '<button class="btn btn-success btn-xs edit-modal" onclick="dispositivo.some_function('+rowObject.IdActor+')"><span class="fa fa-pencil" ></span></button> <button class="btn btn-danger btn-xs delete-modal" data-id=' + rowObject.idsucursal + '><span class="fa fa-trash-o"></span></button>';}},
+                    { label: 'Ide. Cliente', name: 'IdCliente', key: true, width: 75 /*formatter:function (cellvalue, options, rowObject) {
+    return "<input type='button' class='btn btn-success btn-xs edit-modal' value='somevalue' onclick='dispositivo.some_function("+rowObject.IdActor+")'\>";
+}*/ },
                     { label: 'Id. Actor', name: 'IdActor', key: true, width: 75 },
                     { label: 'Apellido Paterno', name: 'Apellido_Paterno', width: 75 },
                     { label: 'Apellido Materno', name: 'Apellido_Materno', width: 200 },
