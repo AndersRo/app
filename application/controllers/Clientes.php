@@ -77,6 +77,36 @@ class Clientes extends My_Controller {
 
   }
 
+  public function store() //Create, Update / Delete
+	{
+		//sleep(5);
+		$response=array();
+        if ($this->input->server('REQUEST_METHOD') == 'POST')
+        {
+        	$request=$this->input->post();
+        	$cliente=new ClientesModel();
+        	$cliente->opcion 			=isset($request["opcion"]) 			? $request["opcion"] 	: "";
+        	$cliente->idmarca		=isset($request["idmarca"]) 	? $request["idmarca"] 	: "0" ;
+        	$cliente->descripcion		=isset($request["marcacampo"]) ? $request["marcacampo"] 	: "";
+        	$cliente->wks		=$this->input->ip_address();
+        	$cliente->usuario		=$this->auth->getuser();
+
+        	$data=$this->MarcasModel->registra($cliente);
+			if ($data)
+			{
+				if ($data[0]->Code==0)
+					$response=array('error'=>$data[0]->Code,'mensaje'=>$data[0]->Message,'id'=>$data[0]->Id);
+				else
+					$response=array('error'=>$data[0]->Code,'mensaje'=>$data[0]->Message);
+			}
+			else{
+				$response=array('error'=>'1','mensaje'=>'Error');
+			}
+
+	   		$this->output->set_status_header(200)->set_content_type('application/json')->set_output(json_encode($response));
+        }
+	}
+
   public function listgg()
 	{
     $response=array();

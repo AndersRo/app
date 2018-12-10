@@ -256,9 +256,7 @@
   $.jgrid.defaults.styleUI = 'Bootstrap';
 
   $("#btnNuevo").click(function(){
-
     $("#txttipm").val('N');
-
     $('#modal-default').modal('show');
   });
 
