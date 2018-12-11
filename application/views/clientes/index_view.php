@@ -100,7 +100,7 @@
 
 		   <div class="modal-footer">
 		   <h1>footer</h1>
-          <button type="button" id="btnguardar"  name="btnguardar" class="btn btn-warning">Guardar</button>
+          <!--<button type="button" id="btnguardar"  name="btnguardar" class="btn btn-warning">Guardar</button>-->
 		  </div>
 
 
@@ -138,20 +138,20 @@
                   </div>
 
                   <div class="form-group">
-                    <label for="txtcli" class="col-sm-2 control-label">cliente</label>
+                    <label for="txtcli" class="col-sm-2 control-label">Cliente</label>
 
                     <div class="col-sm-4">
                       <input type="text" name="txtcli" class="form-control" id="txtcli" placeholder="">
                     </div>
                   </div>
 
-                    <div class="form-group">
-                      <label for="codigo" class="col-sm-2 control-label">Codigos</label>
+                  <div class="form-group">
+                    <label for="idactor" class="col-sm-2 control-label">id actor</label>
 
-                      <div class="col-sm-4">
-                        <input type="text" name="codigo" class="form-control" id="codigo" placeholder="">
-                      </div>
+                    <div class="col-sm-4">
+                      <input type="text" name="idactor" class="form-control" id="idactor" placeholder="">
                     </div>
+                  </div>
 
                     <div class="form-group">
                       <label for="role" class="col-sm-2 control-label">Tipo Persona</label>
@@ -180,6 +180,14 @@
 
                            ?>
                       </select>
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <label for="ruc" class="col-sm-2 control-label">RUC</label>
+
+                      <div class="col-sm-4">
+                        <input type="text" name="ruc" class="form-control" id="ruc" placeholder="">
                       </div>
                     </div>
 
@@ -253,6 +261,22 @@
                       </div>
                     </div>
 
+                    <div class="form-group">
+                      <label for="empresa" class="col-sm-2 control-label">Empresa</label>
+
+                      <div class="col-sm-4">
+                        <select name="empresa" id="empresa" class="form-control">
+                          <?php
+                              foreach ($empresas as $row) {
+                                  echo '<option value="'.$row->IdEmpresa.'">'.$row->NombreComercial.'</option>';
+                              }
+
+                           ?>
+                      </select>
+                      </div>
+                    </div>
+
+
                   </form>
                 </div>
                 <!-- /.box-body -->
@@ -261,8 +285,8 @@
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-primary" id="btnguardar" name="btnguardar">Guardar</button>
       </div>
     </div>
     <!-- /.modal-content -->
@@ -280,7 +304,8 @@
 
   $("#btnNuevo").click(function(){
     $("#txttipm").val('N');
-    $("txtcli").val('C');
+    $("#txtcli").val('C');
+    $("#idactor").val(0)
     $('#modal-default').modal('show');
   });
 
@@ -330,17 +355,40 @@
 
                 //  alert( json[0].Apellido_Paterno );
 
-
+                $("#idactor").val( json[0].IdActor );
                 $("#lastname").val( json[0].Apellido_Paterno );
                 $("#lastname1").val( json[0].Apellido_Materno );
                 $("#firstname").val( json[0].PrimerNombre );
                 $("#firstname1").val( json[0].SegundoNombre );
                 $("#razonso").val( json[0].RazonSocial );
                 $("#CodigoIdentificacion").val( json[0].CodigoIdentificacion );
-                $("#Ruc").val( json[0].Ruc );
-                $("#Direccion").val( json[0].Direccion );
-                $("#Telefono").val( json[0].Telefono );
-                $("#Ubigeo").val( json[0].Ubigeo );
+                $("#ruc").val( json[0].Ruc );
+                $("#empresa").val( json[0].IdEmpresa );
+                if (json[0].TipoPersona == "003005") {
+                  $("#tipoper").val("003005");
+                  $("#tipodoc").val("002003");
+                  $("#tipodoc").removeAttr("disabled");
+                  $("#razonsoc").hide();
+                  $("#glastname").show();
+                  $("#glastname1").show();
+                  $("#gfirstname").show();
+                  $("#gfirstname1").show();
+                } else if(json[0].TipoPersona == "003006"){
+                  $("#tipoper").val("003006");
+                  dispositivo.personas();
+                  $("#tipodoc").val("002004");
+                  $("#tipodoc").attr("disabled", "disabled");
+                  $("#razonsoc").show();
+                  $("#glastname").hide();
+                  $("#glastname1").hide();
+                  $("#gfirstname").hide();
+                  $("#gfirstname1").hide();
+                }
+
+                //$("#empresa").val( json[0].IdEmpresa)
+                $("#direccion").val( json[0].Direccion );
+                $("#telefono").val( json[0].Telefono );
+                $("#ubigeo").val( json[0].Ubigeo );
               //var yourData = json.Data; // or json["Data"]
                     //alert(JSON.stringify(data.responseText));
                     /*$.each(json[0], function(i, item) {
@@ -352,6 +400,7 @@
 
       //alert(strA_valor);
         $("#txttipm").val('U');
+        $("#txtcli").val('C');
         $('#modal-default').modal('show');
     }
     ,personas:function(){
@@ -430,9 +479,22 @@
 				contentType: 'application/x-www-form-urlencoded',
 				data://$("#frm-clientes").serialize(),
 				{
-          //'opcion':$("#txttipm").val()
-					'marcacampo':$("#txtmarca").val()
-				,	'modelocampo':$("#txtmodelo").val()
+          'opcion1':$("#txttipm").val()
+        , 'opcion2':$("#txtcli").val()
+        , 'idactor':$("#idactor").val()
+        , 'tpercampo':$("#tipoper").val()
+        , 'papellido':$("#lastname").val()
+        , 'sapellido':$("#lastname1").val()
+        , 'pnombre':$("#firstname").val()
+        , 'snombre':$("#firstname1").val()
+				,	'razoncampo':$("#razonso").val()
+        , 'tdoccampo':$("#tipodoc").val()
+        , 'codidenti':$("#CodigoIdentificacion").val()
+        , 'ruc':$("#ruc").val()
+        , 'empresa':$("#empresa").val()
+        ,	'direccampo':$("#direccion").val()
+        ,	'ubicampo':$("#ubigeo").val()
+        ,	'telcampo':$("#telefono").val()
 				},
 				beforeSend: function(data){
 

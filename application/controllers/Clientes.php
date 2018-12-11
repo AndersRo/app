@@ -8,6 +8,7 @@ class Clientes extends My_Controller {
 		  parent::__construct();
       $this->load->model('ClientesModel');
       $this->load->model('TablasModel');
+      $this->load->model('EmpresasModel');
       //Modelo Tablas
 	}
 
@@ -23,8 +24,10 @@ class Clientes extends My_Controller {
     $tipodoc="002"; //Tabla Tipos Documentos
 		$documentos=$this->TablasModel->Listar($tipodoc);
 
-    $tipoper="003"; //Tabla Tipos Documentos
+    $tipoper="003"; //Tabla Tipos personas
 		$personas=$this->TablasModel->Listar($tipoper);
+
+    $empresas=$this->EmpresasModel->listmodel();
 
     /*$reresult=array();
     $item= $this->TablasModel->Listar("001"); //TipoDocumento
@@ -34,6 +37,7 @@ class Clientes extends My_Controller {
     ,'token'  => $this->auth->token()
     ,'tipodocumento'=>$documentos//$lista//$reresult
     ,'tipopersonas'=>$personas
+    ,'empresas'=>$empresas
     );
  		$this->layout('clientes/index_view',$data);
   }
@@ -89,13 +93,26 @@ class Clientes extends My_Controller {
         {
         	$request=$this->input->post();
         	$cliente=new ClientesModel();
-        	$cliente->opcion 			=isset($request["opcion"]) 			? $request["opcion"] 	: "";
-        	$cliente->idmarca		=isset($request["idmarca"]) 	? $request["idmarca"] 	: "0" ;
-        	$cliente->descripcion		=isset($request["marcacampo"]) ? $request["marcacampo"] 	: "";
-        	$cliente->wks		=$this->input->ip_address();
-        	$cliente->usuario		=$this->auth->getuser();
+        	$cliente->opcion1 			=isset($request["opcion1"]) 			? $request["opcion1"] 	: "";
+          $cliente->opcion2 			=isset($request["opcion2"]) 			? $request["opcion2"] 	: "";
+        	$cliente->idactor		=isset($request["idactor"]) 	? $request["idactor"] 	: "" ;
+        	$cliente->tipopersona		=isset($request["tpercampo"]) ? $request["tpercampo"] 	: "";
+          $cliente->apaterno		=isset($request["papellido"]) ? $request["papellido"] 	: "";
+          $cliente->amaterno		=isset($request["sapellido"]) ? $request["sapellido"] 	: "";
+          $cliente->primernombre		=isset($request["pnombre"]) ? $request["pnombre"] 	: "";
+          $cliente->segundonombre		=isset($request["snombre"]) ? $request["snombre"] 	: "";
+          $cliente->razonsocial		=isset($request["razoncampo"]) ? $request["razoncampo"] 	: "";
+          $cliente->tipodocumento		=isset($request["tdoccampo"]) ? $request["tdoccampo"] 	: "";
+          $cliente->codidentificacion		=isset($request["codidenti"]) ? $request["codidenti"] 	: "";
+          $cliente->ruc		=isset($request["ruc"]) ? $request["ruc"] 	: "";
+          $cliente->empresa		=isset($request["empresa"]) ? $request["empresa"] 	: "";
+          $cliente->usuario		=$this->auth->getuser();
+          $cliente->wks		=$this->input->ip_address();
+          $cliente->direccion		=isset($request["direccampo"]) ? $request["direccampo"] 	: "";
+          $cliente->ubigeo		=isset($request["ubicampo"]) ? $request["ubicampo"] 	: "";
+          $cliente->telefono		=isset($request["telcampo"]) ? $request["telcampo"] 	: "";
 
-        	$data=$this->MarcasModel->registra($cliente);
+        	$data=$this->ClientesModel->registra($cliente);
 			if ($data)
 			{
 				if ($data[0]->Code==0)
