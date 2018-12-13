@@ -81,6 +81,24 @@ class MarcasModel extends CI_Model
   		}
   }
 
+  function listmarca($sidx)
+	{
+    $parameters=array($sidx);
+		$sql = 'CALL sp_get_marcasid(?)';
+		$q = $this->db->query($sql, $parameters);
+		if($q -> num_rows() >= 1)
+		{
+             mysqli_next_result($this->db->conn_id);
+             $data = $q->result();
+             $q->free_result();
+             return $data;
+		}
+		else
+		{
+			return false;
+		}
+	}
+
 }
 
 ?>

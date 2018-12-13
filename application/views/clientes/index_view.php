@@ -487,7 +487,7 @@
         , 'pnombre':$("#firstname").val()
         , 'snombre':$("#firstname1").val()
 				,	'razoncampo':$("#razonso").val()
-        , 'tdoccampo':$("#tipodoc").val()
+        , 'tdoccampo':$("#tipodoc option:selected").html()
         , 'codidenti':$("#CodigoIdentificacion").val()
         , 'ruc':$("#ruc").val()
         , 'empresa':$("#empresa").val()

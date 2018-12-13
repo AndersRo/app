@@ -43,7 +43,7 @@ class Marcas extends My_Controller {
         	$request=$this->input->post();
         	$marca=new MarcasModel();
         	$marca->opcion 			=isset($request["opcion"]) 			? $request["opcion"] 	: "";
-        	$marca->idmarca		=isset($request["idmarca"]) 	? $request["idmarca"] 	: "0" ;
+        	$marca->idmarca		=isset($request["idmarca"]) 	? $request["idmarca"] 	: "" ;
         	$marca->descripcion		=isset($request["marcacampo"]) ? $request["marcacampo"] 	: "";
         	$marca->wks		=$this->input->ip_address();
         	$marca->usuario		=$this->auth->getuser();
@@ -62,6 +62,21 @@ class Marcas extends My_Controller {
 
 	   		$this->output->set_status_header(200)->set_content_type('application/json')->set_output(json_encode($response));
         }
+	}
+
+  public function listid()
+	{
+    $response=array();
+    if ($this->input->server('REQUEST_METHOD') == 'POST')
+    {
+        $sidx =$_POST['idmarca'];
+
+         //$rows = array($sidx);
+        $datacount=$this->MarcasModel->listmarca($sidx); //count
+
+        header("Content-type:application/json");
+        echo json_encode($datacount);
+    }
 	}
 
  }
