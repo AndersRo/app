@@ -113,6 +113,7 @@ class Clientes extends My_Controller {
           $cliente->telefono		=isset($request["telcampo"]) ? $request["telcampo"] 	: "";
 
         	$data=$this->ClientesModel->registra($cliente);
+
 			if ($data)
 			{
 				if ($data[0]->Code==0)

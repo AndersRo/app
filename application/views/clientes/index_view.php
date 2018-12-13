@@ -344,7 +344,6 @@
             data://$("#frm-clientes").serialize(),
             {
               'idactor':strA_valor
-            ,
             },
             beforeSend: function(data){
 

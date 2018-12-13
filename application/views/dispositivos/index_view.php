@@ -4,7 +4,7 @@
   <section class="content-header">
     <h1>
       <?php echo $titulo; ?>
-      <a class="btn btn-danger btn-sm new-modal" data-toggle="modal" data-target="#modal-default"><span class="fa fa-map-marker"></span></a>
+      <a class="btn btn-danger btn-sm new-modal" data-toggle="modal" id="btnNuevo"><span class="fa fa-map-marker"></span></a>
       <small></small>
     </h1>
     <ol class="breadcrumb">
@@ -75,23 +75,39 @@
                   <form action="" class="form" method="post" accept-charset="utf-8">
                   <?php echo form_hidden('token', $token) ?>
 
+                  <div class="form-group">
+                    <label for="txttipm" class="col-sm-2 control-label">Tipo Mant</label>
+
+                    <div class="col-sm-4">
+                      <input type="text" name="txttipm" class="form-control" id="txttipm" placeholder="">
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="iddispositivo" class="col-sm-2 control-label">Id Dispositivo</label>
+
+                    <div class="col-sm-4">
+                      <input type="text" name="iddispositivo" class="form-control" id="iddispositivo" placeholder="">
+                    </div>
+                  </div>
+
                     <div class="form-group">
-                      <label for="serie" class="col-sm-1 control-label">Serie</label>
-                      <div class="col-sm-5">
+                      <label for="serie" class="col-sm-2 control-label">Serie</label>
+                      <div class="col-sm-4">
                         <input type="text" name="serie" class="form-control" id="txtserie" placeholder="escriba la serie">
                       </div>
                     </div>
 
                     <div class="form-group">
-                      <label for="imei" class="control-label">IMEI</label>
-                      <div class="col-sm-5">
+                      <label for="imei" class="col-sm-2 control-label">IMEI</label>
+                      <div class="col-sm-4">
                         <input type="text" name="imei" class="form-control" id="txtimei" placeholder="IMEI del dispositivo">
                       </div>
                     </div>
 
                     <div class="form-group">
-                      <label for="role" class="col-sm-1 control-label">Modelo</label>
-                      <div class="col-sm-5" hi>
+                      <label for="role" class="col-sm-2 control-label">Modelo</label>
+                      <div class="col-sm-4" hi>
 
                         <select name="modelo" id="txtmodelo" class="form-control">
                           <?php
@@ -105,22 +121,22 @@
                     </div>
 
                     <div class="form-group">
-                      <label for="sim" class="control-label">Sim</label>
-                      <div class="col-sm-5">
+                      <label for="sim" class="col-sm-2 control-label">Sim</label>
+                      <div class="col-sm-4">
                         <input type="text" name="sim" class="form-control" id="txtsim" placeholder="ingrese numero de Sim">
                       </div>
                     </div>
 
                     <div class="form-group">
-                      <label for="idn" class="col-sm-1 control-label">Nro. IDN</label>
-                      <div class="col-sm-5">
+                      <label for="idn" class="col-sm-2 control-label">Nro. IDN</label>
+                      <div class="col-sm-4">
                         <input type="text" name="idn" class="form-control" id="txtidn" placeholder="escriba la IDN">
                       </div>
                     </div>
 
                     <div class="form-group">
-                      <label for="role" class="control-label">Empresa</label>
-                      <div class="col-sm-5">
+                      <label for="role" class="col-sm-2 control-label">Empresa</label>
+                      <div class="col-sm-4">
 
                         <select name="empresa" id="txtempresa" class="form-control">
                           <?php
@@ -132,7 +148,6 @@
                       </select>
                       </div>
                     </div>
-                    <input type="text" name="option" value="N" id="option1" hidden>
 
                   </form>
                 </div>
@@ -157,6 +172,12 @@
   $.jgrid.defaults.width = newWidth;
   $.jgrid.defaults.responsive = true;
   $.jgrid.defaults.styleUI = 'Bootstrap';
+
+  $("#btnNuevo").click(function(){
+    $("#txttipm").val('N');
+    $("#iddispositivo").val(0)
+    $('#modal-default').modal('show');
+  });
 </script>
 
 <script type="text/javascript">
@@ -172,6 +193,51 @@
     }
     ,event:function()  {}
     ,validate:function(){}
+    ,some_function:function(strA_valor)
+    {
+
+
+          var wurl="<?php echo base_url('dispositivos/listgg'); ?>";
+
+          $.ajax({
+            async: true,
+            url: wurl,
+            type: "post",
+            dataType: 'json',
+            contentType: 'application/x-www-form-urlencoded',
+            data://$("#frm-clientes").serialize(),
+            {
+              'iddispositivo':strA_valor
+            },
+            beforeSend: function(data){
+
+            },
+            complete: function(data, status){
+
+              var json = JSON.parse(data.responseText);
+
+                //  alert( json[0].Apellido_Paterno );
+
+                $("#iddispositivo").val( json[0].IdDispositivo );
+                $("#txtserie").val( json[0].Serie );
+                $("#txtimei").val( json[0].Imei );
+                $("#txtmodelo").val( json[0].IdModelo );
+                $("#txtsim").val( json[0].NroSim );
+                $("#txtidn").val( json[0].NroIDN );
+                $("#txtempresa").val( json[0].IdEmpresa );
+              //var yourData = json.Data; // or json["Data"]
+                    //alert(JSON.stringify(data.responseText));
+                    /*$.each(json[0], function(i, item) {
+                        alert(item);
+                    });
+                    */
+              }
+          });
+
+      //alert(strA_valor);
+        $("#txttipm").val('U');
+        $('#modal-default').modal('show');
+    }
     ,guardar:function(){
 
       var wurl="<?php echo base_url('dispositivos/store'); ?>";
@@ -184,7 +250,8 @@
 				contentType: 'application/x-www-form-urlencoded',
 				data://$("#frm-clientes").serialize(),
 				{
-          'opcion':$("#option1").val()
+          'opcion':$("#txttipm").val()
+        , 'iddispositivo':$("#iddispositivo").val()  
 				,	'seriecampo':$("#txtserie").val()
 				,	'imeicampo':$("#txtimei").val()
         , 'modelocampo':$("#txtmodelo").val()
@@ -211,7 +278,7 @@
                 postData: {'token':$('input[name=token]').val()},
                 datatype: "json",
                 colModel: [
-                    { label: '...', name: 'accion', frozen:true , width: 80, formatter:function(cellValue, opts, rowObject){return '<button class="btn btn-success btn-xs edit-modal" data-id=' + rowObject.idsucursal + '><span class="fa fa-pencil"></span></button> <button class="btn btn-danger btn-xs delete-modal" data-id=' + rowObject.idsucursal + '><span class="fa fa-trash-o"></span></button>';}},
+                    { label: '...', name: 'accion', frozen:true , width: 80, formatter:function(cellValue, opts, rowObject){return '<button class="btn btn-success btn-xs edit-modal" onclick="dispositivo.some_function('+rowObject.iddispositivo+')"><span class="fa fa-pencil"></span></button> <button class="btn btn-danger btn-xs delete-modal" data-id=' + rowObject.idsucursal + '><span class="fa fa-trash-o"></span></button>';}},
                     { label: 'Ide. Dispositivo', name: 'iddispositivo', key: true, width: 75 },
                     { label: 'Serie', name: 'serie', width: 75 },
                     { label: 'IMEI', name: 'imei', width: 200 },

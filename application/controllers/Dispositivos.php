@@ -47,7 +47,7 @@ class Dispositivos extends My_Controller {
         	$request=$this->input->post();
         	$dispositivo=new DispositivosModel();
         	$dispositivo->opcion 			=isset($request["opcion"]) 			? $request["opcion"] 	: "";
-        	$dispositivo->iddispositivo		=isset($request["iddispositivo"]) 	? $request["iddispositivo"] 	: "0" ;
+        	$dispositivo->iddispositivo		=isset($request["iddispositivo"]) 	? $request["iddispositivo"] 	: "" ;
           $dispositivo->serie		=isset($request["seriecampo"]) 	? $request["seriecampo"] 	: "" ;
         	$dispositivo->imei		=isset($request["imeicampo"]) ? $request["imeicampo"] 	: "";
           $dispositivo->modelo		=isset($request["modelocampo"]) ? $request["modelocampo"] 	: "";
@@ -70,6 +70,21 @@ class Dispositivos extends My_Controller {
 
 	   		$this->output->set_status_header(200)->set_content_type('application/json')->set_output(json_encode($response));
         }
+	}
+
+  public function listgg()
+	{
+    $response=array();
+    if ($this->input->server('REQUEST_METHOD') == 'POST')
+    {
+        $sidx =$_POST['iddispositivo'];
+
+         //$rows = array($sidx);
+        $datacount=$this->DispositivosModel->lisgg($sidx); //count
+
+        header("Content-type:application/json");
+        echo json_encode($datacount);
+    }
 	}
 
 
