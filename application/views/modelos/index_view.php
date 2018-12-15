@@ -162,14 +162,55 @@
   dispositivo={
     init:function()
     {
-      dispositivo.event();
+      dispositivo.eventgrid();
       dispositivo.validate();
       dispositivo.listar();
       $( "#btnguardar" ).on( "click", function() {
   		dispositivo.guardar();
   		});
     }
-    ,event:function()  {}
+    ,eventgrid:function()  {
+
+      $(".delete-modal").click(function(event)
+              {
+                  event.returnValue = false; /*para I.E.*/
+                  if(event.preventDefault) event.preventDefault();
+
+                  $("#txttipm").val('D');
+                  var idrow=$(this).data('id');
+                  $("#tdatos").jqGrid('setSelection',idrow, false);
+                  var selr = $("#tdatos").jqGrid('getGridParam', 'selrow');
+                  var rowData = $("#tdatos").jqGrid('getRowData', selr)
+
+                  //console.log(rowData);
+                  //alert(rowData.IdModelo);
+                  //Cargando los Tipos
+                  $("#idmodelo").val(rowData.IdModelo);
+                  //$("#txtmodelo").val(rowData.IdCategoria).trigger('change');
+                  //$("#txtmarca").val(rowData.CodigoReferencia);
+                  //$("#fileimg").val(rowData.CodigoTipo).trigger('change');
+
+
+                  bootbox.confirm({
+                      title: "Producto/Servicios",
+                      message: "¿Esta seguro de Eliminar este registro?",
+                      buttons: {
+                          cancel: {
+                              label: '<i class="fa fa-times"></i> Cancelar'
+                          },
+                          confirm: {
+                              label: '<i class="fa fa-check"></i> Confirmar',
+                              className: 'btn-success'
+                          }
+                      },
+                      callback: function (result) {
+                          if (result)
+                          dispositivo.guardar();
+                              //producto.setproductos($("#frm-registro"));
+                      }
+                  });
+              });
+    }
     ,validate:function(){}
     ,some_function:function(strA_valor)
     {
@@ -277,10 +318,10 @@
                 postData: {'token':$('input[name=token]').val()},
                 datatype: "json",
                 colModel: [
-                    { label: '...', name: 'accion', frozen:true , width: 80, formatter:function(cellValue, opts, rowObject){return '<button class="btn btn-success btn-xs edit-modal" onclick="dispositivo.some_function('+rowObject.IdModelo+')"><span class="fa fa-pencil"></span></button> <button class="btn btn-danger btn-xs delete-modal" data-id=' + rowObject.idsucursal + '><span class="fa fa-trash-o"></span></button>';}},
+                    { label: '...', name: 'accion', frozen:true , width: 80, formatter:function(cellValue, opts, rowObject){return '<button class="btn btn-success btn-xs edit-modal" onclick="dispositivo.some_function('+rowObject.IdModelo+')"><span class="fa fa-pencil"></span></button> <button class="btn btn-danger btn-xs delete-modal" data-id=' + rowObject.IdModelo + '><span class="fa fa-trash-o"></span></button>';}},
                     { label: 'Ide. Modelo', name: 'IdModelo', key: true, width: 75 },
-                    { label: 'Ide. Marca', name: 'IdMarca', key: true, width: 75 },
-                    { label: 'Modelo', name: 'modelo', key: true, width: 100 },
+                    { label: 'Ide. Marca', name: 'IdMarca', width: 75 },
+                    { label: 'Modelo', name: 'modelo', width: 100 },
                     { label: 'Marca', name: 'Marca', width: 100 },
                 ],
                 viewrecords: true,
@@ -295,6 +336,7 @@
                 },
                 gridview: true,
                 gridComplete: function(){
+                  dispositivo.eventgrid();
                     //sucursal.eventload();
                 },
                 sortname: 'IdModelo',
