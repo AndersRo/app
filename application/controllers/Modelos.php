@@ -45,6 +45,7 @@ class Modelos extends My_Controller {
         if ($this->input->server('REQUEST_METHOD') == 'POST')
         {
         	$request=$this->input->post();
+          sleep(3);
         	$modelo=new ModelosModel();
         	$modelo->opcion 			=isset($request["opcion"]) 			? $request["opcion"] 	: "";
         	$modelo->idmodelo		=isset($request["idmodelo"]) 	? $request["idmodelo"] 	: "" ;

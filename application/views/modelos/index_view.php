@@ -72,7 +72,7 @@
               <!-- form start -->
               <div class="box-body my-form-body">
 
-                  <form action="" class="form" method="post" accept-charset="utf-8">
+                  <form action="" id="frm-modelos" class="form" method="post" accept-charset="utf-8">
                   <?php echo form_hidden('token', $token) ?>
 
                   <div class="form-group">
@@ -182,7 +182,7 @@
             type: "post",
             dataType: 'json',
             contentType: 'application/x-www-form-urlencoded',
-            data://$("#frm-clientes").serialize(),
+            data://$("#frm-modelos").serialize(),
             {
               'idmodelo':strA_valor
             },
@@ -213,7 +213,7 @@
 				type: "post",
 				dataType: 'json',
 				contentType: 'application/x-www-form-urlencoded',
-				data://$("#frm-clientes").serialize(),
+				data://$("#frm-modelos").serialize(),
 				{
           'opcion':$("#txttipm").val()
         , 'idmodelo':$("#idmodelo").val()
@@ -222,10 +222,47 @@
 				,	'filecampo':$("#fileimg").val()
 				},
 				beforeSend: function(data){
-
+            waitingDialog.show('Procesando...', {dialogSize: 'sm'});
 				},
 				complete: function(data, status){
-					alert('completado');
+
+          //alert('completado');
+
+          if (status=="success"){
+
+              var werror=JSON.parse(data.responseText).error;
+              var wmsg=JSON.parse(data.responseText).mensaje;
+                if (werror==0)
+                      {
+                          var wcodigo=JSON.parse(data.responseText).id;
+                          var mensajeview=""
+                          waitingDialog.hide();
+                          if ($("#txttipm").val()=="N")
+                          {
+                            mensajeview="Se ha registrado correctamente";
+                          }else{
+                            mensajeview="Se han actualizado los datos correctamente";
+                          }
+                          bootbox.alert(mensajeview);
+                          //compras.limpiarcampos();
+                      }
+                  else
+                    {
+                        waitingDialog.hide();
+                        bootbox.alert("Error! : . " + wmsg);
+                    }
+
+                }
+                else
+                  {
+                    waitingDialog.hide();
+                    bootbox.alert("Error! : Ocurrio algo inesperado, intente más tarde!");
+                  }
+
+          //waitingDialog.hide();
+          $('#modal-default').modal('hide');
+          $('#tdatos').trigger( 'reloadGrid' );
+
 				}
 		  });
     }
