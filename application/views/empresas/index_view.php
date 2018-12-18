@@ -188,17 +188,22 @@
   dispositivo={
     init:function()
     {
-      //dispositivo.event();
-      //dispositivo.validate();
+      dispositivo.event();
+      dispositivo.validate();
       dispositivo.listar();
-      
+
     $( "#btnguardar" ).on( "click", function() {
       dispositivo.guardar();
+    });
+
     }
    
      guardar:function()
+    ,event:function()  {}
+    ,validate:function(){}
+    ,guardar:function()
       {
-      var wurl="<?php echo base_url('empresa/guardar'); ?>";
+      var wurl="<?php echo base_url('empresas/guardar'); ?>";
 
       $.ajax({
         async: true,
@@ -213,8 +218,8 @@
         , 'RazonSocial':$("#txtchasis").val()
         , 'NombreComercial':$("#txtMotor").val()
         , 'Representante':$("#txtModelo").val()
-      
-               
+
+
         },
         beforeSend: function(data){
 
@@ -223,9 +228,9 @@
           alert('completado');
         }
       });
+
   }
   
-
     ,event:function()  {}
     ,validate:function(){}
    
@@ -234,6 +239,13 @@
     {
         //var wurl="<?php echo base_url('empresas/list'); ?>";
 		
+
+    }
+
+    ,listar:function()
+    {
+        var wurl="<?php echo base_url('empresas/list'); ?>";
+
         $("#tdatos").jqGrid({
                 url: wurl,
                 mtype: "get",
@@ -288,9 +300,15 @@
    dispositivo.init();
 }
 }
+
+            }
+          }
+
+ dispositivo.init();
+
 </script>
 
-<script type="text/javascript">
+ <script type="text/javascript">
 
     function PreviewImage() {
         var oFReader = new FileReader();

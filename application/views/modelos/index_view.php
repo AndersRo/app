@@ -153,7 +153,7 @@
 
   $("#btnNuevo").click(function(){
     $("#txttipm").val('N');
-    $("#idmodelo").val(0)
+    $("#idmodelo").val(0);
     $('#modal-default').modal('show');
   });
 </script>

@@ -37,7 +37,7 @@ class EmpresasModel extends CI_Model
       }
   }
 
- function guardar($IdEmpresa,$RUC,$RazonSocial,$NombreComercial,$Representante)
+  /*function guardar($IdEmpresa,$RUC,$RazonSocial,$NombreComercial,$Representante)
   {
 
       $parameters=array($IdEmpresa,$RUC,$RazonSocial,$NombreComercial,$Representante,$txt);
@@ -56,10 +56,8 @@ class EmpresasModel extends CI_Model
             return false;
         }
 
-  }
+  }*/
 
 }
 
 ?>
-
-
