@@ -45,9 +45,10 @@ class Modelos extends My_Controller {
         if ($this->input->server('REQUEST_METHOD') == 'POST')
         {
         	$request=$this->input->post();
+          sleep(3);
         	$modelo=new ModelosModel();
         	$modelo->opcion 			=isset($request["opcion"]) 			? $request["opcion"] 	: "";
-        	$modelo->idmodelo		=isset($request["idmodelo"]) 	? $request["idmodelo"] 	: "0" ;
+        	$modelo->idmodelo		=isset($request["idmodelo"]) 	? $request["idmodelo"] 	: "" ;
           $modelo->idmarca		=isset($request["marcacampo"]) 	? $request["marcacampo"] 	: "" ;
           $modelo->descripcion		=isset($request["modelocampo"]) 	? $request["modelocampo"] 	: "" ;
           $modelo->wks		=$this->input->ip_address();;
@@ -68,6 +69,21 @@ class Modelos extends My_Controller {
 
 	   		$this->output->set_status_header(200)->set_content_type('application/json')->set_output(json_encode($response));
         }
+	}
+
+  public function listmodelo()
+	{
+    $response=array();
+    if ($this->input->server('REQUEST_METHOD') == 'POST')
+    {
+        $sidx =$_POST['idmodelo'];
+
+         //$rows = array($sidx);
+        $datacount=$this->ModelosModel->lisid($sidx); //count
+
+        header("Content-type:application/json");
+        echo json_encode($datacount);
+    }
 	}
 
  }

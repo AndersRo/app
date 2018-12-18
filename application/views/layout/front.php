@@ -64,6 +64,9 @@
   <script src="<?php echo base_url();?>assets/plugins/jqgrid/grid.locale-es.js" ></script>
   <script src="<?php echo base_url();?>assets/plugins/jqgrid/jquery.jqGrid.js" ></script>
 
+  <script src="<?php echo base_url();?>assets/dist/js/waitingfor.js"></script>
+  <script src="<?php echo base_url();?>assets/dist/js/bootbox.min.js"></script>
+
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">

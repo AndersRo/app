@@ -4,7 +4,7 @@
   <section class="content-header">
     <h1>
       <?php echo $titulo; ?>
-      <a class="btn btn-primary btn-xs new-modal" data-toggle="modal" data-target="#modal-default"><span class="fa fa-plus"></span></a>
+      <a class="btn btn-primary btn-xs new-modal" data-toggle="modal" id="btnNuevo"><span class="fa fa-plus"></span></a>
       <small></small>
     </h1>
     <ol class="breadcrumb">
@@ -75,6 +75,22 @@
                   <form action="" class="form" method="post" accept-charset="utf-8">
                   <?php echo form_hidden('token', $token) ?>
 
+                  <div class="form-group">
+                    <label for="txttipm" class="col-sm-12 control-label">Tipo Mant</label>
+
+                    <div class="col-sm-6">
+                      <input type="text" name="txttipm" class="form-control" id="txttipm" placeholder="">
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="idtaller" class="col-sm-12 control-label">Id</label>
+
+                    <div class="col-sm-6">
+                      <input type="text" name="idtaller" class="form-control" id="idtaller" placeholder="id">
+                    </div>
+                  </div>
+
                     <div class="form-group">
                       <label for="descripcion" class="col-sm-12 control-label">Descripcion</label>
 
@@ -91,8 +107,8 @@
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-primary" id="btnguardar">Guardar</button>
       </div>
     </div>
     <!-- /.modal-content -->
@@ -106,6 +122,12 @@
   $.jgrid.defaults.width = newWidth;
   $.jgrid.defaults.responsive = true;
   $.jgrid.defaults.styleUI = 'Bootstrap';
+
+  $("#btnNuevo").click(function(){
+    $("#txttipm").val('N');
+    $("#idtaller").val(0)
+    $('#modal-default').modal('show');
+  });
 </script>
 
 <script type="text/javascript">
@@ -115,9 +137,72 @@
       dispositivo.event();
       dispositivo.validate();
       dispositivo.listar();
+      $( "#btnguardar" ).on( "click", function() {
+  		dispositivo.guardar();
+
+  		});
     }
     ,event:function()  {}
     ,validate:function(){}
+    ,some_function:function(strA_valor)
+    {
+
+          var wurl="<?php echo base_url('talleres/listid'); ?>";
+
+          $.ajax({
+            async: true,
+            url: wurl,
+            type: "post",
+            dataType: 'json',
+            contentType: 'application/x-www-form-urlencoded',
+            data://$("#frm-clientes").serialize(),
+            {
+              'idtaller':strA_valor
+            },
+            beforeSend: function(data){
+
+            },
+            complete: function(data, status){
+
+              var json = JSON.parse(data.responseText);
+
+                //  alert( json[0].Apellido_Paterno );
+                $("#idtaller").val( json[0].IdTaller );
+                $("#descripcion").val( json[0].Descripcion );
+
+              }
+          });
+
+      //alert(strA_valor);
+        $("#txttipm").val('U');
+        $('#modal-default').modal('show');
+    }
+
+    ,guardar:function(){
+      var wurl="<?php echo base_url('talleres/store'); ?>";
+
+		  $.ajax({
+				async: true,
+				url: wurl,
+				type: "post",
+				dataType: 'json',
+        postData: {'token':$('input[name=token]').val()},
+				contentType: 'application/x-www-form-urlencoded',
+				data://$("#frm-clientes").serialize(),
+				{
+
+          'idtaller':$("#idtaller").val()
+					,'tallercampo':$("#descripcion").val()
+          ,'opcion':$("#txttipm").val()
+				},
+				beforeSend: function(data){
+
+				},
+				complete: function(data, status){
+					alert('completado');
+				}
+		  });
+    }
     ,listar:function()
     {
         var wurl="<?php echo base_url('talleres/list'); ?>";
@@ -129,7 +214,7 @@
                 postData: {'token':$('input[name=token]').val()},
                 datatype: "json",
                 colModel: [
-                    { label: '...', name: 'accion', frozen:true , width: 80, formatter:function(cellValue, opts, rowObject){return '<button class="btn btn-success btn-xs edit-modal" data-id=' + rowObject.idsucursal + '><span class="fa fa-pencil"></span></button> <button class="btn btn-danger btn-xs delete-modal" data-id=' + rowObject.idsucursal + '><span class="fa fa-trash-o"></span></button>';}},
+                    { label: '...', name: 'accion', frozen:true , width: 80, formatter:function(cellValue, opts, rowObject){return '<button class="btn btn-success btn-xs edit-modal" onclick="dispositivo.some_function('+rowObject.IdTaller+')"><span class="fa fa-pencil"></span></button> <button class="btn btn-danger btn-xs delete-modal" data-id=' + rowObject.idsucursal + '><span class="fa fa-trash-o"></span></button>';}},
                     { label: 'Id. Taller', name: 'IdTaller', key: true, width: 100 },
                     { label: 'Descripcion', name: 'Descripcion', key: true, width: 100 },
                 ],

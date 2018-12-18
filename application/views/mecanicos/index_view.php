@@ -4,7 +4,7 @@
   <section class="content-header">
     <h1>
       <?php echo $titulo; ?>
-      <a class="btn btn-primary btn-xs new-modal" data-toggle="modal" data-target="#modal-default"><span class="fa fa-plus"></span></a>
+      <a class="btn btn-primary btn-xs new-modal" data-toggle="modal" id="btnNuevo"><span class="fa fa-plus"></span></a>
       <small></small>
     </h1>
     <ol class="breadcrumb">
@@ -75,11 +75,42 @@
                   <form action="" class="" role="form" method="post" accept-charset="utf-8">
                   <?php echo form_hidden('token', $token) ?>
 
+                  <div class="form-group">
+                    <label for="txttipm" class="col-sm-2 control-label">Tipo Mant</label>
+
+                    <div class="col-sm-4">
+                      <input type="text" name="txttipm" class="form-control" id="txttipm" placeholder="">
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="txtmec" class="col-sm-2 control-label">Mecanico</label>
+
+                    <div class="col-sm-4">
+                      <input type="text" name="txtmec" class="form-control" id="txtmec" placeholder="">
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="idactor" class="col-sm-2 control-label">id actor</label>
+
+                    <div class="col-sm-4">
+                      <input type="text" name="idactor" class="form-control" id="idactor" placeholder="">
+                    </div>
+                  </div>
+
                     <div class="form-group">
-                      <label for="codigo" class="col-sm-2 control-label">Codigos</label>
+                      <label for="role" class="col-sm-2 control-label">Tipo Persona</label>
 
                       <div class="col-sm-4">
-                        <input type="text" name="codigo" class="form-control" id="codigo" placeholder="">
+                        <select name="tipoper" id="tipoper" class="form-control" disabled>
+                          <?php
+                              foreach ($tipopersonas as $row) {
+                                  echo '<option value="'.$row->codigo.'">'.$row->Descripcion.'</option>';
+                              }
+
+                           ?>
+                      </select>
                       </div>
                     </div>
 
@@ -87,13 +118,22 @@
                       <label for="role" class="col-sm-2 control-label">Tipo Documento</label>
 
                       <div class="col-sm-4">
-                        <select name="group" class="form-control">
+                        <select name="tipodoc" id="tipodoc" class="form-control" disabled>
                           <?php
                               foreach ($tipodocumento as $row) {
                                   echo '<option value="'.$row->codigo.'">'.$row->Descripcion.'</option>';
                               }
+
                            ?>
                       </select>
+                      </div>
+                    </div>
+
+                    <div class="form-group" hidden>
+                      <label for="ruc" class="col-sm-2 control-label">RUC</label>
+
+                      <div class="col-sm-4">
+                        <input type="text" name="ruc" class="form-control" id="ruc" placeholder="">
                       </div>
                     </div>
 
@@ -105,7 +145,7 @@
                       </div>
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group" id="glastname">
                       <label for="lastname" class="col-sm-2 control-label">Primer Apellido</label>
 
                       <div class="col-sm-4">
@@ -113,7 +153,7 @@
                       </div>
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group" id="glastname1">
                       <label for="lastname1" class="col-sm-2 control-label">Segundo Apellido</label>
 
                       <div class="col-sm-4">
@@ -121,7 +161,7 @@
                       </div>
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group" id="gfirstname">
                       <label for="firstname" class="col-sm-2 control-label">Primer Nombre</label>
 
                       <div class="col-sm-4">
@@ -129,11 +169,19 @@
                       </div>
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group" id="gfirstname1">
                       <label for="firstname2" class="col-sm-2 control-label">Segundo Nombre</label>
 
                       <div class="col-sm-4">
-                        <input type="text" name="firstname2" class="form-control" id="firstname2" placeholder="">
+                        <input type="text" name="firstname2" class="form-control" id="firstname1" placeholder="">
+                      </div>
+                    </div>
+
+                    <div class="form-group" id="razonsoc">
+                      <label for="razonso" class="col-sm-2 control-label">Razon Social</label>
+
+                      <div class="col-sm-4">
+                        <input type="text" name="razonso" class="form-control" id="razonso" placeholder="">
                       </div>
                     </div>
 
@@ -159,6 +207,21 @@
                       </div>
                     </div>
 
+                    <div class="form-group">
+                      <label for="empresa" class="col-sm-2 control-label">Empresa</label>
+
+                      <div class="col-sm-4">
+                        <select name="empresa" id="empresa" class="form-control">
+                          <?php
+                              foreach ($empresas as $row) {
+                                  echo '<option value="'.$row->IdEmpresa.'">'.$row->NombreComercial.'</option>';
+                              }
+
+                           ?>
+                      </select>
+                      </div>
+                    </div>
+
                   </form>
                 </div>
                 <!-- /.box-body -->
@@ -167,8 +230,8 @@
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-primary" id="btnguardar">Guardar</button>
       </div>
     </div>
     <!-- /.modal-content -->
@@ -182,6 +245,13 @@
   $.jgrid.defaults.width = newWidth;
   $.jgrid.defaults.responsive = true;
   $.jgrid.defaults.styleUI = 'Bootstrap';
+
+  $("#btnNuevo").click(function(){
+    $("#txttipm").val('N');
+    $("#txtmec").val('M');
+    $("#idactor").val(0)
+    $('#modal-default').modal('show');
+  });
 </script>
 
 <script type="text/javascript">
@@ -191,9 +261,126 @@
       dispositivo.event();
       dispositivo.validate();
       dispositivo.listar();
+
+      $( "#btnguardar" ).on( "click", function() {
+  		dispositivo.guardar();
+  		});
     }
     ,event:function()  {}
     ,validate:function(){}
+    ,some_function:function(strA_valor)
+    {
+
+
+          var wurl="<?php echo base_url('mecanicos/listgg'); ?>";
+
+          $.ajax({
+            async: true,
+            url: wurl,
+            type: "post",
+            dataType: 'json',
+            contentType: 'application/x-www-form-urlencoded',
+            data://$("#frm-clientes").serialize(),
+            {
+              'idactor':strA_valor
+            },
+            beforeSend: function(data){
+
+            },
+            complete: function(data, status){
+
+              var json = JSON.parse(data.responseText);
+
+                //  alert( json[0].Apellido_Paterno );
+
+                $("#idactor").val( json[0].IdActor );
+                $("#lastname").val( json[0].Apellido_Paterno );
+                $("#lastname1").val( json[0].Apellido_Materno );
+                $("#firstname").val( json[0].PrimerNombre );
+                $("#firstname1").val( json[0].SegundoNombre );
+                //$("#razonso").val( json[0].RazonSocial );
+                $("#CodigoIdentificacion").val( json[0].CodigoIdentificacion );
+                //$("#ruc").val( json[0].Ruc );
+                $("#empresa").val( json[0].IdEmpresa );
+                if (json[0].TipoPersona == "003005") {
+                  $("#tipoper").val("003005");
+                  $("#tipodoc").val("002003");
+                  $("#tipodoc").attr("disabled", "disabled");
+                  $("#razonsoc").hide();
+                  $("#glastname").show();
+                  $("#glastname1").show();
+                  $("#gfirstname").show();
+                  $("#gfirstname1").show();
+                } else if(json[0].TipoPersona == "003006"){
+                  $("#tipoper").val("003006");
+                  dispositivo.personas();
+                  $("#tipodoc").val("002004");
+                  $("#tipodoc").attr("disabled", "disabled");
+                  $("#razonsoc").show();
+                  $("#glastname").hide();
+                  $("#glastname1").hide();
+                  $("#gfirstname").hide();
+                  $("#gfirstname1").hide();
+                }
+
+                //$("#empresa").val( json[0].IdEmpresa)
+                $("#direccion").val( json[0].Direccion );
+                $("#telefono").val( json[0].Telefono );
+                $("#ubigeo").val( json[0].Ubigeo );
+              //var yourData = json.Data; // or json["Data"]
+                    //alert(JSON.stringify(data.responseText));
+                    /*$.each(json[0], function(i, item) {
+                        alert(item);
+                    });
+                    */
+              }
+          });
+
+      //alert(strA_valor);
+        $("#txttipm").val('U');
+        $("#txtmec").val('M');
+        $('#modal-default').modal('show');
+    }
+    ,guardar:function()
+  	{
+
+
+  		  var wurl="<?php echo base_url('clientes/store'); ?>";
+
+  		  $.ajax({
+  				async: true,
+  				url: wurl,
+  				type: "post",
+  				dataType: 'json',
+  				contentType: 'application/x-www-form-urlencoded',
+  				data://$("#frm-clientes").serialize(),
+  				{
+            'opcion1':$("#txttipm").val()
+          , 'opcion2':$("#txtmec").val()
+          , 'idactor':$("#idactor").val()
+          , 'tpercampo':$("#tipoper").val()
+          , 'papellido':$("#lastname").val()
+          , 'sapellido':$("#lastname1").val()
+          , 'pnombre':$("#firstname").val()
+          , 'snombre':$("#firstname1").val()
+  				,	'razoncampo':$("#razonso").val()
+          , 'tdoccampo':$("#tipodoc").val()
+          , 'codidenti':$("#CodigoIdentificacion").val()
+          , 'ruc':$("#ruc").val()
+          , 'empresa':$("#empresa").val()
+          ,	'direccampo':$("#direccion").val()
+          ,	'ubicampo':$("#ubigeo").val()
+          ,	'telcampo':$("#telefono").val()
+  				},
+  				beforeSend: function(data){
+
+  				},
+  				complete: function(data, status){
+  					alert('completado');
+  				}
+  		  });
+  	}
+
     ,listar:function()
     {
         var wurl="<?php echo base_url('mecanicos/list'); ?>";
@@ -205,8 +392,8 @@
                 postData: {'token':$('input[name=token]').val()},
                 datatype: "json",
                 colModel: [
-                    { label: '...', name: 'accion', frozen:true , width: 80, formatter:function(cellValue, opts, rowObject){return '<button class="btn btn-success btn-xs edit-modal" data-id=' + rowObject.idsucursal + '><span class="fa fa-pencil"></span></button> <button class="btn btn-danger btn-xs delete-modal" data-id=' + rowObject.idsucursal + '><span class="fa fa-trash-o"></span></button>';}},
-                    { label: 'Ide. Cliente', name: 'IdCliente', key: true, width: 75 },
+                    { label: '...', name: 'accion', frozen:true , width: 80, formatter:function(cellValue, opts, rowObject){return '<button class="btn btn-success btn-xs edit-modal" onclick="dispositivo.some_function('+rowObject.IdActor+')"><span class="fa fa-pencil"></span></button> <button class="btn btn-danger btn-xs delete-modal" data-id=' + rowObject.idsucursal + '><span class="fa fa-trash-o"></span></button>';}},
+                    { label: 'Ide. Mecanico', name: 'IdMecanico', key: true, width: 75 },
                     { label: 'Id. Actor', name: 'IdActor', key: true, width: 75 },
                     { label: 'Apellido Paterno', name: 'Apellido_Paterno', width: 200 },
                     { label: 'Apellido Materno', name: 'Apellido_Materno', width: 200 },

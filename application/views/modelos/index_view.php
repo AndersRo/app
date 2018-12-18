@@ -4,7 +4,7 @@
   <section class="content-header">
     <h1>
       <?php echo $titulo; ?>
-      <a class="btn btn-primary btn-xs new-modal" data-toggle="modal" data-target="#modal-default"><span class="fa fa-plus"></span></a>
+      <a class="btn btn-primary btn-xs new-modal" data-toggle="modal" id="btnNuevo"><span class="fa fa-plus"></span></a>
       <small></small>
     </h1>
     <ol class="breadcrumb">
@@ -72,14 +72,30 @@
               <!-- form start -->
               <div class="box-body my-form-body">
 
-                  <form action="" class="form" method="post" accept-charset="utf-8">
+                  <form action="" id="frm-modelos" class="form" method="post" accept-charset="utf-8">
                   <?php echo form_hidden('token', $token) ?>
 
+                  <div class="form-group">
+                    <label for="txttipm" class="col-sm-12 control-label">Tipo Mant</label>
+
+                    <div class="col-sm-6">
+                      <input type="text" name="txttipm" class="form-control" id="txttipm" placeholder="">
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="idmodelo" class="col-sm-12 control-label">id</label>
+
+                    <div class="col-sm-6">
+                      <input type="text" name="idmodelo" class="form-control" id="idmodelo" placeholder="">
+                    </div>
+                  </div>
+
                     <div class="form-group">
-                      <label for="modelo" class="col-sm-12 control-label">Modelo</label>
+                      <label for="txtmodelo" class="col-sm-12 control-label">Modelo</label>
 
                       <div class="col-sm-6">
-                        <input type="text" name="modelo" class="form-control" id="txtmodelo" placeholder="">
+                        <input type="text" name="txtmodelo" class="form-control" id="txtmodelo" placeholder="">
                       </div>
                     </div>
 
@@ -87,7 +103,7 @@
                       <label for="marca" class="col-sm-12 control-label">Marca</label>
 
                       <div class="col-sm-6">
-                        <select name="marca" id="txtmarca" class="form-control">
+                        <select name="txtmarca" id="txtmarca" class="form-control">
                           <?php
                               foreach ($marcas as $row) {
                                   echo '<option value="'.$row->IdMarca.'">'.$row->Descripcion.'</option>';
@@ -110,7 +126,6 @@
                         </div>
                       </div>
                     </div>
-                    <input type="text" name="option1" id="option1" value="N" hidden>
 
                   </form>
                 </div>
@@ -135,21 +150,101 @@
   $.jgrid.defaults.width = newWidth;
   $.jgrid.defaults.responsive = true;
   $.jgrid.defaults.styleUI = 'Bootstrap';
+
+  $("#btnNuevo").click(function(){
+    $("#txttipm").val('N');
+    $("#idmodelo").val(0)
+    $('#modal-default').modal('show');
+  });
 </script>
 
 <script type="text/javascript">
   dispositivo={
     init:function()
     {
-      dispositivo.event();
+      dispositivo.eventgrid();
       dispositivo.validate();
       dispositivo.listar();
       $( "#btnguardar" ).on( "click", function() {
   		dispositivo.guardar();
   		});
     }
-    ,event:function()  {}
+    ,eventgrid:function()  {
+
+      $(".delete-modal").click(function(event)
+              {
+                  event.returnValue = false; /*para I.E.*/
+                  if(event.preventDefault) event.preventDefault();
+
+                  $("#txttipm").val('D');
+                  var idrow=$(this).data('id');
+                  $("#tdatos").jqGrid('setSelection',idrow, false);
+                  var selr = $("#tdatos").jqGrid('getGridParam', 'selrow');
+                  var rowData = $("#tdatos").jqGrid('getRowData', selr)
+
+                  //console.log(rowData);
+                  //alert(rowData.IdModelo);
+                  //Cargando los Tipos
+                  $("#idmodelo").val(rowData.IdModelo);
+                  //$("#txtmodelo").val(rowData.IdCategoria).trigger('change');
+                  //$("#txtmarca").val(rowData.CodigoReferencia);
+                  //$("#fileimg").val(rowData.CodigoTipo).trigger('change');
+
+
+                  bootbox.confirm({
+                      title: "Producto/Servicios",
+                      message: "¿Esta seguro de Eliminar este registro?",
+                      buttons: {
+                          cancel: {
+                              label: '<i class="fa fa-times"></i> Cancelar'
+                          },
+                          confirm: {
+                              label: '<i class="fa fa-check"></i> Confirmar',
+                              className: 'btn-success'
+                          }
+                      },
+                      callback: function (result) {
+                          if (result)
+                          dispositivo.guardar();
+                              //producto.setproductos($("#frm-registro"));
+                      }
+                  });
+              });
+    }
     ,validate:function(){}
+    ,some_function:function(strA_valor)
+    {
+
+          var wurl="<?php echo base_url('modelos/listmodelo'); ?>";
+
+          $.ajax({
+            async: true,
+            url: wurl,
+            type: "post",
+            dataType: 'json',
+            contentType: 'application/x-www-form-urlencoded',
+            data://$("#frm-modelos").serialize(),
+            {
+              'idmodelo':strA_valor
+            },
+            beforeSend: function(data){
+
+            },
+            complete: function(data, status){
+
+              var json = JSON.parse(data.responseText);
+
+                $("#idmodelo").val( json[0].IdModelo );
+                $("#txtmodelo").val( json[0].Descripcion );
+                $("#txtmarca").val( json[0].IdMarca );
+
+              }
+          });
+
+      //alert(strA_valor);
+        $("#txttipm").val('U');
+        $('#modal-default').modal('show');
+    }
     ,guardar:function(){
       var wurl="<?php echo base_url('modelos/store'); ?>";
 
@@ -159,18 +254,56 @@
 				type: "post",
 				dataType: 'json',
 				contentType: 'application/x-www-form-urlencoded',
-				data://$("#frm-clientes").serialize(),
+				data://$("#frm-modelos").serialize(),
 				{
-          'opcion':$("#option1").val()
+          'opcion':$("#txttipm").val()
+        , 'idmodelo':$("#idmodelo").val()
         , 'modelocampo':$("#txtmodelo").val()
 				,	'marcacampo':$("#txtmarca").val()
 				,	'filecampo':$("#fileimg").val()
 				},
 				beforeSend: function(data){
-
+            waitingDialog.show('Procesando...', {dialogSize: 'sm'});
 				},
 				complete: function(data, status){
-					alert('completado');
+
+          //alert('completado');
+
+          if (status=="success"){
+
+              var werror=JSON.parse(data.responseText).error;
+              var wmsg=JSON.parse(data.responseText).mensaje;
+                if (werror==0)
+                      {
+                          var wcodigo=JSON.parse(data.responseText).id;
+                          var mensajeview=""
+                          waitingDialog.hide();
+                          if ($("#txttipm").val()=="N")
+                          {
+                            mensajeview="Se ha registrado correctamente";
+                          }else{
+                            mensajeview="Se han actualizado los datos correctamente";
+                          }
+                          bootbox.alert(mensajeview);
+                          //compras.limpiarcampos();
+                      }
+                  else
+                    {
+                        waitingDialog.hide();
+                        bootbox.alert("Error! : . " + wmsg);
+                    }
+
+                }
+                else
+                  {
+                    waitingDialog.hide();
+                    bootbox.alert("Error! : Ocurrio algo inesperado, intente más tarde!");
+                  }
+
+          //waitingDialog.hide();
+          $('#modal-default').modal('hide');
+          $('#tdatos').trigger( 'reloadGrid' );
+
 				}
 		  });
     }
@@ -185,10 +318,10 @@
                 postData: {'token':$('input[name=token]').val()},
                 datatype: "json",
                 colModel: [
-                    { label: '...', name: 'accion', frozen:true , width: 80, formatter:function(cellValue, opts, rowObject){return '<button class="btn btn-success btn-xs edit-modal" data-id=' + rowObject.idsucursal + '><span class="fa fa-pencil"></span></button> <button class="btn btn-danger btn-xs delete-modal" data-id=' + rowObject.idsucursal + '><span class="fa fa-trash-o"></span></button>';}},
+                    { label: '...', name: 'accion', frozen:true , width: 80, formatter:function(cellValue, opts, rowObject){return '<button class="btn btn-success btn-xs edit-modal" onclick="dispositivo.some_function('+rowObject.IdModelo+')"><span class="fa fa-pencil"></span></button> <button class="btn btn-danger btn-xs delete-modal" data-id=' + rowObject.IdModelo + '><span class="fa fa-trash-o"></span></button>';}},
                     { label: 'Ide. Modelo', name: 'IdModelo', key: true, width: 75 },
-                    { label: 'Ide. Marca', name: 'IdMarca', key: true, width: 75 },
-                    { label: 'Modelo', name: 'modelo', key: true, width: 100 },
+                    { label: 'Ide. Marca', name: 'IdMarca', width: 75 },
+                    { label: 'Modelo', name: 'modelo', width: 100 },
                     { label: 'Marca', name: 'Marca', width: 100 },
                 ],
                 viewrecords: true,
@@ -203,6 +336,7 @@
                 },
                 gridview: true,
                 gridComplete: function(){
+                  dispositivo.eventgrid();
                     //sucursal.eventload();
                 },
                 sortname: 'IdModelo',
