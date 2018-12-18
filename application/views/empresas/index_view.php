@@ -191,12 +191,11 @@
       //dispositivo.event();
       //dispositivo.validate();
       dispositivo.listar();
-      /*
+      
     $( "#btnguardar" ).on( "click", function() {
       dispositivo.guardar();
     }
-    */
-    /*
+   
      guardar:function()
       {
       var wurl="<?php echo base_url('empresa/guardar'); ?>";
@@ -225,16 +224,16 @@
         }
       });
   }
-  */
-/*
+  
+
     ,event:function()  {}
     ,validate:function(){}
-   */
+   
  
-    //listar:function()
-    //{
+    listar:function()
+    {
         //var wurl="<?php echo base_url('empresas/list'); ?>";
-		/*
+		
         $("#tdatos").jqGrid({
                 url: wurl,
                 mtype: "get",
@@ -268,8 +267,8 @@
                 sortorder: 'desc',
                 pager: "#pager"
                     });
-					*/
-/*
+					
+
               $("#tdatos").jqGrid('navGrid','#pager',
               {edit: false, add: false, del: false, search: false, refresh:true},
               {},
@@ -281,8 +280,8 @@
               $("#tdatos").jqGrid('filterToolbar', { stringResult: true, searchOnEnter: true });
               $("#tdatos").jqGrid('setFrozenColumns');
               $("#tdatos").jqGrid('hideCol',['idmodelo']);
-			  */
-    //}
+			  
+    }
 	
    
  
