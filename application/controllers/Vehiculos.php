@@ -33,7 +33,33 @@ class Vehiculos extends My_Controller {
           echo $json;
       }
 	}
+public function guardar()
+  {
+   //$response=array();
+    $rows=array("Correcto");
 
+      if ($this->input->server('REQUEST_METHOD') == 'POST')
+      {
 
+      $IdVehiculo= $_POST['IdVehiculo'];
+      $Placa= $_POST['Placa'];
+      $Chasis=$_POST['Chasis'];
+      $Motor=$_POST['Motor'];
+      $Modelo=$_POST['Modelo'];
+      $Color=$_POST['Color'];
+      $txtopciones=$_POST['opciones'];
+    
+          //Obteniendo el Count
+          $datacount=$this->TalleresModel->guardar($IdVehiculo,$Placa,$Chasis,$Motor,$Modelo,$Color,$txtopciones);
+      header("Content-type:application/json");
+      echo json_encode($rows);
 
+      }
+
+  }
  }
+ ?>
+
+
+
+
