@@ -197,9 +197,8 @@
     });
 
     }
-   
-     guardar:function()
-    ,event:function()  {}
+    ,guardar:function(){}
+    ,event:function(){}
     ,validate:function(){}
     ,guardar:function()
       {
@@ -230,7 +229,7 @@
       });
 
   }
-  
+
     ,event:function()  {}
     ,validate:function(){}
 
@@ -271,7 +270,7 @@
                 sortorder: 'desc',
                 pager: "#pager"
                     });
-					
+
 
               $("#tdatos").jqGrid('navGrid','#pager',
               {edit: false, add: false, del: false, search: false, refresh:true},
@@ -284,11 +283,11 @@
               $("#tdatos").jqGrid('filterToolbar', { stringResult: true, searchOnEnter: true });
               $("#tdatos").jqGrid('setFrozenColumns');
               $("#tdatos").jqGrid('hideCol',['idmodelo']);
-			  
+
     }
 }
 
-        
+
  dispositivo.init();
 
 </script>
