@@ -233,14 +233,6 @@
   
     ,event:function()  {}
     ,validate:function(){}
-   
- 
-    listar:function()
-    {
-        //var wurl="<?php echo base_url('empresas/list'); ?>";
-		
-
-    }
 
     ,listar:function()
     {
@@ -294,16 +286,9 @@
               $("#tdatos").jqGrid('hideCol',['idmodelo']);
 			  
     }
-	
-   
- 
-   dispositivo.init();
-}
 }
 
-            }
-          }
-
+        
  dispositivo.init();
 
 </script>
