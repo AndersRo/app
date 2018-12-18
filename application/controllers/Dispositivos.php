@@ -45,6 +45,7 @@ class Dispositivos extends My_Controller {
         if ($this->input->server('REQUEST_METHOD') == 'POST')
         {
         	$request=$this->input->post();
+          sleep(3);
         	$dispositivo=new DispositivosModel();
         	$dispositivo->opcion 			=isset($request["opcion"]) 			? $request["opcion"] 	: "";
         	$dispositivo->iddispositivo		=isset($request["iddispositivo"]) 	? $request["iddispositivo"] 	: "" ;

@@ -315,7 +315,7 @@
   dispositivo={
     init:function()
     {
-      dispositivo.event();
+      dispositivo.eventgrid();
       dispositivo.validate();
       dispositivo.listar();
     //  dispositivo.some_function('');
@@ -327,12 +327,68 @@
     dispositivo.seleccion();
     dispositivo.personas();
     }
-    ,event:function()  {}
+    ,eventgrid:function() {
+
+      $(".delete-modal").click(function(event)
+              {
+                  event.returnValue = false; /*para I.E.*/
+                  if(event.preventDefault) event.preventDefault();
+
+                  $("#txttipm").val('D');
+                  $("#txtcli").val('C');
+                  var idrow=$(this).data('id');
+                  $("#tdatos").jqGrid('setSelection',idrow, false);
+                  var selr = $("#tdatos").jqGrid('getGridParam', 'selrow');
+                  var rowData = $("#tdatos").jqGrid('getRowData', selr)
+
+                  //console.log(rowData);
+                  //alert(rowData.IdModelo);
+                  //Cargando los Tipos
+                  $("#idactor").val(rowData.IdActor);
+                  //$("#txtmodelo").val(rowData.IdCategoria).trigger('change');
+                  //$("#txtmarca").val(rowData.CodigoReferencia);
+                  //$("#fileimg").val(rowData.CodigoTipo).trigger('change');
+
+                  swal({
+                    title: "Mantenimiento/Cliente",
+                    text: "¿Esta seguro de Eliminar este registro?",
+                    type: "warning",
+                    showCancelButton: true,
+                    confirmButtonClass: "btn-danger",
+                    confirmButtonText: "Si, borralo!",
+                    closeOnConfirm: false,
+                    showLoaderOnConfirm: true
+                  },
+                  function (result) {
+                      if (result)
+                      dispositivo.guardar();
+                      //swal("Eliminado!", "Su registro ha sido eliminado!", "success");
+                          //producto.setproductos($("#frm-registro"));
+                  }
+                );
+                  /*bootbox.confirm({
+                      title: "Modelo",
+                      message: "¿Esta seguro de Eliminar este registro?",
+                      buttons: {
+                          cancel: {
+                              label: '<i class="fa fa-times"></i> Cancelar'
+                          },
+                          confirm: {
+                              label: '<i class="fa fa-check"></i> Confirmar',
+                              className: 'btn-success'
+                          }
+                      },
+                      callback: function (result) {
+                          if (result)
+                          dispositivo.guardar();
+                              //producto.setproductos($("#frm-registro"));
+                      }
+                  });*/
+              });
+    }
     ,validate:function(){}
     ,some_function:function(strA_valor)
     {
-
-
           var wurl="<?php echo base_url('clientes/listgg'); ?>";
 
           $.ajax({
@@ -496,10 +552,58 @@
         ,	'telcampo':$("#telefono").val()
 				},
 				beforeSend: function(data){
-
+          waitingDialog.show('Procesando...', {dialogSize: 'sm'});
 				},
 				complete: function(data, status){
-					alert('completado');
+					//alert('completado');
+
+          if (status=="success"){
+
+              var werror=JSON.parse(data.responseText).error;
+              var wmsg=JSON.parse(data.responseText).mensaje;
+                if (werror==0)
+                      {
+                          var wcodigo=JSON.parse(data.responseText).id;
+                          var mensajeview=""
+                          waitingDialog.hide();
+                          if ($("#txttipm").val()=="N")
+                          {
+                            mensajeview="Registro Exitoso!";
+                          }else if($("#txttipm").val()=="U"){
+                            mensajeview="Registro actualizado correctamente!";
+                          }else{
+                            mensajeview="Registro eliminado correctamente!";
+                          }
+                          //bootbox.alert(mensajeview);
+                          //compras.limpiarcampos();
+                          swal(mensajeview, "Clickea para continuar!", "success");
+                      }
+                  else
+                    {
+                        waitingDialog.hide();
+                        //bootbox.alert("Error! : . " + wmsg);
+                        swal({
+                          title: "Error!",
+                          text: wmsg,
+                          type: "warning",
+                        });
+                    }
+
+                }
+                else
+                  {
+                    waitingDialog.hide();
+                    //bootbox.alert("Error! : Ocurrio algo inesperado, intente más tarde!");
+                    swal({
+                      title: "Error!",
+                      text: "Ocurrio algo inesperado, intente más tarde!",
+                      type: "warning",
+                    });
+                  }
+
+                  //waitingDialog.hide();
+                  $('#modal-default').modal('hide');
+                  $('#tdatos').trigger( 'reloadGrid' );
 				}
 		  });
 	}
@@ -514,8 +618,8 @@
                 postData: {'token':$('input[name=token]').val()},
                 datatype: "json",
                 colModel: [
-                    { label: '...', name: 'accion', frozen:true , width: 80, formatter:function(cellValue, opts, rowObject){return '<button class="btn btn-success btn-xs edit-modal" onclick="dispositivo.some_function('+rowObject.IdActor+')"><span class="fa fa-pencil" ></span></button> <button class="btn btn-danger btn-xs delete-modal" data-id=' + rowObject.idsucursal + '><span class="fa fa-trash-o"></span></button>';}},
-                    { label: 'Ide. Cliente', name: 'IdCliente', key: true, width: 75 /*formatter:function (cellvalue, options, rowObject) {
+                    { label: '...', name: 'accion', frozen:true , width: 80, formatter:function(cellValue, opts, rowObject){return '<button class="btn btn-success btn-xs edit-modal" onclick="dispositivo.some_function('+rowObject.IdActor+')"><span class="fa fa-pencil" ></span></button> <button class="btn btn-danger btn-xs delete-modal" data-id=' + rowObject.IdActor + '><span class="fa fa-trash-o"></span></button>';}},
+                    { label: 'Ide. Cliente', name: 'IdCliente', width: 75 /*formatter:function (cellvalue, options, rowObject) {
     return "<input type='button' class='btn btn-success btn-xs edit-modal' value='somevalue' onclick='dispositivo.some_function("+rowObject.IdActor+")'\>";
 }*/ },
                     { label: 'Id. Actor', name: 'IdActor', key: true, width: 75 },
@@ -542,28 +646,12 @@
                 gridview: true,
                 gridComplete: function(){
                     //sucursal.eventload();
+                    dispositivo.eventgrid();
 
                 },
                 sortname: 'idcliente',
                 sortorder: 'desc',
                 pager: "#pager",
-                gridComplete: function(){
-
-
-                    /*
-                  var ids = jQuery("#tdatos").getDataIDs();
-                  //alert(ids);
-
-                  for(var i=0;i<ids.length;i++){
-                      var cl = ids[i];
-                      be = "<input style='height:22px;width:20px;' type='button' value='E' onclick=jQuery('#rowed2').editRow("+cl+"); ></ids>";
-                      se = "<input style='height:22px;width:20px;' type='button' value='S' onclick=jQuery('#rowed2').saveRow("+cl+"); />";
-                      ce = "<input style='height:22px;width:20px;' type='button' value='C' onclick=jQuery('#rowed2').restoreRow("+cl+"); />";
-                      jQuery("#tdatos").setRowData(ids[i],{act:be+se+ce})
-                    }
-                    */
-
-                }
                 });
 
               $("#tdatos").jqGrid('navGrid','#pager',

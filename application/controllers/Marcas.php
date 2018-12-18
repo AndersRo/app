@@ -41,6 +41,7 @@ class Marcas extends My_Controller {
         if ($this->input->server('REQUEST_METHOD') == 'POST')
         {
         	$request=$this->input->post();
+          sleep(3);
         	$marca=new MarcasModel();
         	$marca->opcion 			=isset($request["opcion"]) 			? $request["opcion"] 	: "";
         	$marca->idmarca		=isset($request["idmarca"]) 	? $request["idmarca"] 	: "" ;

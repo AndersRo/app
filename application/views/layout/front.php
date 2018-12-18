@@ -17,6 +17,8 @@
   <!-- AdminLTE Skins. Choose a skin from the css/skins
        folder instead of downloading all of them to reduce the load. -->
   <link rel="stylesheet" href="<?php echo base_url();?>assets/dist/css/skins/_all-skins.min.css">
+
+  <link rel="stylesheet" href="<?php echo base_url();?>assets/dist/css/sweetalert.css">
   <!-- Morris chart -->
   <link rel="stylesheet" href="<?php echo base_url();?>assets/bower_components/morris.js/morris.css">
   <!-- jvectormap -->
@@ -66,6 +68,8 @@
 
   <script src="<?php echo base_url();?>assets/dist/js/waitingfor.js"></script>
   <script src="<?php echo base_url();?>assets/dist/js/bootbox.min.js"></script>
+
+  <script src="<?php echo base_url();?>assets/dist/js/sweetalert.min.js"></script>
 
 </head>
 <body class="hold-transition skin-blue sidebar-mini">

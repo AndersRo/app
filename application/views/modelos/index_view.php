@@ -169,7 +169,7 @@
   		dispositivo.guardar();
   		});
     }
-    ,eventgrid:function()  {
+    ,eventgrid:function() {
 
       $(".delete-modal").click(function(event)
               {
@@ -190,9 +190,25 @@
                   //$("#txtmarca").val(rowData.CodigoReferencia);
                   //$("#fileimg").val(rowData.CodigoTipo).trigger('change');
 
-
-                  bootbox.confirm({
-                      title: "Producto/Servicios",
+                  swal({
+                    title: "Mantenimiento/Modelo",
+                    text: "¿Esta seguro de Eliminar este registro?",
+                    type: "warning",
+                    showCancelButton: true,
+                    confirmButtonClass: "btn-danger",
+                    confirmButtonText: "Si, borralo!",
+                    closeOnConfirm: false,
+                    showLoaderOnConfirm: true
+                  },
+                  function (result) {
+                      if (result)
+                      dispositivo.guardar();
+                      //swal("Eliminado!", "Su registro ha sido eliminado!", "success");
+                          //producto.setproductos($("#frm-registro"));
+                  }
+                  );
+                  /*bootbox.confirm({
+                      title: "Modelo",
                       message: "¿Esta seguro de Eliminar este registro?",
                       buttons: {
                           cancel: {
@@ -208,7 +224,7 @@
                           dispositivo.guardar();
                               //producto.setproductos($("#frm-registro"));
                       }
-                  });
+                  });*/
               });
     }
     ,validate:function(){}
@@ -280,24 +296,37 @@
                           waitingDialog.hide();
                           if ($("#txttipm").val()=="N")
                           {
-                            mensajeview="Se ha registrado correctamente";
+                            mensajeview="Registro Exitoso!";
+                          }else if($("#txttipm").val()=="U"){
+                            mensajeview="Registro actualizado correctamente!";
                           }else{
-                            mensajeview="Se han actualizado los datos correctamente";
+                            mensajeview="Registro eliminado correctamente!";
                           }
-                          bootbox.alert(mensajeview);
+                          //bootbox.alert(mensajeview);
                           //compras.limpiarcampos();
+                          swal(mensajeview, "Clickea para continuar!", "success");
                       }
                   else
                     {
                         waitingDialog.hide();
-                        bootbox.alert("Error! : . " + wmsg);
+                        //bootbox.alert("Error! : . " + wmsg);
+                        swal({
+                          title: "Error!",
+                          text: wmsg,
+                          type: "warning",
+                        });
                     }
 
                 }
                 else
                   {
                     waitingDialog.hide();
-                    bootbox.alert("Error! : Ocurrio algo inesperado, intente más tarde!");
+                    //bootbox.alert("Error! : Ocurrio algo inesperado, intente más tarde!");
+                    swal({
+                      title: "Error!",
+                      text: "Ocurrio algo inesperado, intente más tarde!",
+                      type: "warning",
+                    });
                   }
 
           //waitingDialog.hide();

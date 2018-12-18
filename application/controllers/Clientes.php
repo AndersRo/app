@@ -92,6 +92,7 @@ class Clientes extends My_Controller {
         if ($this->input->server('REQUEST_METHOD') == 'POST')
         {
         	$request=$this->input->post();
+          sleep(3);
         	$cliente=new ClientesModel();
         	$cliente->opcion1 			=isset($request["opcion1"]) 			? $request["opcion1"] 	: "";
           $cliente->opcion2 			=isset($request["opcion2"]) 			? $request["opcion2"] 	: "";

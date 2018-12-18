@@ -7,11 +7,14 @@ class Vehiculos extends My_Controller {
 	{
 		  parent::__construct();
       $this->load->model('VehiculosModel');
+      $this->load->model('EmpresasModel');
 	}
 
 	 public function index()
  	{
- 		$data = array('titulo' => 'Vehiculos','token'  => $this->auth->token());
+    $empresas=$this->EmpresasModel->listmodel();
+    
+ 		$data = array('titulo' => 'Vehiculos','token'  => $this->auth->token(), 'empresas'=>$empresas);
  		$this->layout('vehiculos/index_view',$data);
   }
 

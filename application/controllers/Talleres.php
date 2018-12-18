@@ -56,6 +56,7 @@ class Talleres extends My_Controller {
         if ($this->input->server('REQUEST_METHOD') == 'POST')
         {
         	$request=$this->input->post();
+          sleep(3);
         	$taller=new TalleresModel();
         	$taller->opcion 			=isset($request["opcion"]) 			? $request["opcion"] 	: "";
           $taller->idtaller		=isset($request["idtaller"]) 	? $request["idtaller"] 	: "" ;

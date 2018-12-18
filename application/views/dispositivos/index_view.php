@@ -184,14 +184,53 @@
   dispositivo={
     init:function()
     {
-      dispositivo.event();
+      dispositivo.eventgrid();
       dispositivo.validate();
       dispositivo.listar();
       $( "#btnguardar" ).on( "click", function() {
   		dispositivo.guardar();
   		});
     }
-    ,event:function()  {}
+    ,eventgrid:function() {
+
+      $(".delete-modal").click(function(event)
+              {
+                  event.returnValue = false; /*para I.E.*/
+                  if(event.preventDefault) event.preventDefault();
+
+                  $("#txttipm").val('D');
+                  var idrow=$(this).data('id');
+                  $("#tdatos").jqGrid('setSelection',idrow, false);
+                  var selr = $("#tdatos").jqGrid('getGridParam', 'selrow');
+                  var rowData = $("#tdatos").jqGrid('getRowData', selr)
+
+                  //console.log(rowData);
+                  //alert(rowData.IdModelo);
+                  //Cargando los Tipos
+                  $("#iddispositivo").val(rowData.iddispositivo);
+                  //$("#txtmodelo").val(rowData.IdCategoria).trigger('change');
+                  //$("#txtmarca").val(rowData.CodigoReferencia);
+                  //$("#fileimg").val(rowData.CodigoTipo).trigger('change');
+
+                  swal({
+                    title: "Mantenimiento/Dispositivo",
+                    text: "¿Esta seguro de Eliminar este registro?",
+                    type: "warning",
+                    showCancelButton: true,
+                    confirmButtonClass: "btn-danger",
+                    confirmButtonText: "Si, borralo!",
+                    closeOnConfirm: false,
+                    showLoaderOnConfirm: true
+                  },
+                  function (result) {
+                      if (result)
+                      dispositivo.guardar();
+                      //swal("Eliminado!", "Su registro ha sido eliminado!", "success");
+                          //producto.setproductos($("#frm-registro"));
+                  }
+                  );
+              });
+    }
     ,validate:function(){}
     ,some_function:function(strA_valor)
     {
@@ -251,7 +290,7 @@
 				data://$("#frm-clientes").serialize(),
 				{
           'opcion':$("#txttipm").val()
-        , 'iddispositivo':$("#iddispositivo").val()  
+        , 'iddispositivo':$("#iddispositivo").val()
 				,	'seriecampo':$("#txtserie").val()
 				,	'imeicampo':$("#txtimei").val()
         , 'modelocampo':$("#txtmodelo").val()
@@ -260,10 +299,57 @@
         , 'empresacampo':$("#txtempresa").val()
 				},
 				beforeSend: function(data){
-
+          waitingDialog.show('Procesando...', {dialogSize: 'sm'});
 				},
 				complete: function(data, status){
-					alert('completado');
+					//alert('completado');
+          if (status=="success"){
+
+              var werror=JSON.parse(data.responseText).error;
+              var wmsg=JSON.parse(data.responseText).mensaje;
+                if (werror==0)
+                      {
+                          var wcodigo=JSON.parse(data.responseText).id;
+                          var mensajeview=""
+                          waitingDialog.hide();
+                          if ($("#txttipm").val()=="N")
+                          {
+                            mensajeview="Registro Exitoso!";
+                          }else if($("#txttipm").val()=="U"){
+                            mensajeview="Registro actualizado correctamente!";
+                          }else{
+                            mensajeview="Registro eliminado correctamente!";
+                          }
+                          //bootbox.alert(mensajeview);
+                          //compras.limpiarcampos();
+                          swal(mensajeview, "Clickea para continuar!", "success");
+                      }
+                  else
+                    {
+                        waitingDialog.hide();
+                        //bootbox.alert("Error! : . " + wmsg);
+                        swal({
+                          title: "Error!",
+                          text: wmsg,
+                          type: "warning",
+                        });
+                    }
+
+                }
+                else
+                  {
+                    waitingDialog.hide();
+                    //bootbox.alert("Error! : Ocurrio algo inesperado, intente más tarde!");
+                    swal({
+                      title: "Error!",
+                      text: "Ocurrio algo inesperado, intente más tarde!",
+                      type: "warning",
+                    });
+                  }
+
+          //waitingDialog.hide();
+          $('#modal-default').modal('hide');
+          $('#tdatos').trigger( 'reloadGrid' );
 				}
 		  });
     }
@@ -278,7 +364,7 @@
                 postData: {'token':$('input[name=token]').val()},
                 datatype: "json",
                 colModel: [
-                    { label: '...', name: 'accion', frozen:true , width: 80, formatter:function(cellValue, opts, rowObject){return '<button class="btn btn-success btn-xs edit-modal" onclick="dispositivo.some_function('+rowObject.iddispositivo+')"><span class="fa fa-pencil"></span></button> <button class="btn btn-danger btn-xs delete-modal" data-id=' + rowObject.idsucursal + '><span class="fa fa-trash-o"></span></button>';}},
+                    { label: '...', name: 'accion', frozen:true , width: 80, formatter:function(cellValue, opts, rowObject){return '<button class="btn btn-success btn-xs edit-modal" onclick="dispositivo.some_function('+rowObject.iddispositivo+')"><span class="fa fa-pencil"></span></button> <button class="btn btn-danger btn-xs delete-modal" data-id=' + rowObject.iddispositivo + '><span class="fa fa-trash-o"></span></button>';}},
                     { label: 'Ide. Dispositivo', name: 'iddispositivo', key: true, width: 75 },
                     { label: 'Serie', name: 'serie', width: 75 },
                     { label: 'IMEI', name: 'imei', width: 200 },
@@ -301,6 +387,7 @@
                 gridview: true,
                 gridComplete: function(){
                     //sucursal.eventload();
+                    dispositivo.eventgrid();
                 },
                 sortname: 'iddispositivo',
                 sortorder: 'desc',

@@ -97,20 +97,32 @@
                     </div>
 
                     <div class="form-group">
-                      <div class="col-sm-6">
+                      <div class="col-sm-4">
                         <label for="modelo" class="control-label">Modelo</label>
                         <input type="text" name="modelo" class="form-control" id="txtmodelo" placeholder="escriba el modelo">
                       </div>
                     </div>
 
                     <div class="form-group">
-                      <div class="col-sm-6">
+                      <div class="col-sm-4">
                         <label for="color" class="control-label">Color</label>
                         <input type="text" name="color" class="form-control" id="txtcolor" placeholder="">
                       </div>
                     </div>
 
+                    <div class="form-group">
+                      <div class="col-sm-4">
+                        <label for="empresa" class="control-label">Empresa</label>
+                        <select name="empresa" id="empresa" class="form-control">
+                          <?php
+                              foreach ($empresas as $row) {
+                                  echo '<option value="'.$row->IdEmpresa.'">'.$row->NombreComercial.'</option>';
+                              }
 
+                           ?>
+                      </select>
+                      </div>
+                    </div>
 
                   </form>
                 </div>
