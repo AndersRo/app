@@ -159,8 +159,8 @@
 
       $( "#btnguardar" ).on( "click", function() {
   		dispositivo.guardar();
-
   		});
+
     }
     ,event:function()  {}
     ,validate:function(){}
@@ -203,7 +203,7 @@
                 colModel: [
                     { label: '...', name: 'accion', frozen:true , width: 80, formatter:function(cellValue, opts, rowObject){return '<button class="btn btn-success btn-xs edit-modal" data-id=' + rowObject.idsucursal + '><span class="fa fa-pencil"></span></button> <button class="btn btn-danger btn-xs delete-modal" data-id=' + rowObject.idsucursal + '><span class="fa fa-trash-o"></span></button>';}},
                     { label: 'Ide. Vehiculo', name: 'IdVehiculo', key: true, width: 75 },
-                    { label: 'Placa', name: 'Placa', key: true, width: 75 },
+                    { label: 'Placa', name: 'Placa', width: 75 },
                     { label: 'Chasis', name: 'Chasis', width: 200 },
                     { label: 'Motor', name: 'Motor', width: 200 },
               			{ label: 'Modelo', name: 'Modelo', width: 200 },
