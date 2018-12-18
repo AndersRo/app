@@ -4,7 +4,7 @@
   <section class="content-header">
     <h1>
       <?php echo $titulo; ?>
-      <a class="btn btn-primary btn-xs new-modal" data-toggle="modal" data-target="#modal-default"><span class="fa fa-plus"></span></a>
+      <a class="btn btn-primary btn-xs new-modal" data-toggle="modal" id="btnNuevo"><span class="fa fa-plus"></span></a>
       <small></small>
     </h1>
     <ol class="breadcrumb">
@@ -75,45 +75,59 @@
                   <form action="" class="form" method="post" accept-charset="utf-8">
                   <?php echo form_hidden('token', $token) ?>
 
+                  <div class="form-group" hidden>
+                    <div class="col-sm-4">
+                      <label for="txttipm" class="control-label">Tipo Mant</label>
+                      <input type="text" name="txttipm" class="form-control" id="txttipm" placeholder="">
+                    </div>
+                  </div>
+
+                  <div class="form-group" hidden>
+                    <div class="col-sm-4">
+                      <label for="idvehiculo" class="control-label">id</label>
+                      <input type="text" name="idvehiculo" class="form-control" id="idvehiculo" placeholder="">
+                    </div>
+                  </div>
+
                     <div class="form-group">
                       <div class="col-sm-4">
-                        <label for="placa" class="control-label">Placa</label>
-                        <input type="text" name="placa" class="form-control" id="txtplaca" placeholder="Ingrese la placa">
+                        <label for="txtplaca" class="control-label">Placa</label>
+                        <input type="text" name="txtplaca" class="form-control" id="txtplaca" placeholder="Ingrese la placa">
                       </div>
                     </div>
 
                     <div class="form-group">
                       <div class="col-sm-4">
-                        <label for="chasis" class="control-label">Chasis</label>
-                        <input type="text" name="chasis" class="form-control" id="txtchasis" placeholder="escriba el chasis">
+                        <label for="txtchasis" class="control-label">Chasis</label>
+                        <input type="text" name="txtchasis" class="form-control" id="txtchasis" placeholder="escriba el chasis">
                       </div>
                     </div>
 
                     <div class="form-group">
                       <div class="col-sm-4">
-                        <label for="motor" class="control-label">Motor</label>
-                        <input type="text" name="motor" class="form-control" id="txtmotor" placeholder="escriba la serie del motor">
+                        <label for="txtmotor" class="control-label">Motor</label>
+                        <input type="text" name="txtmotor" class="form-control" id="txtmotor" placeholder="escriba la serie del motor">
                       </div>
                     </div>
 
                     <div class="form-group">
                       <div class="col-sm-4">
-                        <label for="modelo" class="control-label">Modelo</label>
-                        <input type="text" name="modelo" class="form-control" id="txtmodelo" placeholder="escriba el modelo">
+                        <label for="txtmodelo" class="control-label">Modelo</label>
+                        <input type="text" name="txtmodelo" class="form-control" id="txtmodelo" placeholder="escriba el modelo">
                       </div>
                     </div>
 
                     <div class="form-group">
                       <div class="col-sm-4">
-                        <label for="color" class="control-label">Color</label>
-                        <input type="text" name="color" class="form-control" id="txtcolor" placeholder="">
+                        <label for="txtcolor" class="control-label">Color</label>
+                        <input type="text" name="txtcolor" class="form-control" id="txtcolor" placeholder="">
                       </div>
                     </div>
 
                     <div class="form-group">
                       <div class="col-sm-4">
-                        <label for="empresa" class="control-label">Empresa</label>
-                        <select name="empresa" id="empresa" class="form-control">
+                        <label for="idempresa" class="control-label">Empresa</label>
+                        <select name="idempresa" id="idempresa" class="form-control">
                           <?php
                               foreach ($empresas as $row) {
                                   echo '<option value="'.$row->IdEmpresa.'">'.$row->NombreComercial.'</option>';
@@ -122,6 +136,46 @@
                            ?>
                       </select>
                       </div>
+                    </div>
+
+                    <div class="box-body my-form-body col-sm-6">
+                      <div class="modal-header">
+                        <h4 class="modal-title">Logo</h4>
+                        <small id="infolog" class="form-text text-muted">La imagen debe de ser de 500x500 pixeles en formato png o jpg.</small>
+                      </div>
+                      <div class="form-group">
+                          <div class="file-field big">
+                            <a class="btn-floating btn-lg amber darken-2 mt-0 float-left">
+                                <i class="fa fa-cloud-upload" aria-hidden="true"></i>
+                                <input type="file" id="uploadImage" onchange="PreviewImage()" multiple>
+                            </a>
+                            <div class="form-group col-sm-12">
+                              <img src="#" alt="your image" id="uploadPreview" height="200" width="auto">
+                            </div>
+
+                          </div>
+                      </div>
+
+                    </div>
+
+                    <div class="box-body my-form-body col-sm-6">
+                      <div class="modal-header">
+                        <h4 class="modal-title">Logo</h4>
+                        <small id="infolog" class="form-text text-muted">La imagen debe de ser de 500x500 pixeles en formato png o jpg.</small>
+                      </div>
+                      <div class="form-group">
+                          <div class="file-field big">
+                            <a class="btn-floating btn-lg amber darken-2 mt-0 float-left">
+                                <i class="fa fa-cloud-upload" aria-hidden="true"></i>
+                                <input type="file" id="uploadImage1" onchange="PreviewImage1()" multiple>
+                            </a>
+                            <div class="form-group col-sm-12">
+                              <img src="#" alt="your image" id="uploadPreview1" height="200" width="auto">
+                            </div>
+
+                          </div>
+                      </div>
+
                     </div>
 
                   </form>
@@ -147,6 +201,13 @@
   $.jgrid.defaults.width = newWidth;
   $.jgrid.defaults.responsive = true;
   $.jgrid.defaults.styleUI = 'Bootstrap';
+
+  $("#btnNuevo").click(function(){
+    $("#txttipm").val('N');
+    $("#idvehiculo").val(0);
+    $('#modal-default').modal('show');
+  });
+
 </script>
 
 <script type="text/javascript">
@@ -174,14 +235,17 @@
 				type: "post",
 				dataType: 'json',
 				contentType: 'application/x-www-form-urlencoded',
-				data://$("#frm-clientes").serialize(),
-				{
-					'placacampo':$("#txtplaca").val()
-				,	'chasiscampo':$("#txtchasis").val()
-        , 'motorcampo':$("#txtmotor").val()
-        , 'modelocampo':$("#txtmodelo").val()
-        , 'colorcampo':$("#txtcolor").val()
-				},
+				data:$("#frm-clientes").serialize(),
+				/*{
+					'placa':$("#txtplaca").val()
+				,	'chasis':$("#txtchasis").val()
+        , 'motor':$("#txtmotor").val()
+        , 'modelo':$("#txtmodelo").val()
+        , 'color':$("#txtcolor").val()
+        , 'rutaref':$("#txtrutaref").val()
+        , 'rutatarjeta':$("#txtrutatar").val()
+        , 'idempresa':$("idempresa").val()
+      },*/
 				beforeSend: function(data){
 
 				},
@@ -243,5 +307,31 @@
    }
 
    dispositivo.init();
+
+</script>
+
+<script type="text/javascript">
+
+   function PreviewImage() {
+       var oFReader = new FileReader();
+       oFReader.readAsDataURL(document.getElementById("uploadImage").files[0]);
+
+       oFReader.onload = function (oFREvent) {
+           document.getElementById("uploadPreview").src = oFREvent.target.result;
+       };
+   };
+
+</script>
+
+<script type="text/javascript">
+
+   function PreviewImage1() {
+       var oFReader = new FileReader();
+       oFReader.readAsDataURL(document.getElementById("uploadImage1").files[0]);
+
+       oFReader.onload = function (oFREvent) {
+           document.getElementById("uploadPreview1").src = oFREvent.target.result;
+       };
+   };
 
 </script>

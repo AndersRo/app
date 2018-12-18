@@ -13,7 +13,7 @@ class Vehiculos extends My_Controller {
 	 public function index()
  	{
     $empresas=$this->EmpresasModel->listmodel();
-    
+
  		$data = array('titulo' => 'Vehiculos','token'  => $this->auth->token(), 'empresas'=>$empresas);
  		$this->layout('vehiculos/index_view',$data);
   }
@@ -36,33 +36,42 @@ class Vehiculos extends My_Controller {
           echo $json;
       }
 	}
-public function guardar()
+  public function store() //Create, Update / Delete
   {
-   //$response=array();
-    $rows=array("Correcto");
+    //sleep(5);
+    $response=array();
+        if ($this->input->server('REQUEST_METHOD') == 'POST')
+        {
+          $request=$this->input->post();
+          sleep(3);
+          $vehiculo=new VehiculosModel();
+          $vehiculo->opcion 			=isset($request["txttipm"]) 			? $request["txttipm"] 	: "";
+          $vehiculo->idvehiculo		=isset($request["idvehiculo"]) 	? $request["idvehiculo"] 	: "" ;
+          $vehiculo->placa		=isset($request["txtplaca"]) ? $request["txtplaca"] 	: "";
+          $vehiculo->chasis		=isset($request["txtchasis"]) ? $request["txtchasis"] 	: "";
+          $vehiculo->motor		=isset($request["txtmotor"]) ? $request["txtmotor"] 	: "";
+          $vehiculo->modelo		=isset($request["txtmodelo"]) ? $request["txtmodelo"] 	: "";
+          $vehiculo->color		=isset($request["txtcolor"]) ? $request["txtcolor"] 	: "";
+          $vehiculo->idempresa		=isset($request["idempresa"]) ? $request["idempresa"] 	: "";
+          $vehiculo->rutaref		=isset($request["uploadImage"]) ? $request["uploadImage"] 	: "";
+          $vehiculo->rutatar		=isset($request["uploadImage1"]) ? $request["uploadImage1"] 	: "";
+          $vehiculo->wks		=$this->input->ip_address();
+          $vehiculo->usuario		=$this->auth->getuser();
 
-      if ($this->input->server('REQUEST_METHOD') == 'POST')
+          $data=$this->MarcasModel->registra($vehiculo);
+      if ($data)
       {
-
-      $IdVehiculo= $_POST['IdVehiculo'];
-      $Placa= $_POST['Placa'];
-      $Chasis=$_POST['Chasis'];
-      $Motor=$_POST['Motor'];
-      $Modelo=$_POST['Modelo'];
-      $Color=$_POST['Color'];
-      $txtopciones=$_POST['opciones'];
-    
-          //Obteniendo el Count
-          $datacount=$this->TalleresModel->guardar($IdVehiculo,$Placa,$Chasis,$Motor,$Modelo,$Color,$txtopciones);
-      header("Content-type:application/json");
-      echo json_encode($rows);
-
+        if ($data[0]->Code==0)
+          $response=array('error'=>$data[0]->Code,'mensaje'=>$data[0]->Message,'id'=>$data[0]->Id);
+        else
+          $response=array('error'=>$data[0]->Code,'mensaje'=>$data[0]->Message);
+      }
+      else{
+        $response=array('error'=>'1','mensaje'=>'Error');
       }
 
+        $this->output->set_status_header(200)->set_content_type('application/json')->set_output(json_encode($response));
+        }
   }
  }
  ?>
-
-
-
-

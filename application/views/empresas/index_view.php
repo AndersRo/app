@@ -285,7 +285,7 @@
 
 </script>
 
-<!-- <script type="text/javascript">
+ <script type="text/javascript">
 
     function PreviewImage() {
         var oFReader = new FileReader();
@@ -297,4 +297,3 @@
     };
 
 </script>
--->
