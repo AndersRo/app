@@ -37,10 +37,50 @@ class Comandos extends My_Controller {
       }
 	}
 
-  public function create(){
+  public function store() //Create, Update / Delete
+  {
+    //sleep(5);
+    $response=array();
+        if ($this->input->server('REQUEST_METHOD') == 'POST')
+        {
+          $request=$this->input->post();
+          sleep(3);
+          $comando=new ComandosModel();
+          $comando->opcion 			=isset($request["txttipm"]) 			? $request["txttipm"] 	: "";
+          $comando->idcomando		=isset($request["idcomando"]) 	? $request["idcomando"] 	: "" ;
+          $comando->codtipocomando		=isset($request["codigo"]) ? $request["codigo"] 	: "";
+          $comando->comandos		=isset($request["comandos"]) ? $request["comandos"] 	: "";
+          $comando->idmodelo		=isset($request["idmodelo"]) ? $request["idmodelo"] 	: "";
 
+          $data=$this->ComandosModel->registra($comando);
+      if ($data)
+      {
+        if ($data[0]->Code==0)
+          $response=array('error'=>$data[0]->Code,'mensaje'=>$data[0]->Message,'id'=>$data[0]->Id);
+        else
+          $response=array('error'=>$data[0]->Code,'mensaje'=>$data[0]->Message);
+      }
+      else{
+        $response=array('error'=>'1','mensaje'=>'Error');
+      }
+
+        $this->output->set_status_header(200)->set_content_type('application/json')->set_output(json_encode($response));
+        }
   }
 
+  public function listid()
+	{
+    $response=array();
+    if ($this->input->server('REQUEST_METHOD') == 'POST')
+    {
+        $sidx =$_POST['idcomando'];
 
+         //$rows = array($sidx);
+        $datacount=$this->ComandosModel->listcom($sidx); //count
+
+        header("Content-type:application/json");
+        echo json_encode($datacount);
+    }
+	}
 
  }

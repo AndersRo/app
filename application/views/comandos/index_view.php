@@ -4,7 +4,7 @@
   <section class="content-header">
     <h1>
       <?php echo $titulo; ?>
-      <a class="btn btn-primary btn-xs new-modal" data-toggle="modal" data-target="#modal-default"><span class="fa fa-plus"></span></a>
+      <a class="btn btn-primary btn-xs new-modal" data-toggle="modal" id="btnNuevo"><span class="fa fa-plus"></span></a>
       <small></small>
     </h1>
     <ol class="breadcrumb">
@@ -72,8 +72,22 @@
               <!-- form start -->
               <div class="box-body my-form-body">
 
-                  <form action="" class="form" method="post" accept-charset="utf-8">
+                  <form action="" class="form-comandos" method="post" accept-charset="utf-8">
                   <?php echo form_hidden('token', $token) ?>
+
+                  <div class="form-group" hidden>
+                    <div class="col-sm-6">
+                      <label for="txttipm" class="control-label">Tipo Mant</label>
+                      <input type="text" name="txttipm" class="form-control" id="txttipm" placeholder="">
+                    </div>
+                  </div>
+
+                  <div class="form-group" hidden>
+                    <div class="col-sm-4">
+                      <label for="idcomando" class="control-label">id</label>
+                      <input type="text" name="idcomando" class="form-control" id="idcomando" placeholder="">
+                    </div>
+                  </div>
 
                     <div class="form-group">
                       <div class="col-sm-4">
@@ -85,7 +99,7 @@
                     <div class="form-group">
                       <div class="col-sm-4">
                         <label for="role" class="control-label">Modelo</label>
-                        <select name="group" class="form-control">
+                        <select name="idmodelo" id="idmodelo" class="form-control">
                           <?php
                               foreach ($modelos as $row) {
                                   echo '<option value="'.$row->IdModelo.'">'.$row->Descripcion.'</option>';
@@ -98,8 +112,8 @@
 
                     <div class="form-group">
                       <div class="col-sm-4">
-                        <label for="Comandos" class="control-label">Comandos</label>
-                        <input type="text" name="Comandos" class="form-control" id="Comandos" placeholder="">
+                        <label for="comandos" class="control-label">Comandos</label>
+                        <input type="text" name="comandos" class="form-control" id="comandos" placeholder="">
                       </div>
                     </div>
 
@@ -112,7 +126,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-        <button type="button" class="btn btn-primary">Guardar</button>
+        <button type="button" class="btn btn-primary" id="btnguardar">Guardar</button>
       </div>
     </div>
     <!-- /.modal-content -->
@@ -126,6 +140,11 @@
   $.jgrid.defaults.width = newWidth;
   $.jgrid.defaults.responsive = true;
   $.jgrid.defaults.styleUI = 'Bootstrap';
+  $("#btnNuevo").click(function(){
+    $("#txttipm").val('N');
+    $("#idvehiculo").val(0);
+    $('#modal-default').modal('show');
+  });
 </script>
 
 <script type="text/javascript">
@@ -135,9 +154,123 @@
       dispositivo.event();
       dispositivo.validate();
       dispositivo.listar();
+
+      $( "#btnguardar" ).on( "click", function() {
+  		dispositivo.guardar();
+  		});
     }
     ,event:function()  {}
     ,validate:function(){}
+    ,some_function:function(strA_valor)
+    {
+
+          var wurl="<?php echo base_url('comandos/listid'); ?>";
+
+          $.ajax({
+            async: true,
+            url: wurl,
+            type: "post",
+            dataType: 'json',
+            contentType: 'application/x-www-form-urlencoded',
+            data://$("#frm-clientes").serialize(),
+            {
+              'idcomando':strA_valor
+            },
+            beforeSend: function(data){
+
+            },
+            complete: function(data, status){
+
+              var json = JSON.parse(data.responseText);
+
+                //  alert( json[0].Apellido_Paterno );
+                $("#codigo").val( json[0].CodTipoComandos );
+                $("#idmodelo").val( json[0].IdModelo );
+                $("#comandos").val( json[0].Comandos );
+              }
+          });
+
+      //alert(strA_valor);
+        $("#txttipm").val('U');
+        $('#modal-default').modal('show');
+    }
+    ,guardar:function(){
+
+      var wurl="<?php echo base_url('comandos/store'); ?>";
+
+		  $.ajax({
+				async: true,
+				url: wurl,
+				type: "post",
+				dataType: 'json',
+				contentType: 'application/x-www-form-urlencoded',
+				data:$(".form-comandos").serialize()
+				/*{
+					'placa':$("#txtplaca").val()
+				,	'chasis':$("#txtchasis").val()
+        , 'motor':$("#txtmotor").val()
+        , 'modelo':$("#txtmodelo").val()
+        , 'color':$("#txtcolor").val()
+        , 'rutaref':$("#txtrutaref").val()
+        , 'rutatarjeta':$("#txtrutatar").val()
+        , 'idempresa':$("idempresa").val()
+      },*/
+				,beforeSend: function(data){
+          waitingDialog.show('Procesando...', {dialogSize: 'sm'});
+				},
+				complete: function(data, status){
+					//alert('completado');
+
+          if (status=="success"){
+
+              var werror=JSON.parse(data.responseText).error;
+              var wmsg=JSON.parse(data.responseText).mensaje;
+                if (werror==0)
+                      {
+                          var wcodigo=JSON.parse(data.responseText).id;
+                          var mensajeview=""
+                          waitingDialog.hide();
+                          if ($("#txttipm").val()=="N")
+                          {
+                            mensajeview="Registro Exitoso!";
+                          }else if($("#txttipm").val()=="U"){
+                            mensajeview="Registro actualizado correctamente!";
+                          }else{
+                            mensajeview="Registro eliminado correctamente!";
+                          }
+                          //bootbox.alert(mensajeview);
+                          //compras.limpiarcampos();
+                          swal(mensajeview, "Clickea para continuar!", "success");
+                      }
+                  else
+                    {
+                        waitingDialog.hide();
+                        //bootbox.alert("Error! : . " + wmsg);
+                        swal({
+                          title: "Error!",
+                          text: wmsg,
+                          type: "warning",
+                        });
+                    }
+
+                }
+                else
+                  {
+                    waitingDialog.hide();
+                    //bootbox.alert("Error! : Ocurrio algo inesperado, intente más tarde!");
+                    swal({
+                      title: "Error!",
+                      text: "Ocurrio algo inesperado, intente más tarde!",
+                      type: "warning",
+                    });
+                  }
+
+          //waitingDialog.hide();
+          $('#modal-default').modal('hide');
+          $('#tdatos').trigger( 'reloadGrid' );
+				}
+		  });
+    }
     ,listar:function()
     {
         var wurl="<?php echo base_url('comandos/list'); ?>";
@@ -149,7 +282,7 @@
                 postData: {'token':$('input[name=token]').val()},
                 datatype: "json",
                 colModel: [
-                    { label: '...', name: 'accion', frozen:true , width: 80, formatter:function(cellValue, opts, rowObject){return '<button class="btn btn-success btn-xs edit-modal" data-id=' + rowObject.idsucursal + '><span class="fa fa-pencil"></span></button> <button class="btn btn-danger btn-xs delete-modal" data-id=' + rowObject.idsucursal + '><span class="fa fa-trash-o"></span></button>';}},
+                    { label: '...', name: 'accion', frozen:true , width: 80, formatter:function(cellValue, opts, rowObject){return '<button class="btn btn-success btn-xs edit-modal" onclick="dispositivo.some_function('+rowObject.IdComandos+')"><span class="fa fa-pencil"></span></button> <button class="btn btn-danger btn-xs delete-modal" data-id=' + rowObject.idsucursal + '><span class="fa fa-trash-o"></span></button>';}},
                     { label: 'Ide. Comandos', name: 'IdComandos', key: true, width: 100 },
                     { label: 'Ide. Modelo', name: 'IdModelo', width: 100 },
                     { label: 'Modelo', name: 'Descripcion', width: 100 },
@@ -169,6 +302,7 @@
                 gridview: true,
                 gridComplete: function(){
                     //sucursal.eventload();
+
                 },
                 sortname: 'IdComandos',
                 sortorder: 'desc',
