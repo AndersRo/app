@@ -19,25 +19,52 @@ class VehiculosModel extends CI_Model
 			return false;
 		}
 	}
-function guardar($IdVehiculo,$Placa,$Chasis,$Motor,$Modelo,$Color,$txtopciones)
-	{
-
-    	$parameters=array($IdVehiculo,$Placa,$Chasis,$Motor,$Modelo,$Color,$txtopciones);
-		$sql = 'CALL sp_get_taller(?,?,?,?,?,?,?)';
-		$q = $this->db->query($sql, $parameters);
-
-		if($q -> num_rows() >= 1)
-        {
+  function registra (VehiculosModel $data)
+  {
+    $parameters=array($data->opcion
+             ,$data->idvehiculo
+             ,$data->placa
+             ,$data->chasis
+             ,$data->motor
+             ,$data->modelo
+             ,$data->color
+             ,$data->usuario
+             ,$data->wks
+             ,$data->rutaref
+             ,$data->rutatar
+             ,$data->idempresa
+            );
+    $sql = 'CALL sp_set_registravehiculo(?,?,?,?,?,?,?,?,?,?,?,?)';
+    $q = $this->db->query($sql, $parameters);
+    if($q -> num_rows() >= 1)
+    {
              mysqli_next_result($this->db->conn_id);
              $data = $q->result();
              $q->free_result();
              return $data;
-        }
-        else
-        {
-            return false;
-        }
+    }
+    else
+    {
+      return false;
+    }
+  }
 
+  function listveh($sidx)
+	{
+    $parameters=array($sidx);
+		$sql = 'CALL sp_get_vehiculosid(?)';
+		$q = $this->db->query($sql, $parameters);
+		if($q -> num_rows() >= 1)
+		{
+             mysqli_next_result($this->db->conn_id);
+             $data = $q->result();
+             $q->free_result();
+             return $data;
+		}
+		else
+		{
+			return false;
+		}
 	}
 
 }

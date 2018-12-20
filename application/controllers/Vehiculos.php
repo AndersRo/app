@@ -52,13 +52,13 @@ class Vehiculos extends My_Controller {
           $vehiculo->motor		=isset($request["txtmotor"]) ? $request["txtmotor"] 	: "";
           $vehiculo->modelo		=isset($request["txtmodelo"]) ? $request["txtmodelo"] 	: "";
           $vehiculo->color		=isset($request["txtcolor"]) ? $request["txtcolor"] 	: "";
-          $vehiculo->idempresa		=isset($request["idempresa"]) ? $request["idempresa"] 	: "";
+          $vehiculo->usuario		=$this->auth->getuser();
+          $vehiculo->wks		=$this->input->ip_address();
           $vehiculo->rutaref		=isset($request["uploadImage"]) ? $request["uploadImage"] 	: "";
           $vehiculo->rutatar		=isset($request["uploadImage1"]) ? $request["uploadImage1"] 	: "";
-          $vehiculo->wks		=$this->input->ip_address();
-          $vehiculo->usuario		=$this->auth->getuser();
+          $vehiculo->idempresa		=isset($request["idempresa"]) ? $request["idempresa"] 	: "";
 
-          $data=$this->MarcasModel->registra($vehiculo);
+          $data=$this->VehiculosModel->registra($vehiculo);
       if ($data)
       {
         if ($data[0]->Code==0)
@@ -73,5 +73,20 @@ class Vehiculos extends My_Controller {
         $this->output->set_status_header(200)->set_content_type('application/json')->set_output(json_encode($response));
         }
   }
+
+  public function listid()
+	{
+    $response=array();
+    if ($this->input->server('REQUEST_METHOD') == 'POST')
+    {
+        $sidx =$_POST['idvehiculo'];
+
+         //$rows = array($sidx);
+        $datacount=$this->VehiculosModel->listveh($sidx); //count
+
+        header("Content-type:application/json");
+        echo json_encode($datacount);
+    }
+	}
  }
  ?>

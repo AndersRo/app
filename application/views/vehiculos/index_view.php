@@ -72,7 +72,7 @@
               <!-- form start -->
               <div class="box-body my-form-body">
 
-                  <form action="" class="form" method="post" accept-charset="utf-8">
+                  <form action="" class="form-vehiculos" method="post" accept-charset="utf-8">
                   <?php echo form_hidden('token', $token) ?>
 
                   <div class="form-group" hidden>
@@ -167,10 +167,10 @@
                           <div class="file-field big">
                             <a class="btn-floating btn-lg amber darken-2 mt-0 float-left">
                                 <i class="fa fa-cloud-upload" aria-hidden="true"></i>
-                                <input type="file" id="uploadImage1" onchange="PreviewImage1()" multiple>
+                                <input type="file" name="uploadImage1" id="uploadImage1" onchange="PreviewImage1()" multiple>
                             </a>
                             <div class="form-group col-sm-12">
-                              <img src="#" alt="your image" id="uploadPreview1" height="200" width="auto">
+                              <img src="#" alt="your image" name="uploadPreview1" id="uploadPreview1" height="200" width="auto">
                             </div>
 
                           </div>
@@ -214,7 +214,7 @@
   dispositivo={
     init:function()
     {
-      dispositivo.event();
+      dispositivo.eventgrid();
       dispositivo.validate();
       dispositivo.listar();
 
@@ -223,11 +223,87 @@
   		});
 
     }
-    ,event:function()  {}
+    ,eventgrid:function(){
+
+      $(".delete-modal").click(function(event)
+              {
+                  event.returnValue = false; /*para I.E.*/
+                  if(event.preventDefault) event.preventDefault();
+
+                  $("#txttipm").val('D');
+                  var idrow=$(this).data('id');
+                  $("#tdatos").jqGrid('setSelection',idrow, false);
+                  var selr = $("#tdatos").jqGrid('getGridParam', 'selrow');
+                  var rowData = $("#tdatos").jqGrid('getRowData', selr)
+
+                  //console.log(rowData);
+                  //alert(rowData.IdModelo);
+                  //Cargando los Tipos
+                  $("#idvehiculo").val(rowData.IdVehiculo);
+                  //$("#txtmodelo").val(rowData.IdCategoria).trigger('change');
+                  //$("#txtmarca").val(rowData.CodigoReferencia);
+                  //$("#fileimg").val(rowData.CodigoTipo).trigger('change');
+
+                  swal({
+                    title: "Mantenimiento/Vehiculo",
+                    text: "¿Esta seguro de Eliminar este registro?",
+                    type: "warning",
+                    showCancelButton: true,
+                    confirmButtonClass: "btn-danger",
+                    confirmButtonText: "Si, borralo!",
+                    closeOnConfirm: false,
+                    showLoaderOnConfirm: true
+                  },
+                  function (result) {
+                      if (result)
+                      dispositivo.guardar();
+                      //swal("Eliminado!", "Su registro ha sido eliminado!", "success");
+                          //producto.setproductos($("#frm-registro"));
+                  }
+                  );
+              });
+    }
     ,validate:function(){}
+    ,some_function:function(strA_valor)
+    {
+
+          var wurl="<?php echo base_url('vehiculos/listid'); ?>";
+
+          $.ajax({
+            async: true,
+            url: wurl,
+            type: "post",
+            dataType: 'json',
+            contentType: 'application/x-www-form-urlencoded',
+            data://$("#frm-clientes").serialize(),
+            {
+              'idvehiculo':strA_valor
+            },
+            beforeSend: function(data){
+
+            },
+            complete: function(data, status){
+
+              var json = JSON.parse(data.responseText);
+
+                //  alert( json[0].Apellido_Paterno );
+                $("#idvehiculo").val( json[0].IdVehiculo );
+                $("#txtplaca").val( json[0].Placa );
+                $("#txtchasis").val( json[0].Chasis );
+                $("#txtmotor").val( json[0].Motor );
+                $("#txtmodelo").val( json[0].Modelo );
+                $("#txtcolor").val( json[0].Color );
+
+              }
+          });
+
+      //alert(strA_valor);
+        $("#txttipm").val('U');
+        $('#modal-default').modal('show');
+    }
     ,guardar:function(){
 
-      var wurl="<?php echo base_url('vehiculos/guardar'); ?>";
+      var wurl="<?php echo base_url('vehiculos/store'); ?>";
 
 		  $.ajax({
 				async: true,
@@ -235,7 +311,7 @@
 				type: "post",
 				dataType: 'json',
 				contentType: 'application/x-www-form-urlencoded',
-				data:$("#frm-clientes").serialize(),
+				data:$(".form-vehiculos").serialize()
 				/*{
 					'placa':$("#txtplaca").val()
 				,	'chasis':$("#txtchasis").val()
@@ -246,11 +322,59 @@
         , 'rutatarjeta':$("#txtrutatar").val()
         , 'idempresa':$("idempresa").val()
       },*/
-				beforeSend: function(data){
-
+				,beforeSend: function(data){
+          waitingDialog.show('Procesando...', {dialogSize: 'sm'});
 				},
 				complete: function(data, status){
-					alert('completado');
+					//alert('completado');
+
+          if (status=="success"){
+
+              var werror=JSON.parse(data.responseText).error;
+              var wmsg=JSON.parse(data.responseText).mensaje;
+                if (werror==0)
+                      {
+                          var wcodigo=JSON.parse(data.responseText).id;
+                          var mensajeview=""
+                          waitingDialog.hide();
+                          if ($("#txttipm").val()=="N")
+                          {
+                            mensajeview="Registro Exitoso!";
+                          }else if($("#txttipm").val()=="U"){
+                            mensajeview="Registro actualizado correctamente!";
+                          }else{
+                            mensajeview="Registro eliminado correctamente!";
+                          }
+                          //bootbox.alert(mensajeview);
+                          //compras.limpiarcampos();
+                          swal(mensajeview, "Clickea para continuar!", "success");
+                      }
+                  else
+                    {
+                        waitingDialog.hide();
+                        //bootbox.alert("Error! : . " + wmsg);
+                        swal({
+                          title: "Error!",
+                          text: wmsg,
+                          type: "warning",
+                        });
+                    }
+
+                }
+                else
+                  {
+                    waitingDialog.hide();
+                    //bootbox.alert("Error! : Ocurrio algo inesperado, intente más tarde!");
+                    swal({
+                      title: "Error!",
+                      text: "Ocurrio algo inesperado, intente más tarde!",
+                      type: "warning",
+                    });
+                  }
+
+          //waitingDialog.hide();
+          $('#modal-default').modal('hide');
+          $('#tdatos').trigger( 'reloadGrid' );
 				}
 		  });
     }
@@ -265,7 +389,7 @@
                 postData: {'token':$('input[name=token]').val()},
                 datatype: "json",
                 colModel: [
-                    { label: '...', name: 'accion', frozen:true , width: 80, formatter:function(cellValue, opts, rowObject){return '<button class="btn btn-success btn-xs edit-modal" data-id=' + rowObject.idsucursal + '><span class="fa fa-pencil"></span></button> <button class="btn btn-danger btn-xs delete-modal" data-id=' + rowObject.idsucursal + '><span class="fa fa-trash-o"></span></button>';}},
+                    { label: '...', name: 'accion', frozen:true , width: 80, formatter:function(cellValue, opts, rowObject){return '<button class="btn btn-success btn-xs edit-modal" onclick="dispositivo.some_function('+rowObject.IdVehiculo+')"><span class="fa fa-pencil"></span></button> <button class="btn btn-danger btn-xs delete-modal" data-id=' + rowObject.IdVehiculo + '><span class="fa fa-trash-o"></span></button>';}},
                     { label: 'Ide. Vehiculo', name: 'IdVehiculo', key: true, width: 75 },
                     { label: 'Placa', name: 'Placa', width: 75 },
                     { label: 'Chasis', name: 'Chasis', width: 200 },
@@ -286,6 +410,7 @@
                 gridview: true,
                 gridComplete: function(){
                     //sucursal.eventload();
+                    dispositivo.eventgrid();
                 },
                 sortname: 'idvehiculo',
                 sortorder: 'desc',

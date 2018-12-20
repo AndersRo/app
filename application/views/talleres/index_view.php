@@ -142,7 +142,7 @@
 
   		});
     }
-    ,eventgrid:function() {
+    ,eventgrid:function(){
 
       $(".delete-modal").click(function(event)
               {
