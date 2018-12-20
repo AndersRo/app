@@ -37,11 +37,11 @@ class EmpresasModel extends CI_Model
       }
   }
 
-  /*function guardar($IdEmpresa,$RUC,$RazonSocial,$NombreComercial,$Representante)
+  function guardar($IdEmpresa,$RUC,$RazonSocial,$NombreComercial,$Representante,$txtoptionvar)
   {
 
-      $parameters=array($IdEmpresa,$RUC,$RazonSocial,$NombreComercial,$Representante,$txt);
-    $sql = 'CALL sp_get_empresas(?,?,?,?,?)';
+      $parameters=array($IdEmpresa,$RUC,$RazonSocial,$NombreComercial,$Representante,$txtoptionvar);
+    $sql = 'CALL sp_get_empresas(?,?,?,?,?,?)';
     $q = $this->db->query($sql, $parameters);
 
     if($q -> num_rows() >= 1)
@@ -56,7 +56,7 @@ class EmpresasModel extends CI_Model
             return false;
         }
 
-  }*/
+  }
 
 }
 

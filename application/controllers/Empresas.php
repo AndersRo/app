@@ -33,4 +33,40 @@ class Empresas extends My_Controller {
           echo $json;
       }
 	}
+
+ public function store() //Create, Update / Delete
+  {
+    //sleep(5);
+ra($modelo);
+      if ($data)
+      {
+        if ($data[0]->Code==0)
+          $response=array('error'=>$data[0]->Code,'mensaje'=>$data[0]->Message,'id'=>$data[0]->Id);
+        else
+          $response=array('error'=>$data[0]->Code,'mensaje'=>$data[0]->Message);
+      }
+      else{
+        $response=array('error'=>'1','mensaje'=>'Error');
+      }
+
+        $this->output->set_status_header(200)->set_content_type('application/json')->set_output(json_encode($response));
+        }
+  }
+
+  public function listmodelo()
+  {
+    $response=array();
+    if ($this->input->server('REQUEST_METHOD') == 'POST')
+    {
+        $sidx =$_POST['idmodelo'];
+
+         //$rows = array($sidx);
+        $datacount=$this->ModelosModel->lisid($sidx); //count
+
+        header("Content-type:application/json");
+        echo json_encode($datacount);
+    }
+  }
+
  }
+ ?>

@@ -93,6 +93,19 @@
                     </div>
                   </div>
 
+               
+                    <div class="form-group col-sm-4">
+                        <label for="Representante" class="control-label">Representante*</label>
+                        <input type="text" name="Representante" class="form-control input-sm" id="txtRepresentante" placeholder="escriba el nombre de su Representante">
+                    </div>
+                  </div>
+
+                    <div class="form-group col-sm-4">
+                        <label for="optionvar" class="control-label">optionvar*
+                        </label>
+                        <input type="text" name="optionvar " class="form-control input-sm" id="txtoptionvar " placeholder="opcion modificaciones">
+                    </div>
+                  </div>
 
                     <div class="box border-top-solid">
 
@@ -197,7 +210,93 @@
     });
 
     }
-    ,guardar:function(){}
+    ,guardar:function()
+
+    {
+
+      var wurl="<?php echo base_url('clientes/store'); ?>";
+
+      $.ajax({
+        async: true,
+        url: wurl,
+        type: "post",
+        dataType: 'json',
+        contentType: 'application/x-www-form-urlencoded',
+        data://$("#frm-clientes").serialize(),
+        {
+          'opcion1':$("#txttipm").val()
+        , 'opcion2':$("#txtcli").val()
+        , 'idactor':$("#idactor").val()
+        , 'tpercampo':$("#tipoper").val()
+        , 'papellido':$("#lastname").val()
+        , 'sapellido':$("#lastname1").val()
+        , 'pnombre':$("#firstname").val()
+        , 'snombre':$("#firstname1").val()
+        , 'razoncampo':$("#razonso").val()
+        , 'tdoccampo':$("#tipodoc option:selected").html()
+        , 'codidenti':$("#CodigoIdentificacion").val()
+        , 'ruc':$("#ruc").val()
+        , 'empresa':$("#empresa").val()
+        , 'direccampo':$("#direccion").val()
+        , 'ubicampo':$("#ubigeo").val()
+        , 'telcampo':$("#telefono").val()
+        },
+        beforeSend: function(data){
+          waitingDialog.show('Procesando...', {dialogSize: 'sm'});
+        },
+        complete: function(data, status){
+          //alert('completado');
+
+          if (status=="success"){
+
+              var werror=JSON.parse(data.responseText).error;
+              var wmsg=JSON.parse(data.responseText).mensaje;
+                if (werror==0)
+                      {
+                          var wcodigo=JSON.parse(data.responseText).id;
+                          var mensajeview=""
+                          waitingDialog.hide();
+                          if ($("#txttipm").val()=="N")
+                          {
+                            mensajeview="Registro Exitoso!";
+                          }else if($("#txttipm").val()=="U"){
+                            mensajeview="Registro actualizado correctamente!";
+                          }else{
+                            mensajeview="Registro eliminado correctamente!";
+                          }
+                          //bootbox.alert(mensajeview);
+                          //compras.limpiarcampos();
+                          swal(mensajeview, "Clickea para continuar!", "success");
+                      }
+                  else
+                    {
+                        waitingDialog.hide();
+                        //bootbox.alert("Error! : . " + wmsg);
+                        swal({
+                          title: "Error!",
+                          text: wmsg,
+                          type: "warning",
+                        });
+                    }
+
+                }
+                else
+                  {
+                    waitingDialog.hide();
+                    //bootbox.alert("Error! : Ocurrio algo inesperado, intente más tarde!");
+                    swal({
+                      title: "Error!",
+                      text: "Ocurrio algo inesperado, intente más tarde!",
+                      type: "warning",
+                    });
+                  }
+
+                  //waitingDialog.hide();
+                  $('#modal-default').modal('hide');
+                  $('#tdatos').trigger( 'reloadGrid' );
+        }
+      });
+    }
     ,event:function(){}
     ,validate:function(){}
     ,guardar:function()
@@ -212,12 +311,12 @@
         contentType: 'application/x-www-form-urlencoded',
         data://$("#frm-clientes").serialize(),
         {
-          'IdEmpresa':$("#txtIdVehiculo").val()
-        , 'RUC':$("#txtPlaca").val()
-        , 'RazonSocial':$("#txtchasis").val()
-        , 'NombreComercial':$("#txtMotor").val()
-        , 'Representante':$("#txtModelo").val()
-
+          'IdEmpresa':$("#txtIdEmpresa").val()
+        , 'RUC':$("#txtRUC").val()
+        , 'RazonSocial':$("#txtRazonSocial").val()
+        , 'nombrecomercial':$("#txtnombrecomercial").val()
+        , 'Representante':$("#txtRepresentante").val()
+        , 'optionvar':$("#txtoptionvar").val()
 
         },
         beforeSend: function(data){
