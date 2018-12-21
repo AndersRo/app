@@ -4,7 +4,7 @@
   <section class="content-header">
     <h1>
       <?php echo $titulo; ?>
-      <a class="btn btn-primary btn-xs new-modal" data-toggle="modal" data-target="#modal-default"><span class="fa fa-plus"></span></a>
+      <a class="btn btn-primary btn-xs new-modal" data-toggle="modal" id="btnNuevo"><span class="fa fa-plus"></span></a>
       <small></small>
     </h1>
     <ol class="breadcrumb">
@@ -73,13 +73,28 @@
               <!-- form start -->
               <div class="box-body my-form-body">
 
-                  <form action="" class="form" method="post" accept-charset="utf-8">
+                <form action="" class="form" method="post" accept-charset="utf-8">
                   <?php echo form_hidden('token', $token) ?>
+
+
+                  <div class="form-group">
+                    <div class="col-sm-4">
+                      <label for="txttipm" class="control-label">Tipo Mant</label>
+                      <input type="text" name="txttipm" class="form-control" id="txttipm" placeholder="">
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <div class="col-sm-4">
+                      <label for="idempresa" class="control-label">id</label>
+                      <input type="text" name="idempresa" class="form-control" id="idempresa" placeholder="">
+                    </div>
+                  </div>
 
                   <div class="box-body">
                     <div class="form-group col-sm-4">
-                        <label for="ruc" class="control-label">RUC*</label>
-                        <input type="text" name="ruc" class="form-control input-sm" id="txtruc" placeholder="escriba su ruc">
+                        <label for="txtruc" class="control-label">RUC*</label>
+                        <input type="text" name="txtruc" class="form-control input-sm" id="txtruc" placeholder="escriba su ruc">
                     </div>
 
                     <div class="form-group col-sm-4">
@@ -89,22 +104,12 @@
 
                     <div class="form-group col-sm-4">
                         <label for="nombrecomercial" class="control-label">Nombre Comercial*</label>
-                        <input type="text" name="nombrecomercial" class="form-control input-sm" id="txtnombrecomercial" placeholder="escriba su nombre comercial">
+                        <input type="text" name="nombrecomercial" class="form-control input-sm" id="nombrecomercial" placeholder="escriba su nombre comercial">
                     </div>
                   </div>
 
-               
-                    <div class="form-group col-sm-4">
-                        <label for="Representante" class="control-label">Representante*</label>
-                        <input type="text" name="Representante" class="form-control input-sm" id="txtRepresentante" placeholder="escriba el nombre de su Representante">
-                    </div>
                   </div>
 
-                    <div class="form-group col-sm-4">
-                        <label for="optionvar" class="control-label">optionvar*
-                        </label>
-                        <input type="text" name="optionvar " class="form-control input-sm" id="txtoptionvar " placeholder="opcion modificaciones">
-                    </div>
                   </div>
 
                     <div class="box border-top-solid">
@@ -141,9 +146,9 @@
                             </div>
                             <br>
                             <div class="form-group">
-                              <label for="repre" class="col-sm-3 control-label">Representante*</label>
+                              <label for="representante" class="col-sm-3 control-label">Representante*</label>
                               <div class="col-sm-9">
-                                <input type="text" name="repre" class="form-control input-sm" id="txtrepre" placeholder="">
+                                <input type="text" name="representante" class="form-control input-sm" id="representante" placeholder="">
                               </div>
                             </div>
 
@@ -181,7 +186,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-        <button type="button" class="btn btn-primary">Guardar</button>
+         <button type="button" id="btnguardar" name="btnguardar" class="btn btn-primary">Save changes</button>
       </div>
     </div>
     <!-- /.modal-content -->
@@ -195,26 +200,105 @@
   $.jgrid.defaults.width = newWidth;
   $.jgrid.defaults.responsive = true;
   $.jgrid.defaults.styleUI = 'Bootstrap';
+   
+  $("#btnNuevo").click(function(){
+    $("#txttipm").val('N');
+    $("#idempresa").val(0)
+    $('#modal-default').modal('show');
+  });
 </script>
 
 <script type="text/javascript">
   dispositivo={
     init:function()
     {
-      dispositivo.event();
+      dispositivo.eventgrid();
       dispositivo.validate();
       dispositivo.listar();
-
-    $( "#btnguardar" ).on( "click", function() {
+      $( "#btnguardar" ).on( "click", function() {
       dispositivo.guardar();
     });
 
     }
-    ,guardar:function()
+     ,eventgrid:function() {
 
+      $(".delete-modal").click(function(event)
+              {
+                  event.returnValue = false; /*para I.E.*/
+                  if(event.preventDefault) event.preventDefault();
+
+                  $("#txttipm").val('D');
+                  var idrow=$(this).data('id');
+                  $("#tdatos").jqGrid('setSelection',idrow, false);
+                  var selr = $("#tdatos").jqGrid('getGridParam', 'selrow');
+                  var rowData = $("#tdatos").jqGrid('getRowData', selr)
+
+                  //console.log(rowData);
+                  //alert(rowData.IdModelo);
+                  //Cargando los Tipos
+                  $("#idempresa").val(rowData.IdEmpresa);
+                  //$("#txtmodelo").val(rowData.IdCategoria).trigger('change');
+                  //$("#txtmarca").val(rowData.CodigoReferencia);
+                  //$("#fileimg").val(rowData.CodigoTipo).trigger('change');
+
+                  swal({
+                    title: "Mantenimiento/empresa",
+                    text: "¿Esta seguro de Eliminar este registro?",
+                    type: "warning",
+                    showCancelButton: true,
+                    confirmButtonClass: "btn-danger",
+                    confirmButtonText: "Si, borralo!",
+                    closeOnConfirm: false,
+                    showLoaderOnConfirm: true
+                  },
+                  function (result) {
+                      if (result)
+                      dispositivo.guardar();
+                      //swal("Eliminado!", "Su registro ha sido eliminado!", "success");
+                          //producto.setproductos($("#frm-registro"));
+                  }
+                  );
+              });
+    }
+     ,validate:function(){}
+     ,some_function:function(strA_valor)
     {
+          var wurl="<?php echo base_url('empresa/listgg'); ?>";
 
-      var wurl="<?php echo base_url('clientes/store'); ?>";
+          $.ajax({
+            async: true,
+            url: wurl,
+            type: "post",
+            dataType: 'json',
+            contentType: 'application/x-www-form-urlencoded',
+            data://$("#frm-clientes").serialize(),
+            {
+              'idempresa':strA_valor
+            },
+            beforeSend: function(data){
+
+            },
+            complete: function(data, status){
+
+              var json = JSON.parse(data.responseText);
+
+                //  alert( json[0].Apellido_Paterno );
+                $("#idempresa").val( json[0].IdEmpresa );
+                $("#txtruc").val( json[0].Serie );
+                $("#txtrazonsocial").val( json[0].Imei );
+                $("#txtnombrecomercial").val( json[0].IdModelo );
+                $("#txtRepresentante").val( json[0].NroSim );
+              
+              }
+          });
+
+      //alert(strA_valor);
+        $("#txttipm").val('U');
+        $('#modal-default').modal('show');
+    }
+    ,guardar:function()
+      {
+      var wurl="<?php echo base_url('empresas/store'); ?>";
 
       $.ajax({
         async: true,
@@ -224,29 +308,19 @@
         contentType: 'application/x-www-form-urlencoded',
         data://$("#frm-clientes").serialize(),
         {
-          'opcion1':$("#txttipm").val()
-        , 'opcion2':$("#txtcli").val()
-        , 'idactor':$("#idactor").val()
-        , 'tpercampo':$("#tipoper").val()
-        , 'papellido':$("#lastname").val()
-        , 'sapellido':$("#lastname1").val()
-        , 'pnombre':$("#firstname").val()
-        , 'snombre':$("#firstname1").val()
-        , 'razoncampo':$("#razonso").val()
-        , 'tdoccampo':$("#tipodoc option:selected").html()
-        , 'codidenti':$("#CodigoIdentificacion").val()
-        , 'ruc':$("#ruc").val()
-        , 'empresa':$("#empresa").val()
-        , 'direccampo':$("#direccion").val()
-        , 'ubicampo':$("#ubigeo").val()
-        , 'telcampo':$("#telefono").val()
+          'idmpresa':$("#idempresa").val()
+        , 'ruc':$("#txtruc").val()
+        , 'razonsocial':$("#txtrazonsocial").val()
+        , 'nombrecomercial':$("#nombrecomercial").val()
+        , 'rutalogo':$("#uploadImage").val()
+        , 'representante':$("#representante").val()
+        , 'opcion':$("#txttipm").val()
         },
         beforeSend: function(data){
           waitingDialog.show('Procesando...', {dialogSize: 'sm'});
         },
         complete: function(data, status){
           //alert('completado');
-
           if (status=="success"){
 
               var werror=JSON.parse(data.responseText).error;
@@ -291,52 +365,17 @@
                     });
                   }
 
-                  //waitingDialog.hide();
-                  $('#modal-default').modal('hide');
-                  $('#tdatos').trigger( 'reloadGrid' );
+          //waitingDialog.hide();
+          $('#modal-default').modal('hide');
+          $('#tdatos').trigger( 'reloadGrid' );
         }
       });
     }
-    ,event:function(){}
-    ,validate:function(){}
-    ,guardar:function()
-      {
-      var wurl="<?php echo base_url('empresas/guardar'); ?>";
-
-      $.ajax({
-        async: true,
-        url: wurl,
-        type: "post",
-        dataType: 'json',
-        contentType: 'application/x-www-form-urlencoded',
-        data://$("#frm-clientes").serialize(),
-        {
-          'IdEmpresa':$("#txtIdEmpresa").val()
-        , 'RUC':$("#txtRUC").val()
-        , 'RazonSocial':$("#txtRazonSocial").val()
-        , 'nombrecomercial':$("#txtnombrecomercial").val()
-        , 'Representante':$("#txtRepresentante").val()
-        , 'optionvar':$("#txtoptionvar").val()
-
-        },
-        beforeSend: function(data){
-
-        },
-        complete: function(data, status){
-          alert('completado');
-        }
-      });
-
-  }
-
-    ,event:function()  {}
-    ,validate:function(){}
 
     ,listar:function()
     {
         var wurl="<?php echo base_url('empresas/list'); ?>";
-
-        $("#tdatos").jqGrid({
+           $("#tdatos").jqGrid({
                 url: wurl,
                 mtype: "get",
                 styleUI : 'Bootstrap',
@@ -344,11 +383,11 @@
                 postData: {'token':$('input[name=token]').val()},
                 datatype: "json",
                 colModel: [
-                    { label: '...', name: 'accion', frozen:true , width: 80, formatter:function(cellValue, opts, rowObject){return '<button class="btn btn-success btn-xs edit-modal" data-id=' + rowObject.idsucursal + '><span class="fa fa-pencil"></span></button> <button class="btn btn-danger btn-xs delete-modal" data-id=' + rowObject.idsucursal + '><span class="fa fa-trash-o"></span></button>';}},
+                    { label: '...', name: 'accion', frozen:true , width: 80, formatter:function(cellValue, opts, rowObject){return '<button class="btn btn-success btn-xs edit-modal" onclick="dispositivo.some_function('+rowObject.IdEmpresa+')"><span class="fa fa-pencil"></span></button> <button class="btn btn-danger btn-xs delete-modal" data-id=' + rowObject.idsucursal + '><span class="fa fa-trash-o"></span></button>';}},
                     { label: 'Ide. Empresa', name: 'IdEmpresa', key: true, width: 75 },
                     { label: 'RUC', name: 'RUC', width: 100 },
                     { label: 'Razon Social', name: 'RazonSocial', width: 200 },
-              			{ label: 'NombreComercial', name: 'NombreComercial', width: 300 },
+              			{ lfabel: 'NombreComercial', name: 'NombreComercial', width: 300 },
               			{ label: 'Representante', name: 'Representante', width: 300 },
                 ],
                 viewrecords: true,
@@ -383,8 +422,8 @@
               $("#tdatos").jqGrid('setFrozenColumns');
               $("#tdatos").jqGrid('hideCol',['idmodelo']);
 
+      }
     }
-}
 
 
  dispositivo.init();

@@ -37,26 +37,33 @@ class EmpresasModel extends CI_Model
       }
   }
 
-  function guardar($IdEmpresa,$RUC,$RazonSocial,$NombreComercial,$Representante,$txtoptionvar)
+    function registra (EmpresasModel $data)
   {
-
-      $parameters=array($IdEmpresa,$RUC,$RazonSocial,$NombreComercial,$Representante,$txtoptionvar);
-    $sql = 'CALL sp_get_empresas(?,?,?,?,?,?)';
+    $parameters=array($data->opcion
+             ,$data->idempresa
+             ,$data->ruc
+             ,$data->razon
+             ,$data->nombrecomercial
+             ,$data->imagen
+             ,$data->usuario
+             ,$data->wks
+             ,$data->representante
+          );
+    $sql = 'CALL sp_set_empresas(?,?,?,?,?,?,?,?,?)';
     $q = $this->db->query($sql, $parameters);
-
     if($q -> num_rows() >= 1)
-        {
+    {
              mysqli_next_result($this->db->conn_id);
              $data = $q->result();
              $q->free_result();
              return $data;
-        }
-        else
-        {
-            return false;
-        }
-
+    }
+    else
+    {
+      return false;
+    }
   }
+
 
 }
 
