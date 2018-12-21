@@ -129,7 +129,7 @@
                   <?php echo form_hidden('token', $token) ?>
 
 
-                  <div class="form-group">
+                  <div class="form-group" hidden>
                     <label for="txttipm" class="col-sm-2 control-label">Tipo Mant</label>
 
                     <div class="col-sm-4">
@@ -137,7 +137,7 @@
                     </div>
                   </div>
 
-                  <div class="form-group">
+                  <div class="form-group" hidden>
                     <label for="txtcli" class="col-sm-2 control-label">Cliente</label>
 
                     <div class="col-sm-4">
@@ -145,7 +145,7 @@
                     </div>
                   </div>
 
-                  <div class="form-group">
+                  <div class="form-group" hidden>
                     <label for="idactor" class="col-sm-2 control-label">id actor</label>
 
                     <div class="col-sm-4">

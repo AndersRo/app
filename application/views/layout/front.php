@@ -29,8 +29,10 @@
   <link rel="stylesheet" href="<?php echo base_url();?>assets/bower_components/bootstrap-daterangepicker/daterangepicker.css">
   <!-- bootstrap wysihtml5 - text editor -->
   <link rel="stylesheet" href="<?php echo base_url();?>assets/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
+  <!-- Bootstrap select -->
+  <link rel="stylesheet" href="<?php echo base_url();?>assets/dist/css/bootstrap-select.min.css">
 
-        <link rel="stylesheet" href="<?php echo base_url();?>assets/plugins/jqgrid/ui.jqgrid-bootstrap.css">
+  <link rel="stylesheet" href="<?php echo base_url();?>assets/plugins/jqgrid/ui.jqgrid-bootstrap.css">
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -70,6 +72,9 @@
   <script src="<?php echo base_url();?>assets/dist/js/bootbox.min.js"></script>
 
   <script src="<?php echo base_url();?>assets/dist/js/sweetalert.min.js"></script>
+
+  <!--Bootstrap Select -->
+  <script src="<?php echo base_url();?>assets/dist/js/bootstrap-select.min.js"></script>
 
 </head>
 <body class="hold-transition skin-blue sidebar-mini">

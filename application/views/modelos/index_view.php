@@ -75,7 +75,7 @@
                   <form action="" id="frm-modelos" class="form" method="post" accept-charset="utf-8">
                   <?php echo form_hidden('token', $token) ?>
 
-                  <div class="form-group">
+                  <div class="form-group" hidden>
                     <label for="txttipm" class="col-sm-12 control-label">Tipo Mant</label>
 
                     <div class="col-sm-6">
@@ -83,7 +83,7 @@
                     </div>
                   </div>
 
-                  <div class="form-group">
+                  <div class="form-group" hidden>
                     <label for="idmodelo" class="col-sm-12 control-label">id</label>
 
                     <div class="col-sm-6">
@@ -103,7 +103,7 @@
                       <label for="marca" class="col-sm-12 control-label">Marca</label>
 
                       <div class="col-sm-6">
-                        <select name="txtmarca" id="txtmarca" class="form-control">
+                        <select name="txtmarca" id="txtmarca" class="form-control selectpicker" data-live-search="true">
                           <?php
                               foreach ($marcas as $row) {
                                   echo '<option value="'.$row->IdMarca.'">'.$row->Descripcion.'</option>';
