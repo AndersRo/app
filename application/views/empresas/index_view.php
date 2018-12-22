@@ -287,7 +287,7 @@
                 $("#txtruc").val( json[0].Serie );
                 $("#txtrazonsocial").val( json[0].Imei );
                 $("#txtnombrecomercial").val( json[0].IdModelo );
-                $("#txtrepresentante").val( json[0].NroSim );
+                $("#txtRepresentante").val( json[0].NroSim );
               
               }
           });
