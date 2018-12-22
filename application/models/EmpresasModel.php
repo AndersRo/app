@@ -49,7 +49,7 @@ class EmpresasModel extends CI_Model
              ,$data->wks
              ,$data->representante
           );
-    $sql = 'CALL sp_set_empresas(?,?,?,?,?,?,?,?,?)';
+    $sql = 'CALL sp_get_registraempresas(?,?,?,?,?,?,?,?,?)';
     $q = $this->db->query($sql, $parameters);
     if($q -> num_rows() >= 1)
     {
@@ -64,6 +64,23 @@ class EmpresasModel extends CI_Model
     }
   }
 
+  function listemp($sidx)
+  {
+    $parameters=array($sidx);
+    $sql = 'CALL sp_get_empresaid(?)';
+    $q = $this->db->query($sql, $parameters);
+    if($q -> num_rows() >= 1)
+    {
+             mysqli_next_result($this->db->conn_id);
+             $data = $q->result();
+             $q->free_result();
+             return $data;
+    }
+    else
+    {
+      return false;
+    }
+  }
 
 }
 

@@ -4,7 +4,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Empresas extends My_Controller {
 
   public function __construct()
-  
+
   {
 		  parent::__construct();
       $this->load->model('EmpresasModel');
@@ -48,7 +48,7 @@ class Empresas extends My_Controller {
           $empresa->razon =isset($request["razonsocial"]) ? $request["razonsocial"]   : "";
           $empresa->nombrecomercial =isset($request["nombrecomercial"]) ? $request["nombrecomercial"]   : "";
           $empresa->imagen =isset($request["rutalogo"]) ? $request["rutalogo"]   : "";
-          $empresa->representante =isset($request["representante "]) ? $request["representante "]   : "";
+          $empresa->representante =isset($request["representante"]) ? $request["representante"]   : "";
           $empresa->wks =$this->input->ip_address();
           $empresa->usuario =$this->auth->getuser();
 
@@ -67,4 +67,19 @@ class Empresas extends My_Controller {
   $this->output->set_status_header(200)->set_content_type('application/json')->set_output(json_encode($response));
          }
   }
+
+  public function listid()
+	{
+    $response=array();
+    if ($this->input->server('REQUEST_METHOD') == 'POST')
+    {
+        $sidx =$_POST['idempresa'];
+
+         //$rows = array($sidx);
+        $datacount=$this->EmpresasModel->listemp($sidx); //count
+
+        header("Content-type:application/json");
+        echo json_encode($datacount);
+    }
+	}
 }

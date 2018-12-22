@@ -68,30 +68,25 @@
       <div class="modal-body">
         <div class="row">
           <div class="col-md-12">
+            <form action="" class="form" method="post" accept-charset="utf-8">
+              <?php echo form_hidden('token', $token) ?>
             <div class="box border-top-solid">
               <!-- /.box-header -->
               <!-- form start -->
               <div class="box-body my-form-body">
 
-                <form action="" class="form" method="post" accept-charset="utf-8">
-                  <?php echo form_hidden('token', $token) ?>
-
-
-                  <div class="form-group">
-                    <div class="col-sm-4">
-                      <label for="txttipm" class="control-label">Tipo Mant</label>
-                      <input type="text" name="txttipm" class="form-control" id="txttipm" placeholder="">
-                    </div>
-                  </div>
-
-                  <div class="form-group">
-                    <div class="col-sm-4">
-                      <label for="idempresa" class="control-label">id</label>
-                      <input type="text" name="idempresa" class="form-control" id="idempresa" placeholder="">
-                    </div>
-                  </div>
-
                   <div class="box-body">
+
+                      <div class="form-group col-sm-4">
+                        <label for="txttipm" class="control-label">Tipo Mant</label>
+                        <input type="text" name="txttipm" class="form-control" id="txttipm" placeholder="">
+                      </div>
+
+                      <div class="fprm-group col-sm-4">
+                        <label for="idempresa" class="control-label">id</label>
+                        <input type="text" name="idempresa" class="form-control" id="idempresa" placeholder="">
+                      </div>
+
                     <div class="form-group col-sm-4">
                         <label for="txtruc" class="control-label">RUC*</label>
                         <input type="text" name="txtruc" class="form-control input-sm" id="txtruc" placeholder="escriba su ruc">
@@ -99,18 +94,19 @@
 
                     <div class="form-group col-sm-4">
                         <label for="razonsocial" class="control-label">Razon Social*</label>
-                        <input type="text" name="razonsocial" class="form-control input-sm" id="txtrazonsocial" placeholder="su razon social">
+                        <input type="text" name="razonsocial" class="form-control input-sm" id="razonsocial" placeholder="su razon social">
                     </div>
 
                     <div class="form-group col-sm-4">
                         <label for="nombrecomercial" class="control-label">Nombre Comercial*</label>
                         <input type="text" name="nombrecomercial" class="form-control input-sm" id="nombrecomercial" placeholder="escriba su nombre comercial">
                     </div>
-                  </div>
 
                   </div>
 
-                  </div>
+                </div>
+
+                </div>
 
                     <div class="box border-top-solid">
 
@@ -124,24 +120,24 @@
                             <div class="form-group">
                               <label for="direccion" class="col-sm-3 control-label">Direccion*</label>
                               <div class="col-sm-9">
-                                <input type="text" name="direccion" class="form-control input-sm" id="txtdireccion" placeholder="escriba su direccion">
+                                <input type="text" name="direccion" class="form-control input-sm" id="direccion" placeholder="escriba su direccion">
                               </div>
                             </div>
                             <br>
                             <div class="form-group">
                               <label for="ubigeo" class="col-sm-3 control-label">Ubigeo*</label>
                               <div class="col-sm-9">
-                                <input type="text" name="ubigeo" class="form-control input-sm" id="txtubigeo" placeholder="">
+                                <input type="text" name="ubigeo" class="form-control input-sm" id="ubigeo" placeholder="">
                               </div>
                             </div>
                             <br>
                             <div class="form-group">
                               <label for="ubigeo" class="col-sm-3 control-label">tel/Cel*</label>
                               <div class="col-sm-4">
-                                <input type="text" name="tel" class="form-control input-sm" id="txttel" placeholder="">
+                                <input type="text" name="tel" class="form-control input-sm" id="tel" placeholder="">
                               </div>
                               <div class="col-sm-5">
-                                <input type="text" name="cel" class="form-control input-sm" id="txtcel" placeholder="">
+                                <input type="text" name="cel" class="form-control input-sm" id="cel" placeholder="">
                               </div>
                             </div>
                             <br>
@@ -264,7 +260,7 @@
      ,validate:function(){}
      ,some_function:function(strA_valor)
     {
-          var wurl="<?php echo base_url('empresa/listgg'); ?>";
+          var wurl="<?php echo base_url('empresas/listid'); ?>";
 
           $.ajax({
             async: true,
@@ -285,10 +281,10 @@
 
                 //  alert( json[0].Apellido_Paterno );
                 $("#idempresa").val( json[0].IdEmpresa );
-                $("#txtruc").val( json[0].Serie );
-                $("#txtrazonsocial").val( json[0].Imei );
-                $("#txtnombrecomercial").val( json[0].IdModelo );
-                $("#txtRepresentante").val( json[0].NroSim );
+                $("#txtruc").val( json[0].Ruc );
+                $("#razonsocial").val( json[0].RazonSocial );
+                $("#nombrecomercial").val( json[0].NombreComercial );
+                $("#representante").val( json[0].Representante );
 
               }
           });
@@ -309,9 +305,9 @@
         contentType: 'application/x-www-form-urlencoded',
         data://$("#frm-clientes").serialize(),
         {
-          'idmpresa':$("#idempresa").val()
+          'idempresa':$("#idempresa").val()
         , 'ruc':$("#txtruc").val()
-        , 'razonsocial':$("#txtrazonsocial").val()
+        , 'razonsocial':$("#razonsocial").val()
         , 'nombrecomercial':$("#nombrecomercial").val()
         , 'rutalogo':$("#uploadImage").val()
         , 'representante':$("#representante").val()
@@ -384,7 +380,7 @@
                 postData: {'token':$('input[name=token]').val()},
                 datatype: "json",
                 colModel: [
-                    { label: '...', name: 'accion', frozen:true , width: 80, formatter:function(cellValue, opts, rowObject){return '<button class="btn btn-success btn-xs edit-modal" onclick="dispositivo.some_function('+rowObject.IdEmpresa+')"><span class="fa fa-pencil"></span></button> <button class="btn btn-danger btn-xs delete-modal" data-id=' + rowObject.idsucursal + '><span class="fa fa-trash-o"></span></button>';}},
+                    { label: '...', name: 'accion', frozen:true , width: 80, formatter:function(cellValue, opts, rowObject){return '<button class="btn btn-success btn-xs edit-modal" onclick="dispositivo.some_function('+rowObject.IdEmpresa+')"><span class="fa fa-pencil"></span></button> <button class="btn btn-danger btn-xs delete-modal" data-id=' + rowObject.IdEmpresa + '><span class="fa fa-trash-o"></span></button>';}},
                     { label: 'Ide. Empresa', name: 'IdEmpresa', key: true, width: 75 },
                     { label: 'RUC', name: 'RUC', width: 100 },
                     { label: 'Razon Social', name: 'RazonSocial', width: 200 },
@@ -404,6 +400,7 @@
                 gridview: true,
                 gridComplete: function(){
                     //sucursal.eventload();
+                    dispositivo.eventgrid();
                 },
                 sortname: 'IdEmpresa',
                 sortorder: 'desc',
