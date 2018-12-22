@@ -75,7 +75,7 @@
                   <form action="" class="form" method="post" accept-charset="utf-8">
                   <?php echo form_hidden('token', $token) ?>
 
-                  <div class="form-group">
+                  <div class="form-group" hidden>
                     <label for="txttipm" class="col-sm-12 control-label">Tipo Mant</label>
 
                     <div class="col-sm-6">
@@ -83,7 +83,7 @@
                     </div>
                   </div>
 
-                  <div class="form-group">
+                  <div class="form-group" hidden>
                     <label for="idtaller" class="col-sm-12 control-label">Id</label>
 
                     <div class="col-sm-6">

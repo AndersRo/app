@@ -99,7 +99,7 @@
                     <div class="form-group">
                       <div class="col-sm-4">
                         <label for="role" class="control-label">Modelo</label>
-                        <select name="idmodelo" id="idmodelo" class="form-control">
+                        <select name="idmodelo" id="idmodelo" class="form-control selectpicker" data-live-search="true">
                           <?php
                               foreach ($modelos as $row) {
                                   echo '<option value="'.$row->IdModelo.'">'.$row->Descripcion.'</option>';
@@ -184,6 +184,7 @@
               var json = JSON.parse(data.responseText);
 
                 //  alert( json[0].Apellido_Paterno );
+                $("#idcomando").val( json[0].IdComandos );
                 $("#codigo").val( json[0].CodTipoComandos );
                 $("#idmodelo").val( json[0].IdModelo );
                 $("#comandos").val( json[0].Comandos );

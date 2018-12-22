@@ -182,12 +182,13 @@
 
             </div>
           </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+             <button type="button" id="btnguardar" name="btnguardar" class="btn btn-primary">Guardar</button>
+          </div>
         </div>
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-         <button type="button" id="btnguardar" name="btnguardar" class="btn btn-primary">Save changes</button>
-      </div>
+
     </div>
     <!-- /.modal-content -->
   </div>
@@ -200,7 +201,7 @@
   $.jgrid.defaults.width = newWidth;
   $.jgrid.defaults.responsive = true;
   $.jgrid.defaults.styleUI = 'Bootstrap';
-   
+
   $("#btnNuevo").click(function(){
     $("#txttipm").val('N');
     $("#idempresa").val(0)
@@ -288,7 +289,7 @@
                 $("#txtrazonsocial").val( json[0].Imei );
                 $("#txtnombrecomercial").val( json[0].IdModelo );
                 $("#txtRepresentante").val( json[0].NroSim );
-              
+
               }
           });
 
