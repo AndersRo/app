@@ -34,6 +34,9 @@
 
   <link rel="stylesheet" href="<?php echo base_url();?>assets/plugins/jqgrid/ui.jqgrid-bootstrap.css">
 
+  <!-- bootstrap datepicker -->
+  <link rel="stylesheet" href="<?php echo base_url();?>assets/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.css">
+
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
   <!--[if lt IE 9]>
@@ -43,8 +46,6 @@
 
   <!-- Google Font -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
-
-
 
   <!-- jQuery 3 -->
   <script src="<?php echo base_url();?>assets/bower_components/jquery/dist/jquery.min.js"></script>
@@ -75,6 +76,13 @@
 
   <!--Bootstrap Select -->
   <script src="<?php echo base_url();?>assets/dist/js/bootstrap-select.min.js"></script>
+
+  <script src="<?php echo base_url();?>assets/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.js"></script>
+
+  <!-- InputMask -->
+<script src="<?php echo base_url();?>assets/plugins/input-mask/jquery.inputmask.js"></script>
+<script src="<?php echo base_url();?>assets/plugins/input-mask/jquery.inputmask.date.extensions.js"></script>
+<script src="<?php echo base_url();?>assets/plugins/input-mask/jquery.inputmask.extensions.js"></script>
 
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
@@ -128,3 +136,58 @@
 
   };
   </script>
+
+  <script>
+  $(function () {
+    //Money Euro
+    $('[data-mask]').inputmask()
+    //Date picker
+
+    $('#datepicker').datepicker({
+      format: 'yyyy/mm/dd',
+      startDate: '-3d',
+      language: "es",
+      autoclose: true,
+      orientation: "auto left",
+      forceParse: false,
+      todayHighlight: true,
+      toggleActive: true
+    });
+    $('#datepickerinicio').datepicker({
+      format: 'yyyy/mm/dd',
+      startDate: '-3d',
+      language: "es",
+      autoclose: true,
+      orientation: "auto left",
+      forceParse: false,
+      todayHighlight: true,
+      toggleActive: true
+    }).datepicker("setDate", new Date());
+
+    $('#datepickerfin').datepicker({
+      format: 'yyyy/mm/dd',
+      startDate: '-3d',
+      language: "es",
+      autoclose: true,
+      orientation: "auto left",
+      forceParse: false,
+      todayHighlight: true,
+      toggleActive: true,
+      maxDate: '+365D'
+    }).datepicker("setDate", new Date());
+
+    $('#idatepicker').datepicker({
+      format: 'yyyy/mm/dd',
+      autoclose: true,
+      todayHighlight: true
+    })
+  })
+</script>
+
+<script>
+  $(function () {
+    //Money Euro
+    $('[data-mask]').inputmask()
+
+  })
+</script>

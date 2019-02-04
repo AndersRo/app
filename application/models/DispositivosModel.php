@@ -50,7 +50,7 @@ class DispositivosModel extends CI_Model
   function lisgg($sidx)
 	{
     $parameters=array($sidx);
-		$sql = 'CALL sp_get_dispositivos(?)';
+		$sql = 'CALL sp_get_dispositivosid(?)';
 		$q = $this->db->query($sql, $parameters);
 		if($q -> num_rows() >= 1)
 		{
@@ -64,6 +64,23 @@ class DispositivosModel extends CI_Model
 			return false;
 		}
 	}
+
+  function listmodel(){
+      $parameters=array();
+  		$sql = 'call sp_get_dispositivos()';
+  		$q = $this->db->query($sql, $parameters);
+  		if($q -> num_rows() >= 1)
+  		{
+               mysqli_next_result($this->db->conn_id);
+               $data = $q->result();
+               $q->free_result();
+               return $data;
+  		}
+  		else
+  		{
+  			return false;
+  		}
+  }
 
 }
 ?>

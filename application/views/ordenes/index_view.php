@@ -4,7 +4,7 @@
   <section class="content-header">
     <h1>
       <?php echo $titulo; ?>
-      <a class="btn btn-primary btn-xs new-modal" data-toggle="modal" data-target="#modal-default"><span class="fa fa-plus"></span></a>
+      <a class="btn btn-primary btn-xs new-modal" id="btnNuevo" data-toggle="modal"><span class="fa fa-plus"></span></a>
       <small></small>
     </h1>
     <ol class="breadcrumb">
@@ -129,6 +129,13 @@
   $.jgrid.defaults.width = newWidth;
   $.jgrid.defaults.responsive = true;
   $.jgrid.defaults.styleUI = 'Bootstrap';
+
+  $("#btnNuevo").click(function(){
+    //$("#txttipm").val('N');
+    //$("#txtcli").val('C');
+    //$("#idorden").val(0)
+    window.location = "ordenes/create";
+  });
 </script>
 
 <script type="text/javascript">
@@ -153,18 +160,15 @@
                 datatype: "json",
                 colModel: [
                     { label: '...', name: 'accion', frozen:true , width: 80, formatter:function(cellValue, opts, rowObject){return '<button class="btn btn-success btn-xs edit-modal" data-id=' + rowObject.idsucursal + '><span class="fa fa-pencil"></span></button> <button class="btn btn-danger btn-xs delete-modal" data-id=' + rowObject.idsucursal + '><span class="fa fa-trash-o"></span></button>';}},
-                    { label: 'Id. Orden', name: 'IdOrden', key: true, width: 100 },
-                    { label: 'Id. OrdenDetalle', name: 'IdOrdenDetalle', key: true, width: 100 },
-                    { label: 'Cliente', name: 'NomCli', key: true, width: 100 },
-                    { label: 'Dispositivo', name: 'IdDispositivo', key: true, width: 100 },
-                    { label: 'Mecanico', name: 'NomMec', key: true, width: 100 },
-                    { label: 'Empresa', name: 'NombreComercial', key: true, width: 100 },
-                    { label: 'Taller', name: 'Taller', key: true, width: 100 },
-                    { label: 'Fecha Inicio', name: 'FechaInicio', key: true, width: 100 },
-                    { label: 'Fecha Fin', name: 'FechaFin', key: true, width: 100 },
-                    { label: 'Estado', name: 'EstadoOrden', key: true, width: 100 },
-                    { label: 'Programacion', name: 'FechaProgramada', key: true, width: 100 },
-                    { label: 'Ejecucion', name: 'FechaEjecutada', key: true, width: 100 },
+                    { label: 'Id. Orden', name: 'IdOrden',key: true, width: 100 },
+                    { label: 'Cliente', name: 'NomCli', width: 100 },
+                    { label: 'Dispositivo', name: 'IdDispositivo', width: 100 },
+                    { label: 'Mecanico', name: 'NomMec', width: 100 },
+                    { label: 'Empresa', name: 'NombreComercial', width: 100 },
+                    { label: 'Taller', name: 'Taller', width: 100 },
+                    { label: 'Estado', name: 'EstadoOrden', width: 100 },
+                    { label: 'Programacion', name: 'FechaProgramada', width: 100 },
+                    { label: 'Ejecucion', name: 'FechaEjecutada', width: 100 },
                 ],
                 viewrecords: true,
                 height: 300,

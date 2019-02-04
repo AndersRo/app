@@ -42,6 +42,10 @@ class Clientes extends My_Controller {
  		$this->layout('clientes/index_view',$data);
   }
 
+  public function create(){
+    $this->layout('clientes/create_view');
+  }
+
 
   public function list()
 	{

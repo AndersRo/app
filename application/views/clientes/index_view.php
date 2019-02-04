@@ -7,6 +7,7 @@
       <a class="btn btn-primary btn-xs new-modal" data-toggle="modal" id="btnNuevo"><span class="fa fa-plus"></span></a>
 	    <a class="btn btn-primary btn-xs new-modal" data-toggle="modal" data-target="#pepe"><span class="fa fa-plus"></span></a>
       <a class="btn btn-danger"  data-toggle="modal" data-target="#josemanuel"><span class="fa fa-car"></span></a>
+      <a href="clientes/create"><button class="btn btn-success">Nuevo</button></a>
 	 <small></small>
     </h1>
     <ol class="breadcrumb">

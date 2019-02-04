@@ -77,12 +77,12 @@
 
                   <div class="box-body">
 
-                      <div class="form-group col-sm-4">
+                      <div class="form-group col-sm-4" hidden>
                         <label for="txttipm" class="control-label">Tipo Mant</label>
                         <input type="text" name="txttipm" class="form-control" id="txttipm" placeholder="">
                       </div>
 
-                      <div class="fprm-group col-sm-4">
+                      <div class="fprm-group col-sm-4" hidden>
                         <label for="idempresa" class="control-label">id</label>
                         <input type="text" name="idempresa" class="form-control" id="idempresa" placeholder="">
                       </div>

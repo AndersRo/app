@@ -34,8 +34,43 @@ class Contratos extends My_Controller {
       }
 	}
 
-  public function create(){
+  public function store() //Create, Update / Delete
+  {
+    //sleep(5);
+    $response=array();
+        if ($this->input->server('REQUEST_METHOD') == 'POST')
+        {
+          $request=$this->input->post();
+          sleep(3);
+          $contratos=new ContratosModel();
+          $contratos->opcion 			=isset($request["opcion"]) 			? $request["opcion1"] 	: "";
+          $contratos->idcontrato		=isset($request["idcontrato"]) 	? $request["idcontrato"] 	: "" ;
+          $contratos->tiposervicio		=isset($request["servicio"]) 	? $request["servicio"] 	: "" ;
+          $contratos->idcliente		=isset($request["idcliente"]) 	? $request["idcliente"] 	: "" ;
+          $contratos->idvehiculo		=isset($request["idvehiculo"]) ? $request["idvehiculo"] 	: "";
+          $contratos->tipcontrato		=isset($request["tipcontrato"]) ? $request["tipcontrato"] 	: "";
+          $contratos->idempresa		=isset($request["idempresa"]) ? $request["idempresa"] 	: "";
+          $contratos->stdcontrato		=isset($request["stdcontrato"]) ? $request["stdcontrato"] 	: "";
+          $contratos->cadenadetalleanex		=isset($request["cadenadetalleanex"]) ? $request["cadenadetalleanex"] 	: "";
+          $contratos->idcontratoorden		=isset($request["idcontratoorden"]) ? $request["idcontratoorden"] 	: "0";
+          $contratos->idcontratoanex		=isset($request["idcontratoanex"]) ? $request["idcontratoanex"] 	: "0";
+          $contratos->usuario		=$this->auth->getuser();
+          $contratos->wks =$this->input->ip_address();
 
+          $data=$this->ContratosModel->registra($contratos);
+      if ($data)
+      {
+        if ($data[0]->Code==0)
+          $response=array('error'=>$data[0]->Code,'mensaje'=>$data[0]->Message,'id'=>$data[0]->Id);
+        else
+          $response=array('error'=>$data[0]->Code,'mensaje'=>$data[0]->Message);
+      }
+      else{
+        $response=array('error'=>'1','mensaje'=>'Error');
+      }
+
+        $this->output->set_status_header(200)->set_content_type('application/json')->set_output(json_encode($response));
+        }
   }
 
 
