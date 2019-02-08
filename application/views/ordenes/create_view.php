@@ -297,9 +297,9 @@
 
                           <div class="box-header with-border">
                             <h3 class="box-title">Información de contratos</h3>
-                            <div class="box-tools pull-right">
+                            <!--<div class="box-tools pull-right">
                               <button type="button" class="btn btn-default btn_save"><i class="fa fa-save"></i> Guardar Contrato </button>
-                            </div>
+                            </div>-->
                           </div>
 
                           <div class="box-body">
@@ -311,6 +311,7 @@
                               <div class="col-sm-6">
 
                                   <input type="hidden" name="cadenadetalleanex" class="form-control" id="cadenadetalleanex">
+                                  <input type="hidden" name="idord" class="form-control" id="idord">
 
                                 <div class="form-group" hidden>
                                   <label for="txttipmcon" class="col-sm-2 control-label">Tipo Mant</label>
@@ -321,7 +322,7 @@
                                 </div>
 
                                 <div class="form-group" hidden>
-                                  <label for="idordencon" class="col-sm-2 control-label">Ord. Nro.</label>
+                                  <label for="idordencon" class="col-sm-2 control-label">Cont. Nro.</label>
 
                                   <div class="col-sm-4">
                                     <input type="text" name="idordencon" class="form-control" id="idordencon" placeholder="">
@@ -426,7 +427,7 @@
                                   <label for="role" class="col-sm-2 control-label">Orden</label>
                                   <div class="col-sm-10">
                                     <div class="input-group input-group-sm">
-                                            <input type="text" id="iddispositivo1" class="form-control">
+                                            <input type="text" id="idordenc" class="form-control">
                                               <span class="input-group-btn">
                                                 <button type="button" class="btn btn-info btn-flat new-modal" id="abrirorden">...</button>
                                                 <!--<a class="btn btn-primary btn-xs new-modal" data-toggle="modal" data-target="#pepe"><span class="fa fa-plus"></span></a>-->
@@ -446,7 +447,7 @@
                                     <i class="fa fa-globe"></i> Anexo Orden.
                                   <div class="btn-group pull-right" style="margin-right: 40px;" >
                                       <button type="button" class="btn btn-default badd_doc" id="item2" data-toggle="modal"><i class="fa fa-plus"></i> Agregar</button>
-                                      <button type="button" class="btn btn-default bdel_doc"><i class="fa fa-minus"></i>Quitar</button>
+                                      <!--<button type="button" class="btn btn-default bdel_doc"><i class="fa fa-minus"></i>Quitar</button>-->
                                   </div>
 
                                   </div>
@@ -499,7 +500,7 @@
 
                           <div class="box-footer">
                               <div class="btn-group pull-right" >
-                                  <button type="button" class="btn btn-default btn_savecon" id="btn_savecon"><i class="fa fa-save"></i> Guardar Anexo </button>
+                                  <button type="button" class="btn btn-default btn_savecon" id="btn_savecon"><i class="fa fa-save"></i> Guardar Contrato </button>
                                   <button type="button" class="btn btn-default btn_listar"><i class="fa fa-mail-reply"></i> Listar</button>
                               </div>
                           </div>
@@ -700,7 +701,7 @@
 
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-                                <button type="button" class="btn btn-primary btn_savedis">Aceptar</button>
+                                <button type="button" class="btn btn-primary btn_saveorden">Aceptar</button>
                             </div>
                         </div>
                     </div>
@@ -716,7 +717,6 @@
 
   $("#txttipm").val( "N" );
   $("#txttipmcon").val( "N" );
-  $("#idorden").val( "0" );
   $("#idordencon").val( "0" );
 </script>
 
@@ -759,7 +759,6 @@
           scadena=scadena + campo1 + "|" + campo2 + "|";
 
        });
-      //alert(scadena);
        $("#cadenadetalleanex").val(scadena);
 		    dispositivo.guardarcontrato();
 		});
@@ -931,20 +930,17 @@ $("#cadenadetalle").val(scadena);
                                   var grid = $("#tdatoso");
                                   var rowKey = grid.jqGrid('getGridParam',"selrow");
 
-                                    var idcli = rowDatasel.IdOrden;
-                                    var apa = rowDatasel.Apellido_Paterno;
-                                    var ama = rowDatasel.Apellido_Materno;
-                                    var nom = rowDatasel.PrimerNombre;
-                                    var snom = rowDatasel.SegundoNombre;
+                                    var idord = rowDatasel.IdOrden;
+                                    var ordcli = rowDatasel.NomCli;
 
                                           //$("#iddispositivo"+(trs-1)+"").val(iddis+"-"+modelo);
-                                          $("#idclienteu").val(idcli);
-                                          $("#cliente").val(apa+" "+ama+" "+nom);
+                                          $("#idord").val(idord);
+                                          $("#idordenc").val(ordcli);
                                           //$("#nrosim").val(sim);
                                           //$("#idn").val(idn);
 
 
-                                        $('#myModalAsig').modal('hide');
+                                        $('#modal-orden').modal('hide');
 
                                       }else {
                                         waitingDialog.hide();
@@ -1140,9 +1136,9 @@ $("#cadenadetalle").val(scadena);
             ,'idcliente':$("#idclientec").val()
             ,'tipcontrato':$("#tipcontrato").val()
             ,'idempresa':$("#idempresa").val()
-            ,'idvehiculo':$("#idvehiculo").val()
+            ,'idvehiculo':$("#idvehiculoc").val()
             ,'stdcontrato':$("#stdcontrato").val()
-            ,'idorden':$("#idorden").val()
+            ,'idord':$("#idord").val()
             ,'cadenadetalleanex':$("#cadenadetalleanex").val()
           },
 
@@ -1161,10 +1157,10 @@ $("#cadenadetalle").val(scadena);
                             var wcodigo=JSON.parse(data.responseText).id;
                             var mensajeview=""
                             waitingDialog.hide();
-                            if ($("#txttipm").val()=="N")
+                            if ($("#txttipmcon").val()=="N")
                             {
                               mensajeview="Registro Exitoso!";
-                            }else if($("#txttipm").val()=="U"){
+                            }else if($("#txttipmcon").val()=="U"){
                               mensajeview="Registro actualizado correctamente!";
                             }else{
                               mensajeview="Registro eliminado correctamente!";
@@ -1330,11 +1326,12 @@ $("#cadenadetalle").val(scadena);
                         { label: 'Id. Orden', name: 'IdOrden',key: true, width: 100 },
                         { label: 'Id. Cliente', name: 'IdCliente', width: 100},
                         { label: 'Cliente', name: 'NomCli', width: 100 },
-                        { label: 'Dispositivo', name: 'IdDispositivo', width: 100 },
+                        //{ label: 'Dispositivo', name: 'IdDispositivo', width: 100 },
                         { label: 'Mecanico', name: 'NomMec', width: 100 },
                         { label: 'Empresa', name: 'NombreComercial', width: 100 },
                         { label: 'Taller', name: 'Taller', width: 100 },
-                        { label: 'Estado', name: 'EstadoOrden', width: 100 },
+                        //{ label: 'Estado', name: 'EstadoOrden', width: 100 },
+                        { label: 'Descripcion', name: 'Descripcion', width: 100 },
                         { label: 'Programacion', name: 'FechaProgramada', width: 100 },
                         { label: 'Ejecucion', name: 'FechaEjecutada', width: 100 },
                     ],

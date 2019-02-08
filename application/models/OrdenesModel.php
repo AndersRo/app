@@ -20,6 +20,42 @@ class OrdenesModel extends CI_Model
 		}
 	}
 
+  function Listardet($sidx,$sord,$attr,$idempresa,$idord)
+	{
+    $parameters=array($sidx,$sord,$attr["start"],$attr["limit"],$attr["filter"],$idempresa,$idord);
+		$sql = 'CALL sp_get_detorden(?,?,?,?,?,?,?)';
+		$q = $this->db->query($sql, $parameters);
+		if($q -> num_rows() >= 1)
+		{
+             mysqli_next_result($this->db->conn_id);
+             $data = $q->result();
+             $q->free_result();
+             return $data;
+		}
+		else
+		{
+			return false;
+		}
+	}
+
+  function Listarprue($idord)
+	{
+    $parameters=array($idord);
+		$sql = 'CALL sp_get_detordenes(?)';
+		$q = $this->db->query($sql, $parameters);
+		if($q -> num_rows() >= 1)
+		{
+             mysqli_next_result($this->db->conn_id);
+             $data = $q->result();
+             $q->free_result();
+             return $data;
+		}
+		else
+		{
+			return false;
+		}
+	}
+
   function registra (OrdenesModel $data)
 	{
 		$parameters=array($data->opcion1
@@ -42,6 +78,42 @@ class OrdenesModel extends CI_Model
              //,$data->idn
 						);
 		$sql = 'CALL sp_set_registraorden(?,?,?,?,?,?,?,?,?,?,?,?,?,?)';
+		$q = $this->db->query($sql, $parameters);
+		if($q -> num_rows() >= 1)
+		{
+             mysqli_next_result($this->db->conn_id);
+             $data = $q->result();
+             $q->free_result();
+             return $data;
+		}
+		else
+		{
+			return false;
+		}
+	}
+
+  function lisid($sidx)
+	{
+    $parameters=array($sidx);
+		$sql = 'CALL sp_get_idorden(?)';
+		$q = $this->db->query($sql, $parameters);
+		if($q -> num_rows() >= 1)
+		{
+             mysqli_next_result($this->db->conn_id);
+             $data = $q->result();
+             $q->free_result();
+             return $data;
+		}
+		else
+		{
+			return false;
+		}
+	}
+
+  function lisidord($sidx)
+	{
+    $parameters=array($sidx);
+		$sql = 'CALL sp_get_detordenes(?)';
 		$q = $this->db->query($sql, $parameters);
 		if($q -> num_rows() >= 1)
 		{

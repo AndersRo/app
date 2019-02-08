@@ -43,7 +43,7 @@ class Contratos extends My_Controller {
           $request=$this->input->post();
           sleep(3);
           $contratos=new ContratosModel();
-          $contratos->opcion 			=isset($request["opcion"]) 			? $request["opcion1"] 	: "";
+          $contratos->opcion 			=isset($request["opcion1"]) 			? $request["opcion1"] 	: "";
           $contratos->idcontrato		=isset($request["idcontrato"]) 	? $request["idcontrato"] 	: "" ;
           $contratos->tiposervicio		=isset($request["servicio"]) 	? $request["servicio"] 	: "" ;
           $contratos->idcliente		=isset($request["idcliente"]) 	? $request["idcliente"] 	: "" ;
@@ -54,6 +54,7 @@ class Contratos extends My_Controller {
           $contratos->cadenadetalleanex		=isset($request["cadenadetalleanex"]) ? $request["cadenadetalleanex"] 	: "";
           $contratos->idcontratoorden		=isset($request["idcontratoorden"]) ? $request["idcontratoorden"] 	: "0";
           $contratos->idcontratoanex		=isset($request["idcontratoanex"]) ? $request["idcontratoanex"] 	: "0";
+          $contratos->idorden		=isset($request["idord"]) ? $request["idord"] 	: "";
           $contratos->usuario		=$this->auth->getuser();
           $contratos->wks =$this->input->ip_address();
 

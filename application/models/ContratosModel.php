@@ -20,23 +20,24 @@ class ContratosModel extends CI_Model
 		}
 	}
 
-  function registra (ClientesModel $data)
+  function registra (ContratosModel $data)
 	{
 		$parameters=array($data->opcion
 						 ,$data->idcontrato
 						 ,$data->tiposervicio
 						 ,$data->idcliente
-						 ,$data->idvehiculo
              ,$data->tipcontrato
              ,$data->idempresa
+						 ,$data->idvehiculo
              ,$data->stdcontrato
-             ,$data->cadenadetalleanex
              ,$data->idcontratoorden
-             ,$data->idcontratoanex
+             ,$data->idorden
              ,$data->usuario
              ,$data->wks
+             ,$data->idcontratoanex
+             ,$data->cadenadetalleanex
 						);
-		$sql = 'CALL sp_set_registraactor(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)';
+		$sql = 'CALL sp_set_contrato(?,?,?,?,?,?,?,?,?,?,?,?,?,?)';
 		$q = $this->db->query($sql, $parameters);
 		if($q -> num_rows() >= 1)
 		{

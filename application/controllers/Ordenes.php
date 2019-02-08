@@ -78,6 +78,59 @@ class Ordenes extends My_Controller {
       }
 	}
 
+  public function listdet()
+	{
+	    $response=array();
+      if ($this->input->server('REQUEST_METHOD') == 'GET')
+      {
+          $sidx =$_GET['sidx'];
+          $sord =$_GET['sord'];
+          $idord =$_GET['idordx'];
+          $atrr=$this->grilla->param;
+          //Obteniendo el Count
+          $datacount=$this->OrdenesModel->Listardet($sidx,$sord,$atrr,$this->auth->getidempresa(),$idord); //count
+          $atrr=$this->grilla->jq_getatributes($this->input->get(),$datacount);
+          //Obteniendo la Data
+          $data=$this->OrdenesModel->Listardet($sidx,$sord,$atrr,$this->auth->getidempresa(),$idord); //data
+          $json=$this->grilla->jq_getdata($this->input->get(),$data);
+          echo $json;
+      }
+	}
+
+  public function listdetprue()
+	{
+	    $response=array();
+      if ($this->input->server('REQUEST_METHOD') == 'POST')
+      {
+          $idord =$_POST['idordx'];
+          //Obteniendo el Count
+          $datacount=$this->OrdenesModel->Listarprue($idord); //count
+          header("Content-type:application/json");
+          echo json_encode($datacount);
+
+          //echo $json;
+      }
+	}
+
+  public function listdetord()
+	{
+    $response=array();
+    if ($this->input->server('REQUEST_METHOD') == 'GET')
+    {
+        $sidx =$_GET['idorden'];
+
+         //$rows = array($sidx);
+        $datacount=$this->OrdenesModel->lisidord($sidx); //count
+        $atrr=$this->grilla->jq_getatributes($this->input->get(),$datacount);
+
+        $data=$this->OrdenesModel->lisidord($sidx);
+        $json=$this->grilla->jq_getdata($this->input->get(),$data);
+
+        //header("Content-type:application/json");
+        echo $json;
+    }
+	}
+
   public function store() //Create, Update / Delete
   {
     //sleep(5);
@@ -122,6 +175,21 @@ class Ordenes extends My_Controller {
         $this->output->set_status_header(200)->set_content_type('application/json')->set_output(json_encode($response));
         }
   }
+
+  public function listidorden()
+	{
+    $response=array();
+    if ($this->input->server('REQUEST_METHOD') == 'POST')
+    {
+        $sidx =$_POST['idorden'];
+
+         //$rows = array($sidx);
+        $datacount=$this->OrdenesModel->lisid($sidx); //count
+
+        header("Content-type:application/json");
+        echo json_encode($datacount);
+    }
+	}
 
  }
  ?>

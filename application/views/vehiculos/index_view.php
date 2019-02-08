@@ -127,7 +127,7 @@
                     <div class="form-group">
                       <div class="col-sm-4">
                         <label for="idempresa" class="control-label">Empresa</label>
-                        <select name="idempresa" id="idempresa" class="form-control">
+                        <select name="idempresa" id="idempresa" class="form-control" disabled>
                           <?php
                               foreach ($empresas as $row) {
                                   echo '<option value="'.$row->IdEmpresa.'">'.$row->NombreComercial.'</option>';
@@ -140,7 +140,7 @@
 
                     <div class="box-body my-form-body col-sm-6">
                       <div class="modal-header">
-                        <h4 class="modal-title">Logo</h4>
+                        <h4 class="modal-title">Ruta Referencia</h4>
                         <small id="infolog" class="form-text text-muted">La imagen debe de ser de 500x500 pixeles en formato png o jpg.</small>
                       </div>
                       <div class="form-group">
@@ -160,7 +160,7 @@
 
                     <div class="box-body my-form-body col-sm-6">
                       <div class="modal-header">
-                        <h4 class="modal-title">Logo</h4>
+                        <h4 class="modal-title">Ruta Tarjeta</h4>
                         <small id="infolog" class="form-text text-muted">La imagen debe de ser de 500x500 pixeles en formato png o jpg.</small>
                       </div>
                       <div class="form-group">

@@ -138,7 +138,7 @@
                       <label for="role" class="col-sm-2 control-label">Empresa</label>
                       <div class="col-sm-4">
 
-                        <select name="empresa" id="txtempresa" class="form-control">
+                        <select name="empresa" id="txtempresa" class="form-control" disabled>
                           <?php
                               foreach ($empresas as $row) {
                                   echo '<option value="'.$row->IdEmpresa.'">'.$row->NombreComercial.'</option>';

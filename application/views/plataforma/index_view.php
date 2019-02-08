@@ -153,13 +153,14 @@
                 datatype: "json",
                 colModel: [
                     { label: '...', name: 'accion', frozen:true , width: 80, formatter:function(cellValue, opts, rowObject){return '<button class="btn btn-success btn-xs edit-modal" data-id=' + rowObject.idsucursal + '><span class="fa fa-pencil"></span></button> <button class="btn btn-danger btn-xs delete-modal" data-id=' + rowObject.idsucursal + '><span class="fa fa-trash-o"></span></button>';}},
-                    { label: 'Id. Acceso', name: 'IdAcceso', key: true, width: 100 },
-                    { label: 'Id. Cliente', name: 'IdCliente', key: true, width: 100 },
-                    { label: 'Acceso App', name: 'FlgAccesoApp', key: true, width: 100 },
-                    { label: 'Acceso web', name: 'FlgAccesoWeb', key: true, width: 100 },
-                    { label: 'Conex. Max.', name: 'MaxConexiones', key: true, width: 100 },
-                    { label: 'Login', name: 'LoginAcceso', key: true, width: 100 },
-                    { label: 'Acceso', name: 'EstadoAcceso', key: true, width: 100 },
+                    { label: 'Id. Acceso', name: 'IdAcceso', key: true, width: 50 },
+                    { label: 'Id. Cliente', name: 'IdCliente', width: 50 },
+                    { label: 'Cliente', name: 'Cliente', width: 150 },
+                    { label: 'Acceso App', name: 'FlgAccesoApp', width: 50 },
+                    { label: 'Acceso web', name: 'FlgAccesoWeb', width: 100 },
+                    { label: 'Conex. Max.', name: 'MaxConexiones', width: 100 },
+                    { label: 'Login', name: 'LoginAcceso', width: 100 },
+                    { label: 'Acceso', name: 'EstadoAcceso', width: 100 },
                 ],
                 viewrecords: true,
                 height: 300,
@@ -190,7 +191,7 @@
 
               $("#tdatos").jqGrid('filterToolbar', { stringResult: true, searchOnEnter: true });
               $("#tdatos").jqGrid('setFrozenColumns');
-              $("#tdatos").jqGrid('hideCol',['idmodelo']);
+              $("#tdatos").jqGrid('hideCol',['IdAcceso']);
       }
    }
 
