@@ -140,6 +140,121 @@
   <!-- /.modal-dialog -->
 </div>
 
+<div class="modal fade" id="modal-ordenfindet" tabindex="-2">
+  <div class="modal-dialog modal-xs">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Detalle Orden </h4>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="box border-top-solid">
+              <!-- /.box-header -->
+              <!-- form start -->
+              <div class="box-body my-form-body">
+
+                  <form action="" class="form-ordfindet" method="post" accept-charset="utf-8">
+                  <?php echo form_hidden('token', $token) ?>
+
+                  <div class="form-group" hidden>
+                    <label for="txttipmdet" class="col-sm-12 control-label">Tipo Proceso</label>
+
+                    <div class="col-sm-12">
+                      <input type="text" name="txttipmdet" class="form-control" id="txttipmdet">
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <div class="col-sm-6">
+                      <label for="idordendet" class="col-sm-12 control-label">Detalle Nº</label>
+
+                      <div class="col-sm-12">
+                        <input type="text" name="idordendet" class="form-control" id="idordendet" readonly>
+                      </div>
+                    </div>
+
+                    <div class="col-sm-6">
+                      <label for="tipotrabajo" class="col-sm-12 control-label">Tipo de Trabajo</label>
+
+                      <div class="col-sm-12">
+                        <input type="text" name="tipotrabajo" class="form-control" id="tipotrabajo" readonly>
+                      </div>
+                    </div>
+                  </div>
+
+                    <div class="form-group">
+
+                      <div class="col-sm-6">
+                          <label for="cliente" class="col-sm-12 control-label">Cliente</label>
+
+                          <div class="col-sm-12">
+                            <input type="text" name="cliente" class="form-control" id="cliente" readonly>
+                          </div>
+                      </div>
+
+                      <div class="col-sm-6">
+                          <label for="mecanico" class="col-sm-12 control-label">Mecanico</label>
+
+                          <div class="col-sm-12">
+                            <input type="text" name="mecanico" class="form-control" id="mecanico" readonly>
+                          </div>
+                      </div>
+
+                    </div>
+
+                    <div class="form-group">
+                      <div class="col-sm-6">
+                        <label for="iddispositivo" class="col-sm-12 control-label">Dispositivo</label>
+
+                        <div class="col-sm-12">
+                          <input type="text" name="iddispositivo" class="form-control" id="iddispositivo" readonly>
+                        </div>
+                      </div>
+
+                      <div class="col-sm-6">
+                        <label for="dispositivo" class="col-sm-12 control-label">Serie</label>
+
+                        <div class="col-sm-12">
+                          <input type="text" name="dispositivo" class="form-control" id="dispositivo" readonly>
+                        </div>
+                      </div>
+
+                      <div class="col-sm-6">
+                        <label for="nrosim" class="col-sm-12 control-label">SIM</label>
+
+                        <div class="col-sm-12">
+                          <input type="text" name="nrosim" class="form-control" id="nrosim" readonly>
+                        </div>
+                      </div>
+
+                      <div class="col-sm-6">
+                        <label for="nroidn" class="col-sm-12 control-label">IDN</label>
+
+                        <div class="col-sm-12">
+                          <input type="text" name="nroidn" class="form-control" id="nroidn" readonly>
+                        </div>
+                      </div>
+
+                    </div>
+
+                  </form>
+                </div>
+                <!-- /.box-body -->
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default"  data-dismiss="modal" data-toggle="modal" data-target="#myModaldetalle">Volver</button>
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
 
 <!-- Modal -->
     <div class="modal fade" id="myModaldetalle" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -153,7 +268,7 @@
                 <div class="modal-body">
                     <!-- form start -->
                         <!--INICIO DE FILA QUE CONTIENE LA COLUMNA-->
-                        <input type="text" name="lol" id="lol" value="">
+                        <!--<input type="text" name="lol" id="lol" value="">-->
                         <div>
                             <table id="tdatosdet"> </table>
                             <div id="pagerdet"></div>
@@ -185,6 +300,8 @@
 
   $("#btnfinord").click(function(){
     dispositivo.guardar();
+    $('#tdatos').trigger('reloadGrid');
+    $('#modal-ordenfin').modal('hide');
   });
 </script>
 
@@ -195,90 +312,72 @@
       dispositivo.eventgrid();
       dispositivo.validate();
       dispositivo.listar();
+      dispositivo.listardetalle();
+
+
+
     }
     ,eventgrid:function(){
-      $(".detalle-modal").click(function(event)
-                {
-                    event.returnValue = false; /*para I.E.*/
-                    if(event.preventDefault) event.preventDefault();
+      $(".detalle-modal").click(function(event) {
 
-                    var idrow=$(this).data('id');
-                    $("#tdatos").jqGrid('setSelection',idrow, false);
-                    var selr = $("#tdatos").jqGrid('getGridParam', 'selrow');
-                    var rowData = $("#tdatos").jqGrid('getRowData', selr)
+        event.returnValue = false; /*para I.E.*/
+        if(event.preventDefault) event.preventDefault();
+        //Obteniendo Id
+          var idtle = $(this).data('id');
+          //alert(idtle);
+          //Volviendo a pasar los parametros de busqueda
+          var myfilter = { groupOp: "AND", rules: []};
+          myfilter.rules.push({field:"IdOrden",op:"bw",data:idtle});
+          $('#tdatosdet').jqGrid('setGridParam', {search: true
+              , postData: {
+               'filters': JSON.stringify(myfilter)
+                          }
+                        }
+                    );
 
-                    //'datito':(rowData.IdOrden);
-                    var datord = (rowData.IdOrden);
-                    $("#lol").val(datord);
+        $('#tdatosdet').trigger('reloadGrid');
+        $('#myModaldetalle').modal('show');
+      });
 
-                    var wurl="<?php echo base_url('ordenes/listdetprue'); ?>";
+      $(".anular-orden").click(function(event) {
 
+        event.returnValue = false; /*para I.E.*/
+        if(event.preventDefault) event.preventDefault();
+          $("#txttipm").val('D');
+        //Obteniendo Id
+          var idtle = $(this).data('id');
 
-                        $("#tdatosdet").jqGrid({
-                                async: true,
-                                url: wurl,
-                                mtype: "POST",
-                                styleUI : 'Bootstrap',
-                                responsive: true,
-                                postData: {'token':$('input[name=token]').val(),'idordx':$("#lol").val()},
-                                datatype: "json",
-                                colModel: [
-                                    { label: '...', name: 'accion', frozen:true , width: 110, formatter:function(cellValue, opts, rowObject){return '<button class="btn btn-success btn-xs edit-modal" data-id=' + rowObject.idsucursal + '><span class="fa fa-pencil"></span></button> <button class="btn btn-danger btn-xs delete-modal" data-id=' + rowObject.idsucursal + '><span class="fa fa-trash-o"></span></button> <button class="btn btn-primary btn-xs fin-modal" onclick="dispositivo.some_function('+rowObject.IdOrden+')"><span class="fa fa-check-circle"></span></button>';}},
-                                    { label: 'Id. Orden', name: 'IdOrden' ,key: true, width: 100 },
-                                    { label: 'Detalle', name: 'IdOrdenDetalle',key: true, width: 100 },
-                                    { label: 'Empresa', name: 'IdEmpresa', width: 100 },
-                                    { label: 'Mecanico', name: 'IdMecanico', width: 100 },
-                                    { label: 'Cliente', name: 'IdCliente', width: 100 },
-                                    { label: 'Vehiculo', name: 'IdVehiculo', width: 100 },
-                                    { label: 'Taller', name: 'IdTaller', width: 100 },
-                                    { label: 'Estado', name: 'EstadoOrden', width: 100 },
-                                    { label: 'Observacion', name: 'Obsvacion', width: 100 },
-                                    { label: 'FechaProgramada', name: 'FechaProgramada', width: 100 },
-                                    { label: 'FechaEjecutada', name: 'FechaEjecutada', width: 100 },
-                                    { label: 'Dispositivo', name: 'Serie', width: 100 },
-                                    { label: 'CodTipoTrabajo', name: 'CodTipoTrabajo', width: 100 },
-                                    { label: 'Sim', name: 'NroSim', width: 100 },
-                                    { label: 'IDN', name: 'NroIDN', width: 100 },
-                                ],
-                                viewrecords: true,
-                                height: 300,
-                                rowNum: 100,
-                                ShrinkToFit: false,
-                                shrinkToFit: false,
-                                rownumbers: true,
-                                jsonReader: {
-                                  root: "rows",
-                                  repeatitems: false
-                                },
-                                gridview: true,
-                                gridComplete: function(){
-                                    //sucursal.eventload();
-                                    //dispositivo.eventgrid();
-                                },
-                                sortname: 'IdOrden',
-                                sortorder: 'desc',
-                                pager: "#pagerdet"
-                                    });
+          $("#idorden").val(idtle);
+          //$("#txtmodelo").val(rowData.IdCategoria).trigger('change');
+          //$("#txtmarca").val(rowData.CodigoReferencia);
+          //$("#fileimg").val(rowData.CodigoTipo).trigger('change');
 
-                              $("#tdatosdet").jqGrid('navGrid','#pagerdet',
-                              {edit: false, add: false, del: false, search: false, refresh:true},
-                              {},
-                              {},
-                              {},
-                              {multipleSearch:true, multipleGroup:false, showQuery: true}
-                              );
+          swal({
+            title: "Mantenimiento/Cliente",
+            text: "¿Esta seguro de Eliminar este registro?",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonClass: "btn-danger",
+            confirmButtonText: "Si, borralo!",
+            closeOnConfirm: false,
+            showLoaderOnConfirm: true
+          },
+          function (result) {
+              if (result)
+              dispositivo.guardar();
+              $('#tdatos').trigger('reloadGrid');
+              //swal("Eliminado!", "Su registro ha sido eliminado!", "success");
+                  //producto.setproductos($("#frm-registro"));
+          }
 
-                              $("#tdatosdet").jqGrid('filterToolbar', { stringResult: true, searchOnEnter: true });
-                              $("#tdatosdet").jqGrid('setFrozenColumns');
-                              $("#tdatosdet").jqGrid('hideCol',['IdOrden']);
+          );
 
-                    $('#tdatosdet').trigger( 'reloadGrid');
-                    $('#myModaldetalle').modal('show');
-
-                });
-
+        //$('#tdatos').trigger('reloadGrid');
+        //$('#myModaldetalle').modal('hide');
+      });
     }
     ,validate:function(){}
+
     ,guardar:function()
   	{
 
@@ -300,7 +399,6 @@
             ,'idvehiculo':$("#idvehiculo").val()
             ,'estado':$("#estado").val()
             ,'observacion':$("#observacion").val()
-            ,'datepicker':$("#datepicker").val()
             ,'idatepicker':$("#idatepicker").val()
             ,'idtaller':$("#idtaller").val()
             ,'cadenadetalle':$("#cadenadetalle").val()
@@ -365,6 +463,43 @@
   				}
   		  });
   	}
+    ,ejecutar_detalle:function(strA_valor)
+    {
+          var wurl="<?php echo base_url('ordenes/detordenid'); ?>";
+
+          $.ajax({
+            async: true,
+            url: wurl,
+            type: "post",
+            dataType: 'json',
+            contentType: 'application/x-www-form-urlencoded',
+            data://$("#frm-clientes").serialize(),
+            {
+              'idordendetalle':strA_valor
+            },
+            beforeSend: function(data){
+
+            },
+            complete: function(data, status){
+
+              var json = JSON.parse(data.responseText);
+
+                //$("#ordiddet").text(json[0].IdOrdenDetalle);
+                $("#idordendet").val( json[0].IdOrdenDetalle );
+                $("#iddispositivo").val( json[0].IdDispositivo );
+                $("#cliente").val( json[0].Cliente );
+                $("#mecanico").val( json[0].Mecanico );
+                $("#dispositivo").val( json[0].Serie );
+                $("#nrosim").val( json[0].NroSim );
+                $("#nroidn").val( json[0].NroIDN );
+                $("#tipotrabajo").val( json[0].TipoTrabajo );
+              }
+          });
+        $("#txttipmdet").val('X');
+        $("#myModaldetalle").modal('hide');
+        $('#modal-ordenfindet').modal('show');
+    }
+    //obtener una pequeña informacon de las ordenes
     ,some_function:function(strA_valor)
     {
           var wurl="<?php echo base_url('ordenes/listidorden'); ?>";
@@ -408,6 +543,78 @@
         $("#txttipm").val('E');
         $('#modal-ordenfin').modal('show');
     }
+    ,listardetalle:function(){
+                  //var idtle = $(this).data('id');
+                    //'datito':(rowData.IdOrden);
+                  //var datord = (rowData.IdOrden);
+                  //$("#lol").val(idtle);
+                  var wurl="<?php echo base_url('ordenes/listdet'); ?>";
+                    //console.log(idtle);
+                      $("#tdatosdet").jqGrid({
+                              async: true,
+                              url: wurl,
+                              mtype: "GET",
+                              styleUI : 'Bootstrap',
+                              responsive: true,
+                              datatype: "json",
+                              colModel: [
+                                  { label: '...', name: 'accion' , width: 110, formatter:function(cellValue, opts, rowObject){return '<button class="btn btn-primary btn-xs fin-detalle" onclick="dispositivo.ejecutar_detalle('+rowObject.IdOrdenDetalle+')"><span class="fa fa-check-circle"></span></button>';}},
+                                  { label: 'Id. Orden', name: 'IdOrden', width: 100 },
+                                  { label: 'Id. Detalle', name: 'IdOrdenDetalle',key: true, width: 100 },
+                                  //{ label: 'Id. Empresa', name: 'IdEmpresa', width: 100 },
+                                  { label: 'Empresa', name: 'NombreComercial', width: 100 },
+                                  //{ label: 'Id. Mecanico', name: 'IdMecanico', width: 100 },
+                                  { label: 'Mecanico', name: 'Mecanico', width: 100 },
+                                  //{ label: 'Id. Cliente', name: 'IdCliente', width: 100 },
+                                  { label: 'Cliente', name: 'Cliente', width: 100 },
+                                  //{ label: 'Id. Vehiculo', name: 'IdVehiculo', width: 100 },
+                                  { label: 'Vehiculo', name: 'Vehiculo', width: 100 },
+                                  //{ label: 'Id. Taller', name: 'IdTaller', width: 100 },
+                                  { label: 'Taller', name: 'Taller', width: 100 },
+                                  //{ label: 'COD', name: 'CodOrd', width: 100 },
+                                  { label: 'Estado', name: 'EstadoOrden', width: 100 },
+                                  { label: 'Observacion', name: 'Obsvacion', width: 100 },
+                                  { label: 'FechaProgramada', name: 'FechaProgramada', width: 100 },
+                                  { label: 'FechaEjecutada', name: 'FechaEjecutada', width: 100 },
+                                  { label: 'Dispositivo', name: 'Serie', width: 100 },
+                                  //{ label: 'Id. Trabajo', name: 'CodTipoTrabajo', width: 100 },
+                                  { label: 'Trabajo', name: 'TipoTrabajo', width: 100 },
+                                  { label: 'Sim', name: 'NroSim', width: 100 },
+                                  { label: 'IDN', name: 'NroIDN', width: 100 },
+                              ],
+                              viewrecords: true,
+                              height: 300,
+                              rowNum: 100,
+                              ShrinkToFit: false,
+                              shrinkToFit: false,
+                              rownumbers: true,
+                              jsonReader: {
+                                root: "rows",
+                                repeatitems: false
+                              },
+                              gridview: true,
+                              gridComplete: function(){
+                                  //sucursal.eventload();
+                                  //dispositivo.eventgrid();
+                              },
+                              sortname: 'IdOrden',
+                              sortorder: 'desc',
+                              pager: "#pagerdet",
+
+                                  });
+
+                            $("#tdatosdet").jqGrid('navGrid','#pagerdet',
+                            {edit: false, add: false, del: false, search: false, refresh:true},
+                            {},
+                            {},
+                            {},
+                            {multipleSearch:true, multipleGroup:false, showQuery: true}
+                            );
+
+                            //$("#tdatosdet").jqGrid('filterToolbar', { stringResult: true, searchOnEnter: true });
+                            $("#tdatosdet").jqGrid('setFrozenColumns');
+                            $("#tdatosdet").jqGrid('hideCol',['IdOrden']);
+    }
     ,listar:function()
     {
         var wurl="<?php echo base_url('ordenes/list'); ?>";
@@ -419,8 +626,8 @@
                 postData: {'token':$('input[name=token]').val()},
                 datatype: "json",
                 colModel: [
-                    { label: '...', name: 'accion', frozen:true , width: 110, formatter:function(cellValue, opts, rowObject){return '<button class="btn btn-success btn-xs edit-modal" data-id=' + rowObject.idsucursal + '><span class="fa fa-pencil"></span></button> <button class="btn btn-danger btn-xs delete-modal" data-id=' + rowObject.idsucursal + '><span class="fa fa-trash-o"></span></button> <button class="btn btn-primary btn-xs fin-modal" onclick="dispositivo.some_function('+rowObject.IdOrden+')"><span class="fa fa-check-circle"></span></button> <button class="btn btn-success btn-xs detalle-modal" data-id=' + rowObject.IdOrden + '><span class="fa fa-eye"></span></button>';}},
-                    { label: 'Id. Orden', name: 'IdOrden',key: true, width: 100 },
+                    { label: '...', name: 'accion', frozen:true , width: 110, formatter:function(cellValue, opts, rowObject){return '<button class="btn btn-danger btn-xs anular-orden" data-id=' + rowObject.IdOrden + '><span class="fa fa-trash-o"></span></button> <button class="btn btn-primary btn-xs fin-modal" onclick="dispositivo.some_function('+rowObject.IdOrden+')"><span class="fa fa-check-circle"></span></button> <button class="btn btn-success btn-xs detalle-modal" id="detalle-modal" data-id=' + rowObject.IdOrden + '><span class="fa fa-eye"></span></button>';}},
+                    { label: 'Id. Orden', name: 'IdOrden',key: true, width: 60 },
                     { label: 'Cliente', name: 'NomCli', width: 100 },
                     //{ label: 'Dispositivo', name: 'IdDispositivo', width: 100 },
                     { label: 'Mecanico', name: 'NomMec', width: 100 },
@@ -428,10 +635,9 @@
                     { label: 'Taller', name: 'Taller', width: 100 },
                     //{ label: 'Estado', name: 'EstadoOrden', width: 100 },
                     { label: 'Estado', name: 'Descripcion', width: 100 },
-                    { label: 'Programacion', name: 'FechaProgramada', width: 100 },
-                    { label: 'Ejecucion', name: 'FechaEjecutada', width: 100 },
+                    { label: 'Programacion', name: 'FechaProgramada', width: 120 },
+                    { label: 'Ejecucion', name: 'FechaEjecutada', width: 120 },
                 ],
-                loadonce: true,
                 viewrecords: true,
                 height: 300,
                 rowNum: 100,
@@ -463,53 +669,6 @@
               $("#tdatos").jqGrid('setFrozenColumns');
               $("#tdatos").jqGrid('hideCol',['idmodelo']);
       }
-
-      // the event handler on expanding parent row receives two parameters
-        // the ID of the grid tow  and the primary key of the row
-    /*  function showChildGrid(parentRowID, parentRowKey) {
-            var childGridID = parentRowID + "#tdatos";
-            var childGridPagerID = parentRowID + "#pager";
-
-            // send the parent row primary key to the server so that we know which grid to show
-            var childGridURL = parentRowKey+".json";
-            //childGridURL = childGridURL + "&parentRowID=" + encodeURIComponent(parentRowKey)
-
-            // add a table and pager HTML elements to the parent grid row - we will render the child grid here
-            $('#' + parentRowID).append('<table id=' + childGridID + '></table><div id=' + childGridPagerID + ' class=scroll></div>');
-            var durl="<?php echo base_url('ordenes/listdet'); ?>";
-            $("#" + childGridID).jqGrid({
-                url: durl,
-                mtype: "get",
-                styleUI : 'Bootstrap',
-                responsive: true,
-                postData: {'token':$('input[name=token]').val()},
-                datatype: "json",
-                colModel: [
-                    { label: 'Id. Detalle', name: 'IdOrdenDetalle', key: true, width: 75 },
-                    { label: 'Empresa', name: 'IdEmpresa', width: 100 },
-                    { label: 'Mecanico', name: 'IdMecanico', width: 100 },
-                    { label: 'Cliente', name: 'IdCliente', width: 100 },
-                    { label: 'Vehiculo', name: 'IdVehiculo', width: 75 }
-                ],
-				        loadonce: true,
-                width: 500,
-                height: '100%',
-                pager: "#" + childGridPagerID
-                rowNum: 100,
-                ShrinkToFit: false,
-                shrinkToFit: false,
-                rownumbers: true,
-                jsonReader: {
-                  root: "rows",
-                  repeatitems: false
-                },
-                sortname: 'IdOrdenDetalle',
-                sortorder: 'desc',
-                pager: "#pager"
-            });
-
-        }*/
-
    }
 
    dispositivo.init();

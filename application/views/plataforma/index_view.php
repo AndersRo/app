@@ -72,41 +72,170 @@
               <!-- form start -->
               <div class="box-body my-form-body">
 
-                  <form action="" class="form" method="post" accept-charset="utf-8">
-                  <?php echo form_hidden('token', $token) ?>
+                <div class="content">
+                  <!-- Content Header (Page header) -->
+                  <section class="content-header">
+                      <h1>
+                          ALTA DE USUARIO
+                          <small></small>
+                      </h1>
+                  </section>
 
-                    <div class="form-group">
-                      <label for="codigo" class="col-sm-12 control-label">Tipo Comandos</label>
+                  <section class="content">
+                      <!-- SELECT2 EXAMPLE -->
 
-                      <div class="col-sm-6">
-                        <input type="text" name="codigo" class="form-control" id="codigo" placeholder="">
+                    <div class="row">
+                      <div class="col-xs-12">
+                        <div class="box box-warning">
+                          <div class="box-header with-border">
+                            <h3 class="box-title">Información de usuarios</h3>
+                            <div class="box-tools pull-right">
+                                  <button type="button" class="btn btn-default btn_save"><i class="fa fa-save"></i> Guardar Usuario </button>
+                            </div>
+                          </div>
+                          <!-- /.box-header -->
+                          <div class="box-body">
+                              <form role="form" id="frmdata">
+                                  <input type="hidden" name="idclienteu" id="idclienteu">
+                                  <input type="hidden" name="idcontratou" id="idcontratou">
+                                  <input type="hidden" name="cadenahorarios" id="cadenahorarios">
+
+                                  <div class="row">
+                                      <div class="col-md-6">
+                                      <!-- /.form-group -->
+                                        <div class="form-group">
+                                          <label>Cliente</label>
+                                          <div class="input-group input-group-sm">
+                                              <input type="text" id="cliente" class="form-control">
+                                              <span class="input-group-btn">
+                                                    <button type="button" class="btn btn-info btn-flat new-modal" data-toggle="modal" data-target="#myModalAsig">...</button>
+                                                      <!--<a class="btn btn-primary btn-xs new-modal" data-toggle="modal" data-target="#pepe"><span class="fa fa-plus"></span></a>-->
+                                              </span>
+                                          </div>
+                                        </div>
+
+                                        <!-- /.form-group -->
+                                        <div class="form-group">
+                                          <label>Contrato</label>
+                                          <div class="input-group input-group-sm">
+                                              <input type="text" id="contratou" class="form-control">
+                                              <span class="input-group-btn">
+                                                    <button type="button" class="btn btn-info btn-flat contrato-modal" data-toggle="modal">...</button>
+                                                      <!--<a class="btn btn-primary btn-xs new-modal" data-toggle="modal" data-target="#pepe"><span class="fa fa-plus"></span></a>-->
+                                              </span>
+                                          </div>
+                                      </div>
+
+
+                                        <!-- /.form-group -->
+                                        <div class="form-group">
+                                          <label>
+                                            <input type="checkbox" class="flat-red" checked>
+                                            Acceso Web
+                                          </label>
+                                          <label>
+                                            <input type="checkbox" class="flat-red">
+                                            Acceso Movil
+                                          </label>
+                                      </div>
+
+                                      </div>
+                                      <!-- /.col -->
+                                      <div class="col-md-6" >
+                                        <!-- /.form-group -->
+                                        <div class="form-group">
+                                          <label>Nombre de Usuario</label>
+                                          <input type="text" class="form-control" name="nombreusuario" id="nombreusuario">
+                                        </div>
+
+                                      <!-- /.form-group -->
+                                        <div class="form-group">
+                                          <label>Clave</label>
+                                          <input type="password" class="form-control" name="password" id="password">
+                                        </div>
+
+                                        <!-- /.form-group -->
+                                          <div class="form-group">
+                                            <label>Clave ON/OFF</label>
+                                            <input type="password" class="form-control" name="onoff" id="onoff">
+                                          </div>
+                                      </div>
+                                      <!-- /.col -->
+                                    </div>
+
+                              </form>
+                          </div>
+
+                          <!-- /.box-body -->
+                          <div class="box-footer">
+                              <div class="btn-group pull-right" >
+                                  <button type="button" class="btn btn-default btn_save"><i class="fa fa-save"></i> Guardar </button>
+                                  <button type="button" class="btn btn-default btn_cancel"><i class="fa fa-mail-reply"></i> Cancelar</button>
+                              </div>
+                          </div>
+
+                        </div>
                       </div>
-                    </div>
+                   </div>
 
-                    <div class="form-group">
-                      <label for="role" class="col-sm-12 control-label">Modelo</label>
 
-                      <div class="col-sm-6">
-                        <select name="group" class="form-control">
-                          <?php
-                              foreach ($tipodoc as $key => $value) {
-                                  echo '<option value="'.$value["codigo"].'">'.$value["Descripcion"].'</option>';
-                              }
+                  </section>
+                  <!-- /.content -->
 
-                           ?>
-                      </select>
+                  <!-- Modal -->
+                  <div class="modal fade" id="myModalAsig" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                      <div class="modal-dialog modal-lg" role="document">
+                          <div class="modal-content">
+                              <div class="modal-header">
+                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                  <h4 class="modal-title" id="myModalLabel">Agregar Clientes</h4>
+                              </div>
+
+                              <div class="modal-body">
+                                  <!-- form start -->
+                                      <!--INICIO DE FILA QUE CONTIENE LA COLUMNA-->
+                                      <div>
+                                          <table id="tdatosc"> </table>
+                                          <div id="pagerc"></div>
+                                      </div>
+                              </div>
+
+                              <div class="modal-footer">
+                                  <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                                  <button type="button" class="btn btn-primary btn_saveuser">Aceptar</button>
+                              </div>
+                          </div>
                       </div>
-                    </div>
+                  </div>
 
-                    <div class="form-group">
-                      <label for="Comandos" class="col-sm-12 control-label">Comandos</label>
+                  <!-- Modal -->
+                  <div class="modal fade" id="myModalCont" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                      <div class="modal-dialog modal-lg" role="document">
+                          <div class="modal-content">
+                              <div class="modal-header">
+                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                  <h4 class="modal-title" id="myModalLabel">Agregar Contrato</h4>
+                              </div>
 
-                      <div class="col-sm-6">
-                        <input type="text" name="Comandos" class="form-control" id="Comandos" placeholder="">
+                              <div class="modal-body">
+                                  <!-- form start -->
+                                      <!--INICIO DE FILA QUE CONTIENE LA COLUMNA-->
+                                      <div>
+                                          <table id="tdatoscont"> </table>
+                                          <div id="tdatoscont"></div>
+                                      </div>
+                              </div>
+
+                              <div class="modal-footer">
+                                  <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                                  <button type="button" class="btn btn-primary btn_addcont">Aceptar</button>
+                              </div>
+                          </div>
                       </div>
-                    </div>
+                  </div>
 
-                  </form>
+                </div>
+
                 </div>
                 <!-- /.box-body -->
             </div>

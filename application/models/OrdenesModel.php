@@ -20,10 +20,10 @@ class OrdenesModel extends CI_Model
 		}
 	}
 
-  function Listardet($sidx,$sord,$attr,$idempresa,$idord)
+  function Listardet($sidx,$sord,$attr,$idempresa)
 	{
-    $parameters=array($sidx,$sord,$attr["start"],$attr["limit"],$attr["filter"],$idempresa,$idord);
-		$sql = 'CALL sp_get_detorden(?,?,?,?,?,?,?)';
+    $parameters=array($sidx,$sord,$attr["start"],$attr["limit"],$attr["filter"],$idempresa);
+		$sql = 'CALL sp_get_detorden(?,?,?,?,?,?)';
 		$q = $this->db->query($sql, $parameters);
 		if($q -> num_rows() >= 1)
 		{
@@ -69,7 +69,6 @@ class OrdenesModel extends CI_Model
              ,$data->estado
              ,$data->observacion
              ,$data->datepicker
-             ,$data->idatepicker
              ,$data->idtaller
              ,$data->cadenadetalle
              //,$data->iddispositivo
@@ -77,7 +76,7 @@ class OrdenesModel extends CI_Model
              //,$data->nrosim
              //,$data->idn
 						);
-		$sql = 'CALL sp_set_registraorden(?,?,?,?,?,?,?,?,?,?,?,?,?,?)';
+		$sql = 'CALL sp_set_registraorden(?,?,?,?,?,?,?,?,?,?,?,?,?)';
 		$q = $this->db->query($sql, $parameters);
 		if($q -> num_rows() >= 1)
 		{
@@ -96,6 +95,24 @@ class OrdenesModel extends CI_Model
 	{
     $parameters=array($sidx);
 		$sql = 'CALL sp_get_idorden(?)';
+		$q = $this->db->query($sql, $parameters);
+		if($q -> num_rows() >= 1)
+		{
+             mysqli_next_result($this->db->conn_id);
+             $data = $q->result();
+             $q->free_result();
+             return $data;
+		}
+		else
+		{
+			return false;
+		}
+	}
+
+  function detidord($sidx)
+	{
+    $parameters=array($sidx);
+		$sql = 'CALL sp_get_iddetord(?)';
 		$q = $this->db->query($sql, $parameters);
 		if($q -> num_rows() >= 1)
 		{

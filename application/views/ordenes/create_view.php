@@ -69,7 +69,7 @@
                               <label for="role" class="col-sm-2 control-label">Estado</label>
 
                               <div class="col-sm-10">
-                                <select name="estado" id="estado" class="form-control">
+                                <select name="estado" id="estado" class="form-control" disabled>
                                   <?php
                                       foreach ($orden as $row) {
                                           echo '<option value="'.$row->codigo.'">'.$row->Descripcion.'</option>';
@@ -167,18 +167,6 @@
                                 <!-- /.input group -->
                               </div>
 
-                              <div class="form-group">
-                                <label for="role" class="col-sm-3 control-label">Ejecucion:</label>
-
-                                <div class="input-group date col-sm-3">
-                                  <div class="input-group-addon">
-                                    <i class="fa fa-calendar"></i>
-                                  </div>
-                                  <input type="text" class="form-control pull-right" id="idatepicker">
-                                </div>
-                                <!-- /.input group -->
-                              </div>
-
                           </div>
 
                           <div class="col-sm-6">
@@ -268,9 +256,9 @@
                         <div class="modal-footer">
                           <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
                           <button type="button" id="btnguardar" name="btnguardar" class="btn btn-primary">Guardar Cambios</button>
-                          <a class="btn btn-app" id="savet">
+                          <!--<a class="btn btn-app" id="savet">
                             <i class="fa fa-save"></i> Save
-                          </a>
+                          </a>-->
                         </div>
                     </div>
                   </div>
@@ -501,7 +489,6 @@
                           <div class="box-footer">
                               <div class="btn-group pull-right" >
                                   <button type="button" class="btn btn-default btn_savecon" id="btn_savecon"><i class="fa fa-save"></i> Guardar Contrato </button>
-                                  <button type="button" class="btn btn-default btn_listar"><i class="fa fa-mail-reply"></i> Listar</button>
                               </div>
                           </div>
                         </div>
@@ -538,6 +525,7 @@
                           <div class="box-body">
                               <form role="form" id="frmdata">
                                   <input type="hidden" name="idclienteu" id="idclienteu">
+                                  <input type="hidden" name="idcontratou" id="idcontratou">
                                   <input type="hidden" name="cadenahorarios" id="cadenahorarios">
 
                                   <div class="row">
@@ -553,6 +541,19 @@
                                               </span>
                                           </div>
                                         </div>
+
+                                        <!-- /.form-group -->
+                                        <div class="form-group">
+                                          <label>Contrato</label>
+                                          <div class="input-group input-group-sm">
+                                              <input type="text" id="contratou" class="form-control">
+                                              <span class="input-group-btn">
+                                                    <button type="button" class="btn btn-info btn-flat contrato-modal" data-toggle="modal">...</button>
+                                                      <!--<a class="btn btn-primary btn-xs new-modal" data-toggle="modal" data-target="#pepe"><span class="fa fa-plus"></span></a>-->
+                                              </span>
+                                          </div>
+                                      </div>
+
 
                                         <!-- /.form-group -->
                                         <div class="form-group">
@@ -630,6 +631,32 @@
                               <div class="modal-footer">
                                   <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
                                   <button type="button" class="btn btn-primary btn_saveuser">Aceptar</button>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+
+                  <!-- Modal -->
+                  <div class="modal fade" id="myModalCont" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                      <div class="modal-dialog modal-lg" role="document">
+                          <div class="modal-content">
+                              <div class="modal-header">
+                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                  <h4 class="modal-title" id="myModalLabel">Agregar Contrato</h4>
+                              </div>
+
+                              <div class="modal-body">
+                                  <!-- form start -->
+                                      <!--INICIO DE FILA QUE CONTIENE LA COLUMNA-->
+                                      <div>
+                                          <table id="tdatoscont"> </table>
+                                          <div id="tdatoscont"></div>
+                                      </div>
+                              </div>
+
+                              <div class="modal-footer">
+                                  <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                                  <button type="button" class="btn btn-primary btn_addcont">Aceptar</button>
                               </div>
                           </div>
                       </div>
@@ -726,6 +753,7 @@
     {
       var gdatadetalle=new Array();
       dispositivo.listar();
+      dispositivo.listarcontratos();
       dispositivo.listaruser();
       dispositivo.listarorden();
 
@@ -775,6 +803,20 @@
                   );
           $('#tdatoso').trigger('reloadGrid');
       $("#modal-orden").modal('show');
+    });
+
+    $(".contrato-modal").on("click", function(){
+      //Volviendo a pasar los parametros de busqueda
+        var myfilter = { groupOp: "AND", rules: []};
+        myfilter.rules.push({field:"IdCliente",op:"bw",data:$("#idclienteu").val()});
+        $('#tdatoscont').jqGrid('setGridParam', {search: true
+            , postData: {
+             'filters': JSON.stringify(myfilter)
+                        }
+                      }
+                  );
+          $('#tdatoscont').trigger('reloadGrid');
+      $("#myModalCont").modal('show');
     });
 
     $("#iddispositivo").change(function(){
@@ -903,8 +945,6 @@ $("#cadenadetalle").val(scadena);
                                $("#cliente").val(apa+" "+ama+" "+nom);
                                //$("#nrosim").val(sim);
                                //$("#idn").val(idn);
-
-
                              $('#myModalAsig').modal('hide');
 
                            }else {
@@ -954,6 +994,42 @@ $("#cadenadetalle").val(scadena);
                                       }
                                   });
 
+                                  $(".btn_addcont").click(function(event)
+                                     {
+                                       event.returnValue = false; /*para I.E.*/
+                                       if(event.preventDefault) event.preventDefault();
+
+                                         var selr = $("#tdatoscont").jqGrid('getGridParam', 'selrow');
+                                           if(selr) {
+                                             var rowDatasel = $("#tdatoscont").jqGrid('getRowData', selr);
+                                             var grid = $("#tdatoscont");
+                                             var rowKey = grid.jqGrid('getGridParam',"selrow");
+
+                                               var idcont = rowDatasel.IdContrato;
+                                               var contcli = rowDatasel.NomCli;
+
+                                                     //$("#iddispositivo"+(trs-1)+"").val(iddis+"-"+modelo);
+                                                     $("#idcontratou").val(idcont);
+                                                     $("#contratou").val(contcli);
+                                                     //$("#nrosim").val(sim);
+                                                     //$("#idn").val(idn);
+                                                     //cliente
+                                                     //contratou
+
+                                                   $('#myModalCont').modal('hide');
+
+                                                 }else {
+                                                   waitingDialog.hide();
+                                                   //bootbox.alert("Error! : . " + wmsg);
+                                                   swal({
+                                                     title: "Error!",
+                                                     text: "Debe seleccionar algun dato!",
+                                                     type: "warning",
+                                                   });
+                                                     return false;
+                                                 }
+                                             });
+
     $("#item").on("click", function () {
         var trs=$("#tabledis tr").length;
         var campo = $('#iddispositivo'+(trs-1)+'').val();
@@ -967,7 +1043,7 @@ $("#cadenadetalle").val(scadena);
         for(var i=0;i<trs;i++){
             var fila='<tr><th>'+(i+1)+'</th>'+
 
-            '<td> <select name="tipotrabajo" id="tipotrabajo'+(i+1)+'" class="form-control"><?php foreach ($trabajo as $row) {echo '<option value="'.$row->codigo.'">'.$row->Descripcion.'</option>';} ?>º</select></td>'+
+            '<td> <select name="tipotrabajo" id="tipotrabajo'+(i+1)+'" class="form-control"><?php foreach ($trabajo as $row) {echo '<option value="'.$row->codigo.'">'.$row->Descripcion.'</option>';} ?></select></td>'+
 
             '<td><div class="input-group input-group-sm"><input name="iddispositivo'+(i+1)+'" id="iddispositivo'+(i+1)+'" type="text" class="form-control"><span class="input-group-btn"><button type="button" class="btn btn-info btn-flat new-modal" data-toggle="modal" data-target="#modal-dispositivo">...</button></span></div></td>'+
 
@@ -1052,7 +1128,6 @@ $("#cadenadetalle").val(scadena);
             ,'estado':$("#estado").val()
             ,'observacion':$("#observacion").val()
             ,'datepicker':$("#datepicker").val()
-            ,'idatepicker':$("#idatepicker").val()
             ,'idtaller':$("#idtaller").val()
             ,'cadenadetalle':$("#cadenadetalle").val()
             //,'iddispositivo':$("#iddispositivo").val()
@@ -1252,6 +1327,63 @@ $("#cadenadetalle").val(scadena);
               $("#tdatosd").jqGrid('setFrozenColumns');
               $("#tdatosd").jqGrid('hideCol',['idmodelo']);
       }
+
+      ,listarcontratos:function()
+      {
+          var wurl="<?php echo base_url('contratos/list'); ?>";
+          $("#tdatoscont").jqGrid({
+                  url: wurl,
+                  mtype: "get",
+                  styleUI : 'Bootstrap',
+                  responsive: true,
+                  postData: {'token':$('input[name=token]').val()},
+                  datatype: "json",
+                  colModel: [
+                      { label: 'Ide. ContratoOrdenes', name: 'IdContratoOrdenes', key: true, width: 100 },
+                      { label: 'Ide. Contrato', name: 'IdContrato', width: 100 },
+                      { label: 'Ide. Orden', name: 'IdOrden', width: 100 },
+                      { label: 'Tipo Contrato', name: 'CodTipoContrato', width: 200 },
+                      { label: 'Ide. Cliente', name: 'IdCliente', width: 200 },
+                      { label: 'Cliente', name: 'NomCli', width: 200 },
+                      { label: 'IdEmpresa', name: 'IdEmpresa', width: 200 },
+                      { label: 'Empresa', name: 'RazonSocial', width: 200 },
+                      { label: 'Ide. Vehiculo', name: 'IdVehiculo', width: 200 },
+                      { label: 'Vehiculo', name: 'chasis', width: 200 },
+                      { label: 'Estado', name: 'EstadoContrato', width: 200 },
+                      { label: 'Fecha Inicio', name: 'FechaInicio', width: 200 },
+                      { label: 'Fecha Fin', name: 'FechaFin', width: 200 },
+                  ],
+                  viewrecords: true,
+                  height: 300,
+                  rowNum: 100,
+                  ShrinkToFit: false,
+                  shrinkToFit: false,
+                  rownumbers: true,
+                  jsonReader: {
+                    root: "rows",
+                    repeatitems: false
+                  },
+                  gridview: true,
+                  gridComplete: function(){
+                      //sucursal.eventload();
+                  },
+                  sortname: 'IdContratoOrdenes',
+                  sortorder: 'desc',
+                  pager: "#pagercont"
+                      });
+
+                $("#tdatoscont").jqGrid('navGrid','#pagercont',
+                {edit: false, add: false, del: false, search: false, refresh:true},
+                {},
+                {},
+                {},
+                {multipleSearch:true, multipleGroup:false, showQuery: true}
+                );
+
+                $("#tdatoscont").jqGrid('filterToolbar', { stringResult: true, searchOnEnter: true });
+                $("#tdatoscont").jqGrid('setFrozenColumns');
+                $("#tdatoscont").jqGrid('hideCol',['IdCliente','IdEmpresa', 'IdVehiculo']);
+        }
 
       ,listaruser:function()
       {

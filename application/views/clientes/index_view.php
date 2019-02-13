@@ -524,7 +524,6 @@
 	,guardar:function()
 	{
 
-
 		  var wurl="<?php echo base_url('clientes/store'); ?>";
 
 		  $.ajax({

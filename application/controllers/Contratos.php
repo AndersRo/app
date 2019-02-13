@@ -7,12 +7,51 @@ class Contratos extends My_Controller {
 	{
 		  parent::__construct();
       $this->load->model('ContratosModel');
+      $this->load->model('ClientesModel');
+      $this->load->model('VehiculosModel');
+      $this->load->model('TablasModel');
+      $this->load->model('EmpresasModel');
 	}
 
 	 public function index()
  	{
  		$data = array('titulo' => 'Contratos','token'  => $this->auth->token());
  		$this->layout('contratos/index_view',$data);
+  }
+
+  public function create(){
+    $clientes=$this->ClientesModel->listmodel();
+    $vehiculos=$this->VehiculosModel->listmodel();
+    $empresas=$this->EmpresasModel->listmodel();
+
+    $tiposerv="006"; //Tipos de servicio de contrato
+    $servicio=$this->TablasModel->Listar($tiposerv);
+
+    $tipestado="005"; //Tabla Tipos Documentos
+		$orden=$this->TablasModel->Listar($tipestado);
+
+    $docanexo="007"; //Tipos de documento anexo
+    $danexos=$this->TablasModel->Listar($docanexo);
+    
+    $tiptra="004"; //Tabla Tipos Trabajos
+		$trabajo=$this->TablasModel->Listar($tiptra);
+
+    $data = array(
+    'titulo' => 'Contrato'
+    ,'token'  => $this->auth->token()
+    ,'empresas'=>$empresas
+    //,'talleres'=>$talleres
+    ,'clientes'=>$clientes
+    ,'vehiculos'=>$vehiculos
+    //,'mecanicos'=>$mecanicos
+    ,'trabajo'=>$trabajo
+    //,'dispositivos'=>$dispositivos
+    ,'orden'=>$orden
+    ,'servicio'=>$servicio
+    ,'danexos'=>$danexos
+    );
+
+    $this->layout('contratos/create_view', $data);
   }
 
 

@@ -85,15 +85,16 @@ class Ordenes extends My_Controller {
       {
           $sidx =$_GET['sidx'];
           $sord =$_GET['sord'];
-          $idord =$_GET['idordx'];
+          //$idord =$_GET['idordx'];
           $atrr=$this->grilla->param;
           //Obteniendo el Count
-          $datacount=$this->OrdenesModel->Listardet($sidx,$sord,$atrr,$this->auth->getidempresa(),$idord); //count
+          $datacount=$this->OrdenesModel->Listardet($sidx,$sord,$atrr,$this->auth->getidempresa()); //count
           $atrr=$this->grilla->jq_getatributes($this->input->get(),$datacount);
           //Obteniendo la Data
-          $data=$this->OrdenesModel->Listardet($sidx,$sord,$atrr,$this->auth->getidempresa(),$idord); //data
+          $data=$this->OrdenesModel->Listardet($sidx,$sord,$atrr,$this->auth->getidempresa()); //data
           $json=$this->grilla->jq_getdata($this->input->get(),$data);
           echo $json;
+
       }
 	}
 
@@ -151,7 +152,6 @@ class Ordenes extends My_Controller {
           $ordenes->estado		=isset($request["estado"]) ? $request["estado"] 	: "";
           $ordenes->observacion		=isset($request["observacion"]) ? $request["observacion"] 	: "";
           $ordenes->datepicker		=isset($request["datepicker"]) ? $request["datepicker"] 	: "";
-          $ordenes->idatepicker		=isset($request["idatepicker"]) ? $request["idatepicker"] 	: "";
           $ordenes->idtaller		=isset($request["idtaller"]) ? $request["idtaller"] 	: "";
           $ordenes->cadenadetalle		=isset($request["cadenadetalle"]) ? $request["cadenadetalle"] 	: "";
           //$ordenes->tipotrabajo		=isset($request["tipotrabajo"]) ? $request["tipotrabajo"] 	: "";
@@ -185,6 +185,21 @@ class Ordenes extends My_Controller {
 
          //$rows = array($sidx);
         $datacount=$this->OrdenesModel->lisid($sidx); //count
+
+        header("Content-type:application/json");
+        echo json_encode($datacount);
+    }
+	}
+
+  public function detordenid()
+	{
+    $response=array();
+    if ($this->input->server('REQUEST_METHOD') == 'POST')
+    {
+        $sidx =$_POST['idordendetalle'];
+
+         //$rows = array($sidx);
+        $datacount=$this->OrdenesModel->detidord($sidx); //count
 
         header("Content-type:application/json");
         echo json_encode($datacount);
