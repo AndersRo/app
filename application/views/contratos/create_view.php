@@ -119,7 +119,7 @@
                                   <label for="role" class="col-sm-2 control-label">Empresa</label>
 
                                   <div class="col-sm-10">
-                                    <select name="idempresa" id="idempresa" class="form-control selectpicker" data-live-search="true">
+                                    <select name="idempresa" id="idempresa" class="form-control" disabled>
                                       <?php
                                           foreach ($empresas as $row) {
                                               echo '<option value="'.$row->IdEmpresa.'">'.$row->NombreComercial.'</option>';
@@ -290,7 +290,7 @@
 
 
 <script type="text/javascript">
-  var $grid = $("#tdatosd"),
+  var $grid = $("#tdatoso"),
       newWidth = $grid.closest(".ui-jqgrid").parent().width();
   $.jgrid.defaults.width = newWidth;
   $.jgrid.defaults.responsive = true;
@@ -397,6 +397,79 @@
 
     }
 
+    ,generarcontrato:function()
+  	{
+
+  		  var wurl="<?php echo base_url('Contratos/impresion'); ?>";
+
+  		  $.ajax({
+  				async: true,
+  				url: wurl,
+  				type: "post",
+  				dataType: 'json',
+  				contentType: 'application/x-www-form-urlencoded',
+  				data://$("#frm-contratos").serialize(),
+          {
+            'idcontrato':$("#idcontrato").val()
+          },
+
+  				beforeSend: function(data){
+            waitingDialog.show('Procesando...', {dialogSize: 'sm'});
+  				},
+  				complete: function(data, status){
+					//alert('completado');
+
+            if (status=="success"){
+
+                var werror=JSON.parse(data.responseText).error;
+                var wmsg=JSON.parse(data.responseText).mensaje;
+                  if (werror==0)
+                        {
+                            var wcodigo=JSON.parse(data.responseText).id;
+                            var mensajeview=""
+                            waitingDialog.hide();
+                            if ($("#txttipmcon").val()=="N")
+                            {
+                              mensajeview="Registro Exitoso!";
+                            }else if($("#txttipmcon").val()=="U"){
+                              mensajeview="Registro actualizado correctamente!";
+                            }else{
+                              mensajeview="Registro eliminado correctamente!";
+                            }
+                            //bootbox.alert(mensajeview);
+                            //compras.limpiarcampos();
+                            swal(mensajeview, "Clickea para continuar!", "success");
+                        }
+                    else
+                      {
+                          waitingDialog.hide();
+                          //bootbox.alert("Error! : . " + wmsg);
+                          swal({
+                            title: "Error!",
+                            text: wmsg,
+                            type: "warning",
+                          });
+                      }
+
+                  }
+                  else
+                    {
+                      waitingDialog.hide();
+                      //bootbox.alert("Error! : Ocurrio algo inesperado, intente más tarde!");
+                      swal({
+                        title: "Error!",
+                        text: "Ocurrio algo inesperado, intente más tarde!",
+                        type: "warning",
+                      });
+                    }
+
+                    //waitingDialog.hide();
+                    //$('#modal-default').modal('hide');
+                    //$('#tdatos').trigger( 'reloadGrid' );
+  				}
+  		  });
+  	}
+
     ,guardarcontrato:function()
   	{
 
@@ -474,7 +547,7 @@
 
                     //waitingDialog.hide();
                     //$('#modal-default').modal('hide');
-                    //$('#tdatos').trigger( 'reloadGrid' );
+                    $('#tdatos').trigger( 'reloadGrid' );
   				}
   		  });
   	}
@@ -502,7 +575,7 @@
                         //{ label: 'Estado', name: 'EstadoOrden', width: 100 },
                         { label: 'Descripcion', name: 'Descripcion', width: 100 },
                         { label: 'Programacion', name: 'FechaProgramada', width: 100 },
-                        { label: 'Ejecucion', name: 'FechaEjecutada', width: 100 },
+                        { label: 'Ejecucion', name: 'FechaEjecutada', width: 100 }
                     ],
                     viewrecords: true,
                     height: 300,

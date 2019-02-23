@@ -1,5 +1,5 @@
 <!-- Content Wrapper. Contains page content -->
-<div class="content-wrapper">
+<div class="content-wrapper barra">
   <!-- Content Header (Page header) -->
   <section class="content-header">
     <h1>
@@ -16,9 +16,10 @@
 
   <!-- Main content -->
   <section class="content">
-
+    <input type="hidden" name="txttipm" id="txttipm" value="">
+    <input type="hidden" name="idcontrato" id="idcontrato" value="">
     <!-- Default box -->
-    <div class="box">
+    <div class="box box-primary">
       <div class="box-header with-border">
         <h3 class="box-title">Title</h3>
 
@@ -35,7 +36,7 @@
         <div class="contentpanel">
             <?php echo form_hidden('token', $token) ?>
             <!-- CONTENT GOES HERE -->
-            <div>
+            <div class="rows">
                 <table id="tdatos"></table>
                 <div id="pager"></div>
             </div>
@@ -65,22 +66,161 @@
 </script>
 
 <script type="text/javascript">
+  var idgrilla="#tdatos";
   dispositivo={
     init:function()
     {
-      dispositivo.event();
+      dispositivo.eventgrid();
       dispositivo.validate();
       dispositivo.listar();
       $("#btnNuevo").click(function(){
         window.location = "contratos/create";
       });
     }
-    ,event:function()  {}
+    ,eventgrid:function()
+    {
+
+      $(".print-modal").click(function(event)
+        {
+          event.returnValue = false; /*para I.E.*/
+          if(event.preventDefault) event.preventDefault();
+            $("#txttipm").val('P');
+            var idrow=$(this).data('id');
+            $("#tdatos").jqGrid('setSelection',idrow, false);
+            var selr = $("#tdatos").jqGrid('getGridParam', 'selrow');
+            var rowData = $("#tdatos").jqGrid('getRowData', selr)
+
+            $("#idcontrato").val(idrow);
+            //alert(idrow);
+
+            swal({
+              title: "Proceso/Contrato",
+              text: "¿Imprimir Contrato?",
+              type: "warning",
+              showCancelButton: true,
+              confirmButtonClass: "btn-danger",
+              confirmButtonText: "Si, Imprimir!",
+              closeOnConfirm: true,
+              showLoaderOnConfirm: true
+            },
+            function (result) {
+                if (result){
+                  window.open('<?php echo base_url(); ?>Contratos/impresion?idcontrato=' + $("#idcontrato").val(),'_blank');
+                }
+
+            }
+          );
+
+        });
+
+        $(".delete-modal").click(function(event)
+          {
+              event.returnValue = false; /*para I.E.*/
+              if(event.preventDefault) event.preventDefault();
+
+              $("#txttipm").val('D');
+              var idrow=$(this).data('id');
+              $("#tdatos").jqGrid('setSelection',idrow, false);
+              var selr = $("#tdatos").jqGrid('getGridParam', 'selrow');
+              var rowData = $("#tdatos").jqGrid('getRowData', selr)
+
+              $("#idcontrato").val(rowData.IdContrato);
+
+              swal({
+                title: "Procesos/Contrato",
+                text: "¿Esta seguro que desea anular este contrato?",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonClass: "btn-danger",
+                confirmButtonText: "Si, Anular!",
+                closeOnConfirm: false,
+                showLoaderOnConfirm: true
+              },
+              function (result) {
+                  if (result)
+                  dispositivo.guardarcontrato();
+                  $('#tdatos').trigger('reloadGrid');
+              }
+            );
+          });
+    }
     ,validate:function(){}
+    ,guardarcontrato:function()
+  	{
+
+  		  var wurl="<?php echo base_url('Contratos/store'); ?>";
+
+  		  $.ajax({
+  				async: true,
+  				url: wurl,
+  				type: "post",
+  				dataType: 'json',
+  				contentType: 'application/x-www-form-urlencoded',
+  				data://$("#frm-contratos").serialize(),
+          {
+            'opcion1':$("#txttipm").val()
+            ,'idcontrato':$("#idcontrato").val()
+            ,'servicio':$("#servicio").val()
+            ,'idcliente':$("#idclientec").val()
+            ,'tipcontrato':$("#tipcontrato").val()
+            ,'idempresa':$("#idempresa").val()
+            ,'idvehiculo':$("#idvehiculoc").val()
+            ,'stdcontrato':$("#stdcontrato").val()
+            ,'idord':$("#idord").val()
+            ,'cadenadetalleanex':$("#cadenadetalleanex").val()
+          },
+
+  				beforeSend: function(data){
+            waitingDialog.show('Procesando...', {dialogSize: 'sm'});
+  				},
+  				complete: function(data, status){
+
+            if (status=="success"){
+
+                var werror=JSON.parse(data.responseText).error;
+                var wmsg=JSON.parse(data.responseText).mensaje;
+                  if (werror==0)
+                        {
+                            var wcodigo=JSON.parse(data.responseText).id;
+                            var mensajeview=""
+                            waitingDialog.hide();
+                            if ($("#txttipmcon").val()=="N")
+                            {
+                              mensajeview="Registro Exitoso!";
+                            }else if($("#txttipmcon").val()=="U"){
+                              mensajeview="Registro actualizado correctamente!";
+                            }else{
+                              mensajeview="Registro eliminado correctamente!";
+                            }
+                            swal(mensajeview, "Clickea para continuar!", "success");
+                        }
+                    else
+                      {
+                          waitingDialog.hide();
+                          swal({
+                            title: "Error!",
+                            text: wmsg,
+                            type: "warning",
+                          });
+                      }
+
+                  }
+                  else
+                    {
+                      waitingDialog.hide();
+                      swal({
+                        title: "Error!",
+                        text: "Ocurrio algo inesperado, intente más tarde!",
+                        type: "warning",
+                      });
+                    }
+  				}
+  		  });
+  	}
     ,listar:function()
     {
         var wurl="<?php echo base_url('contratos/list'); ?>";
-        $("#tdatos").jqGrid({
+        $(idgrilla).jqGrid({
                 url: wurl,
                 mtype: "get",
                 styleUI : 'Bootstrap',
@@ -88,7 +228,7 @@
                 postData: {'token':$('input[name=token]').val()},
                 datatype: "json",
                 colModel: [
-                    { label: '...', name: 'accion', frozen:true , width: 80, formatter:function(cellValue, opts, rowObject){return '<button class="btn btn-success btn-xs edit-modal" data-id=' + rowObject.idsucursal + '><span class="fa fa-pencil"></span></button> <button class="btn btn-danger btn-xs delete-modal" data-id=' + rowObject.idsucursal + '><span class="fa fa-trash-o"></span></button>';}},
+                    { label: '...', name: 'accion', frozen:true , width: 80, formatter:function(cellValue, opts, rowObject){return '<button class="btn btn-success btn-xs edit-modal" data-id=' + rowObject.IdContrato + '><span class="fa fa-pencil"></span></button> <button class="btn btn-danger btn-xs delete-modal" id="delete-modal" data-id=' + rowObject.IdContrato + '><span class="fa fa-trash-o"></span></button> <button class="btn btn-primary btn-xs print-modal" data-id=' + rowObject.IdContrato + '><span class="fa fa-file-pdf-o"></span></button>';}},
                     { label: 'Ide. ContratoOrdenes', name: 'IdContratoOrdenes', key: true, width: 100 },
                     { label: 'Ide. Contrato', name: 'IdContrato', width: 100 },
                     { label: 'Ide. Orden', name: 'IdOrden', width: 100 },
@@ -101,10 +241,10 @@
               			{ label: 'Vehiculo', name: 'chasis', width: 200 },
                     { label: 'Estado', name: 'EstadoContrato', width: 200 },
                     { label: 'Fecha Inicio', name: 'FechaInicio', width: 200 },
-                    { label: 'Fecha Fin', name: 'FechaFin', width: 200 },
+                    { label: 'Fecha Fin', name: 'FechaFin', width: 200 }
                 ],
                 viewrecords: true,
-                height: 300,
+                height: 250,
                 rowNum: 100,
                 ShrinkToFit: false,
                 shrinkToFit: false,
@@ -114,15 +254,16 @@
                   repeatitems: false
                 },
                 gridview: true,
-                gridComplete: function(){
-                    //sucursal.eventload();
-                },
                 sortname: 'IdContratoOrdenes',
                 sortorder: 'desc',
-                pager: "#pager"
+                pager: "#pager",
+                gridComplete: function(){
+                    //sucursal.eventload();
+                    dispositivo.eventgrid();
+                }
                     });
 
-              $("#tdatos").jqGrid('navGrid','#pager',
+              $(idgrilla).jqGrid('navGrid','#pager',
               {edit: false, add: false, del: false, search: false, refresh:true},
               {},
               {},
@@ -130,9 +271,9 @@
               {multipleSearch:true, multipleGroup:false, showQuery: true}
               );
 
-              $("#tdatos").jqGrid('filterToolbar', { stringResult: true, searchOnEnter: true });
-              $("#tdatos").jqGrid('setFrozenColumns');
-              $("#tdatos").jqGrid('hideCol',['IdCliente','IdEmpresa', 'IdVehiculo']);
+              $(idgrilla).jqGrid('filterToolbar', { stringResult: true, searchOnEnter: true });
+              $(idgrilla).jqGrid('setFrozenColumns');
+              $(idgrilla).jqGrid('hideCol',['IdCliente','IdEmpresa', 'IdVehiculo']);
       }
    }
 

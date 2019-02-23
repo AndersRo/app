@@ -79,14 +79,17 @@
 
   <script src="<?php echo base_url();?>assets/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.js"></script>
 
+  <!-- InputCounter -->
+  <script src="<?php echo base_url();?>assets/plugins/Number-InputCounter/dist/js/jquery.input-counter.min.js"></script>
   <!-- InputMask -->
 <script src="<?php echo base_url();?>assets/plugins/input-mask/jquery.inputmask.js"></script>
 <script src="<?php echo base_url();?>assets/plugins/input-mask/jquery.inputmask.date.extensions.js"></script>
 <script src="<?php echo base_url();?>assets/plugins/input-mask/jquery.inputmask.extensions.js"></script>
 
 </head>
+
 <body class="hold-transition skin-blue sidebar-mini">
-<div class="wrapper">
+  <div class="wrapper">
     <?php
       if($header) echo $header;
       if($left) echo $left;
@@ -94,12 +97,12 @@
       if($footer) echo $footer;
       if($controlsidebar) echo $controlsidebar;
     ?>
-
     <div class="control-sidebar-bg"></div>
   </div>
   <!-- ./wrapper -->
-  </body>
-  </html>
+</body>
+
+</html>
 
   <script type="text/javascript">
     $(function () {
@@ -189,5 +192,16 @@
     //Money Euro
     $('[data-mask]').inputmask()
 
-  })
+  });
+
+  $(".spinner").inputCounter();
+
+  $(".spinner").inputCounter({
+  	  selectors: {
+  	    addButtonSelector: '.btn-add',
+  	    subtractButtonSelector: '.btn-subtract',
+  	    inputSelector: '.input-counter',
+  	  }
+  	});
+
 </script>

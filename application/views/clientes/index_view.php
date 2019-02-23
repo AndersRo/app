@@ -5,9 +5,6 @@
     <h1>
       <?php echo $titulo; ?>
       <a class="btn btn-primary btn-xs new-modal" data-toggle="modal" id="btnNuevo"><span class="fa fa-plus"></span></a>
-	    <a class="btn btn-primary btn-xs new-modal" data-toggle="modal" data-target="#pepe"><span class="fa fa-plus"></span></a>
-      <a class="btn btn-danger"  data-toggle="modal" data-target="#josemanuel"><span class="fa fa-car"></span></a>
-      <a href="clientes/create"><button class="btn btn-success">Nuevo</button></a>
 	 <small></small>
     </h1>
     <ol class="breadcrumb">
@@ -57,58 +54,6 @@
   <!-- /.content -->
 </div>
 <!-- /.content-wrapper -->
-<div class="modal fade" id="pepe">
-<div class="modal-dialog modal-lg">
-<div class="modal-content">
-
-		<div class="modal-header">
-          <h1>header</h1>
-        </div>
-
-		 <div class="modal-body">
-          <h1>body</h1>
-		</div>
-
-		   <div class="modal-footer">
-		   <h1>footer</h1>
-          </div>
-
-
-</div>
-</div>
-</div>
-<div class="modal fade" id="josemanuel">
-<div class="modal-dialog modal-lg">
-<div class="modal-content">
-
-		<div class="modal-header">
-          <h1>jose manuel</h1>
-        </div>
-
-		 <div class="modal-body">
-          <h1>fajardo gutierrez</h1>
-           <div class="form-group">
-			<label for="exampleInputEmail1">Marca</label>
-			<input type="email" class="form-control" id="txtmarca" aria-describedby="emailHelp" placeholder="escribir marca">
-			<small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-		</div>
-  <div class="form-group">
-    <label for="exampleInputEmail1">Modelo</label>
-    <input type="email" class="form-control" id="txtmodelo" aria-describedby="emailHelp" placeholder="escribir modelo">
-    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-  </div>
-		</div>
-
-		   <div class="modal-footer">
-		   <h1>footer</h1>
-          <!--<button type="button" id="btnguardar"  name="btnguardar" class="btn btn-warning">Guardar</button>-->
-		  </div>
-
-
-
-</div>
-</div>
-</div>
 
 <div class="modal fade" id="modal-default">
   <div class="modal-dialog modal-lg">

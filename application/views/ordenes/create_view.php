@@ -737,7 +737,7 @@
 
 <script type="text/javascript">
   var $grid = $("#tdatosd"),
-      newWidth = $grid.closest(".ui-jqgrid").parent().width();
+  newWidth = $grid.closest(".ui-jqgrid").parent().width();
   $.jgrid.defaults.width = newWidth;
   $.jgrid.defaults.responsive = true;
   $.jgrid.defaults.styleUI = 'Bootstrap';
