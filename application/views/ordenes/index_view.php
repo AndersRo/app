@@ -306,6 +306,16 @@
 </script>
 
 <script type="text/javascript">
+  var $gridet = $("#tdatosdet"),
+      newWidth = $gridet.closest(".ui-jqgrid").parent().width();
+  $.jgrid.defaults.width = newWidth;
+  $.jgrid.defaults.responsive = true;
+  $.jgrid.defaults.styleUI = 'Bootstrap';
+
+</script>
+
+
+<script type="text/javascript">
   dispositivo={
     init:function()
     {
@@ -375,6 +385,38 @@
         //$('#tdatos').trigger('reloadGrid');
         //$('#myModaldetalle').modal('hide');
       });
+
+      $(".print-modal").click(function(event)
+        {
+          event.returnValue = false; /*para I.E.*/
+          if(event.preventDefault) event.preventDefault();
+            var idrow=$(this).data('id');
+            $("#tdatos").jqGrid('setSelection',idrow, false);
+            var selr = $("#tdatos").jqGrid('getGridParam', 'selrow');
+            var rowData = $("#tdatos").jqGrid('getRowData', selr)
+
+            $("#idorden").val(idrow);
+            //alert(idrow);
+
+            swal({
+              title: "Proceso/Orden",
+              text: "¿Imprimir Orden?",
+              type: "warning",
+              showCancelButton: true,
+              confirmButtonClass: "btn-danger",
+              confirmButtonText: "Si, Imprimir!",
+              closeOnConfirm: true,
+              showLoaderOnConfirm: true
+            },
+            function (result) {
+                if (result){
+                  window.open('<?php echo base_url(); ?>Ordenes/impresion?idorden=' + $("#idorden").val(),'_blank');
+                }
+
+            }
+          );
+
+        });
     }
     ,validate:function(){}
 
@@ -626,7 +668,7 @@
                 postData: {'token':$('input[name=token]').val()},
                 datatype: "json",
                 colModel: [
-                    { label: '...', name: 'accion', frozen:true , width: 110, formatter:function(cellValue, opts, rowObject){return '<button class="btn btn-danger btn-xs anular-orden" data-id=' + rowObject.IdOrden + '><span class="fa fa-trash-o"></span></button> <button class="btn btn-primary btn-xs fin-modal" onclick="dispositivo.some_function('+rowObject.IdOrden+')"><span class="fa fa-check-circle"></span></button> <button class="btn btn-success btn-xs detalle-modal" id="detalle-modal" data-id=' + rowObject.IdOrden + '><span class="fa fa-eye"></span></button>';}},
+                    { label: '...', name: 'accion', frozen:true , width: 110, formatter:function(cellValue, opts, rowObject){return '<button class="btn btn-danger btn-xs anular-orden" data-id=' + rowObject.IdOrden + '><span class="fa fa-trash-o"></span></button> <button class="btn btn-primary btn-xs fin-modal" onclick="dispositivo.some_function('+rowObject.IdOrden+')"><span class="fa fa-check-circle"></span></button> <button class="btn btn-success btn-xs detalle-modal" id="detalle-modal" data-id=' + rowObject.IdOrden + '><span class="fa fa-eye"></span></button> <button class="btn btn-primary btn-xs print-modal" data-id=' + rowObject.IdOrden + '><span class="fa fa-file-pdf-o"></span></button>';}},
                     { label: 'Id. Orden', name: 'IdOrden',key: true, width: 60 },
                     { label: 'Cliente', name: 'NomCli', width: 100 },
                     //{ label: 'Dispositivo', name: 'IdDispositivo', width: 100 },

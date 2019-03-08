@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>AdminLTE 2 | Dashboard</title>
+  <title>Grupo | ARIFE</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.7 -->
@@ -19,6 +19,8 @@
   <link rel="stylesheet" href="<?php echo base_url();?>assets/dist/css/skins/_all-skins.min.css">
 
   <link rel="stylesheet" href="<?php echo base_url();?>assets/dist/css/sweetalert.css">
+
+  <!---<link rel="stylesheet" href="<//?php echo base_url();?>assets/dist/css/sweetalert2.min.css">-->
   <!-- Morris chart -->
   <link rel="stylesheet" href="<?php echo base_url();?>assets/bower_components/morris.js/morris.css">
   <!-- jvectormap -->
@@ -74,8 +76,15 @@
 
   <script src="<?php echo base_url();?>assets/dist/js/sweetalert.min.js"></script>
 
-  <!--Bootstrap Select -->
+  <!--<script src="</?php echo base_url();?>assets/plugins/sweetalert2/sweetalert2.all.js"></script>-->
+
+  <!--<script src="</?php echo base_url();?>assets/dist/js/sweetalert2.all.min.js"></script>-->
+
+  <!--<script src="</?php echo base_url();?>assets/dist/js/sweetalert2.min.js"></script>-->
+    <!--Bootstrap Select -->
   <script src="<?php echo base_url();?>assets/dist/js/bootstrap-select.min.js"></script>
+
+
 
   <script src="<?php echo base_url();?>assets/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.js"></script>
 

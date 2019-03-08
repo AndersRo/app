@@ -48,8 +48,12 @@ class EmpresasModel extends CI_Model
              ,$data->usuario
              ,$data->wks
              ,$data->representante
+             ,$data->direccion
+             ,$data->ubigeo
+             ,$data->tel
+             ,$data->cel
           );
-    $sql = 'CALL sp_get_registraempresas(?,?,?,?,?,?,?,?,?)';
+    $sql = 'CALL sp_get_registraempresas(?,?,?,?,?,?,?,?,?,?,?,?,?)';
     $q = $this->db->query($sql, $parameters);
     if($q -> num_rows() >= 1)
     {

@@ -19,15 +19,12 @@ class Plataforma extends My_Controller {
 
   public function create()
   {
-    $empresas=$this->EmpresasModel->listmodel();
-
     $stdacceso="001";
     $acceso=$this->TablasModel->Listar($stdacceso);
 
     $data = array(
       'titulo' => 'Plataforma'
       ,'token'  => $this->auth->token()
-      ,'empresas'=>$empresas
       ,'acceso' => $acceso
     );
     $this->layout('plataforma/create_view', $data);
@@ -66,7 +63,7 @@ class Plataforma extends My_Controller {
           //$plataforma->idcontrato		  =isset($request["idcontrato"]) 	? $request["idcontrato"] 	: "" ;
           $plataforma->accesoapp		  =isset($request["accesoapp"]) 	? $request["accesoapp"] 	: "" ;
           $plataforma->accesoweb		  =isset($request["accesoweb"]) 	? $request["accesoweb"] 	: "" ;
-          $plataforma->idempresa		=isset($request["idempresa"]) ? $request["idempresa"] 	: "";
+          $plataforma->idempresa		=$this->auth->getidempresa();
           $plataforma->conexiones		=isset($request["conexiones"]) ? $request["conexiones"] 	: "";
           $plataforma->user		=isset($request["login"]) ? $request["login"] 	: "";
           $plataforma->passp	=md5(isset($request["password"]) ? $request["password"] 	: "");

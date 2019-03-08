@@ -38,10 +38,10 @@ class OrdenesModel extends CI_Model
 		}
 	}
 
-  function Listarprue($idord)
+  function Listordpdf($idord)
 	{
     $parameters=array($idord);
-		$sql = 'CALL sp_get_detordenes(?)';
+		$sql = 'CALL sp_get_idordenpdf(?)';
 		$q = $this->db->query($sql, $parameters);
 		if($q -> num_rows() >= 1)
 		{

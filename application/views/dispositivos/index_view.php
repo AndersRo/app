@@ -9,8 +9,8 @@
     </h1>
     <ol class="breadcrumb">
       <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-      <li><a href="#">Examples</a></li>
-      <li class="active">Blank page</li>
+      <li><a href="#">Mantenimiento</a></li>
+      <li class="active">Dispositivos</li>
     </ol>
   </section>
 
@@ -20,7 +20,7 @@
     <!-- Default box -->
     <div class="box">
       <div class="box-header with-border">
-        <h3 class="box-title">Title</h3>
+        <h3 class="box-title">Listado</h3>
 
         <div class="box-tools pull-right">
           <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip"
@@ -131,21 +131,6 @@
                       <label for="idn" class="col-sm-2 control-label">Nro. IDN</label>
                       <div class="col-sm-4">
                         <input type="text" name="idn" class="form-control" id="txtidn" placeholder="escriba la IDN">
-                      </div>
-                    </div>
-
-                    <div class="form-group">
-                      <label for="role" class="col-sm-2 control-label">Empresa</label>
-                      <div class="col-sm-4">
-
-                        <select name="empresa" id="txtempresa" class="form-control" disabled>
-                          <?php
-                              foreach ($empresas as $row) {
-                                  echo '<option value="'.$row->IdEmpresa.'">'.$row->NombreComercial.'</option>';
-                              }
-
-                           ?>
-                      </select>
                       </div>
                     </div>
 
@@ -296,7 +281,6 @@
         , 'modelocampo':$("#txtmodelo").val()
         , 'simcampo':$("#txtsim").val()
         , 'idncampo':$("#txtidn").val()
-        , 'empresacampo':$("#txtempresa").val()
 				},
 				beforeSend: function(data){
           waitingDialog.show('Procesando...', {dialogSize: 'sm'});

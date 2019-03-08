@@ -19,12 +19,11 @@ class Mecanicos extends My_Controller {
     $tipoper="003"; //Tabla Tipos personas
 		$personas=$this->TablasModel->Listar($tipoper);
 
-    $empresas=$this->EmpresasModel->listmodel();
+
 
  		$data = array('titulo' => 'Mecanicos','token'  => $this->auth->token()
     ,'tipodocumento'=>$documentos
-    ,'tipopersonas'=>$personas
-    ,'empresas'=>$empresas);
+    ,'tipopersonas'=>$personas);
  		$this->layout('mecanicos/index_view',$data);
   }
 
@@ -82,7 +81,7 @@ class Mecanicos extends My_Controller {
           $mecanico->tipodocumento		=isset($request["tdoccampo"]) ? $request["tdoccampo"] 	: "";
           $mecanico->codidentificacion		=isset($request["codidenti"]) ? $request["codidenti"] 	: "";
           $mecanico->ruc		=isset($request["ruc"]) ? $request["ruc"] 	: "";
-          $mecanico->empresa		=isset($request["empresa"]) ? $request["empresa"] 	: "";
+          $mecanico->empresa		=$this->auth->getidempresa();
           $mecanico->usuario		=$this->auth->getuser();
           $mecanico->wks		=$this->input->ip_address();
           $mecanico->direccion		=isset($request["direccampo"]) ? $request["direccampo"] 	: "";

@@ -54,7 +54,7 @@ class Dispositivos extends My_Controller {
           $dispositivo->modelo		=isset($request["modelocampo"]) ? $request["modelocampo"] 	: "";
           $dispositivo->sim		=isset($request["simcampo"]) ? $request["simcampo"] 	: "";
           $dispositivo->idn		=isset($request["idncampo"]) ? $request["idncampo"] 	: "";
-          $dispositivo->empresa		=isset($request["empresacampo"]) ? $request["empresacampo"] 	: "";
+          $dispositivo->empresa		=$this->auth->getidempresa();
         	$dispositivo->usuario		=$this->auth->getuser();
 
         	$data=$this->DispositivosModel->registra($dispositivo);

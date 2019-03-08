@@ -9,8 +9,8 @@
     </h1>
     <ol class="breadcrumb">
       <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-      <li><a href="#">Examples</a></li>
-      <li class="active">Blank page</li>
+      <li><a href="#">Mantenimiento</a></li>
+      <li class="active">Cliente</li>
     </ol>
   </section>
 
@@ -20,7 +20,7 @@
     <!-- Default box -->
     <div class="box">
       <div class="box-header with-border">
-        <h3 class="box-title">Title</h3>
+        <h3 class="box-title">Listado</h3>
 
         <div class="box-tools pull-right">
           <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip"
@@ -129,7 +129,7 @@
                       </div>
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group" id="cruc" hidden>
                       <label for="ruc" class="col-sm-2 control-label">RUC</label>
 
                       <div class="col-sm-4">
@@ -207,22 +207,6 @@
                       </div>
                     </div>
 
-                    <div class="form-group">
-                      <label for="empresa" class="col-sm-2 control-label">Empresa</label>
-
-                      <div class="col-sm-4">
-                        <select name="empresa" id="empresa" class="form-control" disabled>
-                          <?php
-                              foreach ($empresas as $row) {
-                                  echo '<option value="'.$row->IdEmpresa.'">'.$row->NombreComercial.'</option>';
-                              }
-
-                           ?>
-                      </select>
-                      </div>
-                    </div>
-
-
                   </form>
                 </div>
                 <!-- /.box-body -->
@@ -264,14 +248,15 @@
       dispositivo.eventgrid();
       dispositivo.validate();
       dispositivo.listar();
+      dispositivo.seleccion();
+      dispositivo.personas();
     //  dispositivo.some_function('');
 
 		$( "#btnguardar" ).on( "click", function() {
 		    dispositivo.guardar();
 		});
 
-    dispositivo.seleccion();
-    dispositivo.personas();
+
     }
     ,eventgrid:function() {
 
@@ -366,9 +351,9 @@
                 $("#ruc").val( json[0].Ruc );
                 $("#empresa").val( json[0].IdEmpresa );
                 if (json[0].TipoPersona == "003005") {
-                  $("#tipoper").val("003005");
-                  $("#tipodoc").val("002003");
-                  $("#tipodoc").removeAttr("disabled");
+                  $("#tipoper").val("003005").trigger('change');
+                  $("#tipodoc").val("002003").trigger('change');
+                  $("#tipodoc").attr('disabled','disabled');
                   $("#razonsoc").hide();
                   $("#glastname").show();
                   $("#glastname1").show();
@@ -377,7 +362,8 @@
                 } else if(json[0].TipoPersona == "003006"){
                   $("#tipoper").val("003006");
                   dispositivo.personas();
-                  $("#tipodoc").val("002004");
+                  $("#tipodoc").val("002004").trigger('change');
+                  $("#tipodoc").val("002004").trigger('change');
                   $("#tipodoc").attr("disabled", "disabled");
                   $("#razonsoc").show();
                   $("#glastname").hide();
@@ -409,8 +395,9 @@
         var selectValue = $(this).val();
         switch (selectValue) {
           case "003005":
-            $("#tipodoc").val("002003");
-            $("#tipodoc").removeAttr("disabled");
+            $("#tipodoc").val("002003").trigger('change');
+            $("#tipodoc").attr('disabled','disabled');
+            $("#cruc").hide();
             $("#razonsoc").hide();
             $("#glastname").show();
             $("#glastname1").show();
@@ -418,8 +405,9 @@
             $("#gfirstname1").show();
             break;
           case "003006":
-              $("#tipodoc").val("002004");
+              $("#tipodoc").val("002004").trigger('change');
               $("#tipodoc").attr("disabled", "disabled");
+              $("#cruc").show();
               $("#razonsoc").show();
               $("#glastname").hide();
               $("#glastname1").hide();
@@ -491,7 +479,6 @@
         , 'tdoccampo':$("#tipodoc option:selected").html()
         , 'codidenti':$("#CodigoIdentificacion").val()
         , 'ruc':$("#ruc").val()
-        , 'empresa':$("#empresa").val()
         ,	'direccampo':$("#direccion").val()
         ,	'ubicampo':$("#ubigeo").val()
         ,	'telcampo':$("#telefono").val()
@@ -568,13 +555,13 @@
     return "<input type='button' class='btn btn-success btn-xs edit-modal' value='somevalue' onclick='dispositivo.some_function("+rowObject.IdActor+")'\>";
 }*/ },
                     { label: 'Id. Actor', name: 'IdActor', key: true, width: 75 },
-                    { label: 'Apellido Paterno', name: 'Apellido_Paterno', width: 75 },
+                    { label: 'Apellido Paterno', name: 'Apellido_Paterno', width: 200 },
                     { label: 'Apellido Materno', name: 'Apellido_Materno', width: 200 },
-					          { label: 'Nombre', name: 'PrimerNombre', width: 200 },
+					          { label: 'Nombre', name: 'PrimerNombre', width: 100 },
 					          { label: 'Razon Social', name: 'RazonSocial', width: 100 },
 					          { label: 'Tipo Doc', name: 'TipoDocumento', width: 100 },
                     { label: 'Nro Doc', name: 'CodigoIdentificacion', width: 100 },
-                    { label: 'RUC', name: 'RUC', width: 300 },
+                    { label: 'RUC', name: 'RUC', width: 200 },
 
 
                 ],

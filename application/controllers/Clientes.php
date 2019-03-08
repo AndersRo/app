@@ -110,12 +110,16 @@ class Clientes extends My_Controller {
           $cliente->tipodocumento		=isset($request["tdoccampo"]) ? $request["tdoccampo"] 	: "";
           $cliente->codidentificacion		=isset($request["codidenti"]) ? $request["codidenti"] 	: "";
           $cliente->ruc		=isset($request["ruc"]) ? $request["ruc"] 	: "";
-          $cliente->empresa		=isset($request["empresa"]) ? $request["empresa"] 	: "";
+          $cliente->empresa		=$this->auth->getidempresa();
           $cliente->usuario		=$this->auth->getuser();
           $cliente->wks		=$this->input->ip_address();
           $cliente->direccion		=isset($request["direccampo"]) ? $request["direccampo"] 	: "";
           $cliente->ubigeo		=isset($request["ubicampo"]) ? $request["ubicampo"] 	: "";
           $cliente->telefono		=isset($request["telcampo"]) ? $request["telcampo"] 	: "";
+          $cliente->idusuario		=isset($request["idusuario"]) ? $request["idusuario"] 	: "";
+          $cliente->login		=isset($request["login"]) ? $request["login"] 	: "";
+          $cliente->pass		=md5(isset($request["pass"]) ? $request["pass"] 	: "");
+          $cliente->estado		=isset($request["estado"]) ? $request["estado"] 	: "";
 
         	$data=$this->ClientesModel->registra($cliente);
 

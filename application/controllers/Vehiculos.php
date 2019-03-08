@@ -56,7 +56,7 @@ class Vehiculos extends My_Controller {
           $vehiculo->wks		=$this->input->ip_address();
           $vehiculo->rutaref		=isset($request["uploadImage"]) ? $request["uploadImage"] 	: "";
           $vehiculo->rutatar		=isset($request["uploadImage1"]) ? $request["uploadImage1"] 	: "";
-          $vehiculo->idempresa		=isset($request["idempresa"]) ? $request["idempresa"] 	: "";
+          $vehiculo->idempresa		=$this->auth->getidempresa();
 
           $data=$this->VehiculosModel->registra($vehiculo);
       if ($data)

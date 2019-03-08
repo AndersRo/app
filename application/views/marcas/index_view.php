@@ -9,8 +9,8 @@
     </h1>
     <ol class="breadcrumb">
       <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-      <li><a href="#">Examples</a></li>
-      <li class="active">Blank page</li>
+      <li><a href="#">Mantenimiento</a></li>
+      <li class="active">Marcas</li>
     </ol>
   </section>
 
@@ -20,7 +20,7 @@
     <!-- Default box -->
     <div class="box">
       <div class="box-header with-border">
-        <h3 class="box-title">Title</h3>
+        <h3 class="box-title">Listado</h3>
 
         <div class="box-tools pull-right">
           <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip"
@@ -75,7 +75,7 @@
                   <form action="" class="form" method="post" accept-charset="utf-8">
                   <?php echo form_hidden('token', $token) ?>
 
-                  <div class="form-group">
+                  <div class="form-group" hidden>
                     <label for="txttipm" class="col-sm-12 control-label">Tipo Mant</label>
 
                     <div class="col-sm-6">
@@ -87,7 +87,7 @@
                     <label for="idmarca" class="col-sm-12 control-label">Id</label>
 
                     <div class="col-sm-6">
-                      <input type="text" name="idmarca" class="form-control" id="idmarca" placeholder="Ingrese marca">
+                      <input type="text" name="idmarca" class="form-control" id="idmarca" readonly>
                     </div>
                   </div>
 

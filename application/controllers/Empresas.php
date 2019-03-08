@@ -51,6 +51,10 @@ class Empresas extends My_Controller {
           $empresa->representante =isset($request["representante"]) ? $request["representante"]   : "";
           $empresa->wks =$this->input->ip_address();
           $empresa->usuario =$this->auth->getuser();
+          $empresa->direccion =isset($request["direccion"]) ? $request["direccion"]   : "";
+          $empresa->ubigeo =isset($request["ubigeo"]) ? $request["ubigeo"]   : "";
+          $empresa->tel =isset($request["tel"]) ? $request["tel"]   : "";
+          $empresa->cel =isset($request["cel"]) ? $request["cel"]   : "";
 
             $data=$this->EmpresasModel->registra($empresa);
             if($data)

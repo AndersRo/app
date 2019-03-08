@@ -113,21 +113,6 @@
                                     <input type="password" class="form-control" name="onoff" id="onoff">
                                   </div>
 
-                                  <div class="form-group" hidden>
-                                    <label for="role" class="col-sm-2 control-label">Empresa</label>
-
-                                    <div class="col-sm-10">
-                                      <select name="idempresa" id="idempresa" class="form-control" disabled>
-                                        <?php
-                                            foreach ($empresas as $row) {
-                                                echo '<option value="'.$row->IdEmpresa.'">'.$row->NombreComercial.'</option>';
-                                            }
-
-                                         ?>
-                                    </select>
-                                    </div>
-                                  </div>
-
                                   <div class="form-group spinner">
                                     <label for="role" class="control-label">Conexiones Maximas</label>
 
@@ -151,7 +136,7 @@
                   <div class="box-footer">
                       <div class="btn-group pull-right" >
                           <button type="button" class="btn btn-primary btn_save" id="adduser"><i class="fa fa-save"></i> Guardar </button>
-                          <button type="button" class="btn btn-default btn_cancel"><i class="fa fa-mail-reply"></i> Cancelar</button>
+                          <a href="<?php echo base_url() ?>plataforma" class="btn btn-default"><i class="fa fa-mail-reply"></i> Cancelar</a>
                       </div>
                   </div>
               </div>
@@ -218,7 +203,6 @@
                   <div class="box-footer">
                       <div class="btn-group pull-right" >
                           <button type="button" class="btn btn-primary btn_save" id="adddet"><i class="fa fa-save"></i> Guardar </button>
-                          <button type="button" class="btn btn-default btn_cancel"><i class="fa fa-mail-reply"></i> Cancelar</button>
                       </div>
                   </div>
 
@@ -452,7 +436,6 @@
           //,'idcontrato':$("#idcontratou").val()
           ,'accesoapp':$("#accapp").val()
           ,'accesoweb':$("#accweb").val()
-          ,'idempresa':$("#idempresa").val()
           ,'conexiones':$("#cnxmx").val()
           ,'login':$("#nombreusuario").val()
           ,'password':$("#password").val()
@@ -570,6 +553,7 @@
                           //bootbox.alert(mensajeview);
                           //compras.limpiarcampos();
                           swal(mensajeview, "Clickea para continuar!", "success");
+                          location.href ="<?php echo base_url() ?>plataforma";
                       }
                   else
                     {

@@ -9,8 +9,8 @@
     </h1>
     <ol class="breadcrumb">
       <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-      <li><a href="#">Examples</a></li>
-      <li class="active">Blank page</li>
+      <li><a href="#">Mantenimiento</a></li>
+      <li class="active">Vehiculos</li>
     </ol>
   </section>
 
@@ -20,7 +20,7 @@
     <!-- Default box -->
     <div class="box">
       <div class="box-header with-border">
-        <h3 class="box-title">Title</h3>
+        <h3 class="box-title">Listado</h3>
 
         <div class="box-tools pull-right">
           <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip"
@@ -120,21 +120,7 @@
                     <div class="form-group">
                       <div class="col-sm-4">
                         <label for="txtcolor" class="control-label">Color</label>
-                        <input type="text" name="txtcolor" class="form-control" id="txtcolor" placeholder="">
-                      </div>
-                    </div>
-
-                    <div class="form-group">
-                      <div class="col-sm-4">
-                        <label for="idempresa" class="control-label">Empresa</label>
-                        <select name="idempresa" id="idempresa" class="form-control" disabled>
-                          <?php
-                              foreach ($empresas as $row) {
-                                  echo '<option value="'.$row->IdEmpresa.'">'.$row->NombreComercial.'</option>';
-                              }
-
-                           ?>
-                      </select>
+                        <input type="text" name="txtcolor" class="form-control" id="txtcolor" placeholder="ingrese color">
                       </div>
                     </div>
 
@@ -186,8 +172,8 @@
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" id="btnguardar" name="btnguardar" class="btn btn-primary">Save changes</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+        <button type="button" id="btnguardar" name="btnguardar" class="btn btn-primary">Guardar</button>
       </div>
     </div>
     <!-- /.modal-content -->

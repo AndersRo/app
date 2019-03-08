@@ -9,8 +9,8 @@
     </h1>
     <ol class="breadcrumb">
       <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-      <li><a href="#">Examples</a></li>
-      <li class="active">Blank page</li>
+      <li><a href="#">Mantenimiento</a></li>
+      <li class="active">Empresa</li>
     </ol>
   </section>
 
@@ -20,7 +20,7 @@
     <!-- Default box -->
     <div class="box">
       <div class="box-header with-border">
-        <h3 class="box-title">Title</h3>
+        <h3 class="box-title">Listado</h3>
 
         <div class="box-tools pull-right">
           <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip"
@@ -285,7 +285,10 @@
                 $("#razonsocial").val( json[0].RazonSocial );
                 $("#nombrecomercial").val( json[0].NombreComercial );
                 $("#representante").val( json[0].Representante );
-
+                $("#direccion").val( json[0].Direccion );
+                $("#ubigeo").val( json[0].Ubigeo );
+                $("#tel").val( json[0].Telefono );
+                $("#cel").val( json[0].Celular );
               }
           });
 
@@ -310,10 +313,14 @@
         , 'razonsocial':$("#razonsocial").val()
         , 'nombrecomercial':$("#nombrecomercial").val()
         , 'rutalogo':$("#uploadImage").val()
+        ,'direccion':$("#direccion").val()
+        ,'ubigeo':$("#ubigeo").val()
+        ,'tel':$("#tel").val()
+        ,'cel':$("#cel").val()
         , 'representante':$("#representante").val()
         , 'opcion':$("#txttipm").val()
         },
-        beforeSend: function(data){
+    beforeSend: function(data){
           waitingDialog.show('Procesando...', {dialogSize: 'sm'});
         },
         complete: function(data, status){

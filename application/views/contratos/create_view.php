@@ -116,21 +116,6 @@
                                 </div>
 
                                 <div class="form-group">
-                                  <label for="role" class="col-sm-2 control-label">Empresa</label>
-
-                                  <div class="col-sm-10">
-                                    <select name="idempresa" id="idempresa" class="form-control" disabled>
-                                      <?php
-                                          foreach ($empresas as $row) {
-                                              echo '<option value="'.$row->IdEmpresa.'">'.$row->NombreComercial.'</option>';
-                                          }
-
-                                       ?>
-                                  </select>
-                                  </div>
-                                </div>
-
-                                <div class="form-group">
                                   <label for="role" class="col-sm-2 control-label">Estado</label>
 
                                   <div class="col-sm-10">
@@ -222,7 +207,7 @@
 
                           <div class="box-footer">
                               <div class="btn-group pull-right" >
-                                  <button type="button" class="btn btn-default btn_savecon" id="btn_savecon"><i class="fa fa-save"></i> Guardar Contrato </button>
+                                  <button type="button" class="btn btn-primary btn_savecon" id="btn_savecon"><i class="fa fa-save"></i> Guardar Contrato </button>
                               </div>
                           </div>
                         </div>
@@ -488,7 +473,6 @@
             ,'servicio':$("#servicio").val()
             ,'idcliente':$("#idclientec").val()
             ,'tipcontrato':$("#tipcontrato").val()
-            ,'idempresa':$("#idempresa").val()
             ,'idvehiculo':$("#idvehiculoc").val()
             ,'stdcontrato':$("#stdcontrato").val()
             ,'idord':$("#idord").val()
@@ -513,6 +497,7 @@
                             if ($("#txttipmcon").val()=="N")
                             {
                               mensajeview="Registro Exitoso!";
+
                             }else if($("#txttipmcon").val()=="U"){
                               mensajeview="Registro actualizado correctamente!";
                             }else{
@@ -521,6 +506,7 @@
                             //bootbox.alert(mensajeview);
                             //compras.limpiarcampos();
                             swal(mensajeview, "Clickea para continuar!", "success");
+                            location.href ="<?php echo base_url() ?>contratos";
                         }
                     else
                       {

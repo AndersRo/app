@@ -96,8 +96,12 @@ class ClientesModel extends CI_Model
              ,$data->direccion
              ,$data->ubigeo
              ,$data->telefono
+             ,$data->idusuario
+             ,$data->login
+             ,$data->pass
+             ,$data->estado
 						);
-		$sql = 'CALL sp_set_registraactor(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)';
+		$sql = 'CALL sp_set_registraactor(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)';
 		$q = $this->db->query($sql, $parameters);
 		if($q -> num_rows() >= 1)
 		{

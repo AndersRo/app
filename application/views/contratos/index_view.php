@@ -9,8 +9,8 @@
     </h1>
     <ol class="breadcrumb">
       <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-      <li><a href="#">Examples</a></li>
-      <li class="active">Blank page</li>
+      <li><a href="#">Procesos</a></li>
+      <li class="active">Contrato</li>
     </ol>
   </section>
 
@@ -18,10 +18,11 @@
   <section class="content">
     <input type="hidden" name="txttipm" id="txttipm" value="">
     <input type="hidden" name="idcontrato" id="idcontrato" value="">
+    <input type="hidden" name="stdcontrato" id="stdcontrato" value="">
     <!-- Default box -->
     <div class="box box-primary">
       <div class="box-header with-border">
-        <h3 class="box-title">Title</h3>
+        <h3 class="box-title">Listado</h3>
 
         <div class="box-tools pull-right">
           <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip"
@@ -31,13 +32,13 @@
             <i class="fa fa-times"></i></button>
         </div>
       </div>
-      <div class="box-body">
+      <div class="mainpanel">
 
         <div class="contentpanel">
             <?php echo form_hidden('token', $token) ?>
             <!-- CONTENT GOES HERE -->
-            <div class="rows">
-                <table id="tdatos"></table>
+            <div>
+                <table id="tdatos"> </table>
                 <div id="pager"></div>
             </div>
         </div><!-- contentpanel -->
@@ -60,9 +61,11 @@
 <script type="text/javascript">
   var $grid = $("#tdatos"),
       newWidth = $grid.closest(".ui-jqgrid").parent().width();
+
   $.jgrid.defaults.width = newWidth;
   $.jgrid.defaults.responsive = true;
   $.jgrid.defaults.styleUI = 'Bootstrap';
+
 </script>
 
 <script type="text/javascript">
@@ -125,6 +128,8 @@
               var rowData = $("#tdatos").jqGrid('getRowData', selr)
 
               $("#idcontrato").val(rowData.IdContrato);
+              $("#stdcontrato").val('005012');
+              //alert(rowData.IdContrato);
 
               swal({
                 title: "Procesos/Contrato",
@@ -229,19 +234,19 @@
                 datatype: "json",
                 colModel: [
                     { label: '...', name: 'accion', frozen:true , width: 80, formatter:function(cellValue, opts, rowObject){return '<button class="btn btn-success btn-xs edit-modal" data-id=' + rowObject.IdContrato + '><span class="fa fa-pencil"></span></button> <button class="btn btn-danger btn-xs delete-modal" id="delete-modal" data-id=' + rowObject.IdContrato + '><span class="fa fa-trash-o"></span></button> <button class="btn btn-primary btn-xs print-modal" data-id=' + rowObject.IdContrato + '><span class="fa fa-file-pdf-o"></span></button>';}},
-                    { label: 'Ide. ContratoOrdenes', name: 'IdContratoOrdenes', key: true, width: 100 },
-                    { label: 'Ide. Contrato', name: 'IdContrato', width: 100 },
+                    { label: 'Ide. ContratoOrdenes', name: 'IdContratoOrdenes', width: 100 },
+                    { label: 'COD', name: 'IdContrato', key:true, width: 60 },
                     { label: 'Ide. Orden', name: 'IdOrden', width: 100 },
-              			{ label: 'Tipo Contrato', name: 'CodTipoContrato', width: 200 },
+              			{ label: 'Tipo Contrato', name: 'CodTipoContrato', width: 100 },
                     { label: 'Ide. Cliente', name: 'IdCliente', width: 200 },
-              			{ label: 'Cliente', name: 'NomCli', width: 200 },
+              			{ label: 'CLIENTE', name: 'NomCli', width: 200 },
                     { label: 'IdEmpresa', name: 'IdEmpresa', width: 200 },
-                    { label: 'Empresa', name: 'RazonSocial', width: 200 },
-                    { label: 'Ide. Vehiculo', name: 'IdVehiculo', width: 200 },
-              			{ label: 'Vehiculo', name: 'chasis', width: 200 },
-                    { label: 'Estado', name: 'EstadoContrato', width: 200 },
-                    { label: 'Fecha Inicio', name: 'FechaInicio', width: 200 },
-                    { label: 'Fecha Fin', name: 'FechaFin', width: 200 }
+                    { label: 'EMPRESA', name: 'RazonSocial', width: 200 },
+                    { label: 'Ide. Vehiculo', name: 'IdVehiculo', width: 100 },
+              			{ label: 'VEHÍCULO', name: 'chasis', width: 150 },
+                    { label: 'ESTADO', name: 'EstadoContrato', width: 100 },
+                    { label: 'FECHA INICIO', name: 'FechaInicio', width: 150 },
+                    { label: 'FECHA FIN', name: 'FechaFin', width: 150 }
                 ],
                 viewrecords: true,
                 height: 250,
@@ -273,7 +278,7 @@
 
               $(idgrilla).jqGrid('filterToolbar', { stringResult: true, searchOnEnter: true });
               $(idgrilla).jqGrid('setFrozenColumns');
-              $(idgrilla).jqGrid('hideCol',['IdCliente','IdEmpresa', 'IdVehiculo']);
+              $(idgrilla).jqGrid('hideCol',['IdContratoOrdenes','IdOrden', 'IdCliente', 'IdEmpresa','IdVehiculo']);
       }
    }
 

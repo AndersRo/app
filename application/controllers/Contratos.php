@@ -23,7 +23,7 @@ class Contratos extends My_Controller {
   public function create(){
     $clientes=$this->ClientesModel->listmodel();
     $vehiculos=$this->VehiculosModel->listmodel();
-    $empresas=$this->EmpresasModel->listmodel();
+    //$empresas=$this->EmpresasModel->listmodel();
 
     $tiposerv="006"; //Tipos de servicio de contrato
     $servicio=$this->TablasModel->Listar($tiposerv);
@@ -40,7 +40,7 @@ class Contratos extends My_Controller {
     $data = array(
     'titulo' => 'Contrato'
     ,'token'  => $this->auth->token()
-    ,'empresas'=>$empresas
+  //  ,'empresas'=>$empresas
     //,'talleres'=>$talleres
     ,'clientes'=>$clientes
     ,'vehiculos'=>$vehiculos
@@ -89,7 +89,7 @@ class Contratos extends My_Controller {
           $contratos->idcliente		=isset($request["idcliente"]) 	? $request["idcliente"] 	: "" ;
           $contratos->idvehiculo		=isset($request["idvehiculo"]) ? $request["idvehiculo"] 	: "";
           $contratos->tipcontrato		=isset($request["tipcontrato"]) ? $request["tipcontrato"] 	: "";
-          $contratos->idempresa		=isset($request["idempresa"]) ? $request["idempresa"] 	: "";
+          $contratos->idempresa		= $this->auth->getidempresa();
           $contratos->stdcontrato		=isset($request["stdcontrato"]) ? $request["stdcontrato"] 	: "";
           $contratos->cadenadetalleanex		=isset($request["cadenadetalleanex"]) ? $request["cadenadetalleanex"] 	: "";
           $contratos->idcontratoorden		=isset($request["idcontratoorden"]) ? $request["idcontratoorden"] 	: "0";
