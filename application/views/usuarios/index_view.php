@@ -193,6 +193,12 @@
         $("#opcion2").val('S');
         $("#idactor").val(0);
         $("#idusuario").val(0);
+        $("#password").removeAttr('readonly');
+        $("#nrodocumento").removeAttr('readonly');
+        $("#tipodocumento").attr('disabled','disabled');
+
+        dispositivo.limpiar();
+
         //$('#modal-default').modal('show');
       });
 
@@ -390,6 +396,17 @@
         });*/
 
 
+    }
+    ,limpiar:function(){
+      $("#nrodocumento").val("");
+      $("#paterno").val("");
+      $("#materno").val("");
+      $("#pnombres").val("");
+      $("#snombres").val("");
+      $("#direccion").val("");
+      $("#telefono").val("");
+      $("#usuario").val("");
+      $("#password").val("");
     }
     ,guardar:function()
   	{

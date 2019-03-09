@@ -13,7 +13,14 @@ class Plataforma extends My_Controller {
 
 	 public function index()
  	{
- 		$data = array('titulo' => 'Plataforma','token'  => $this->auth->token());
+    $stdacceso="001";
+    $acceso=$this->TablasModel->Listar($stdacceso);
+
+ 		$data = array(
+      'titulo' => 'Plataforma'
+      ,'token'  => $this->auth->token()
+      ,'acceso' => $acceso
+    );
  		$this->layout('plataforma/index_view',$data);
   }
 

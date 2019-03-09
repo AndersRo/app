@@ -2,9 +2,9 @@
   <!-- Logo -->
   <a href="index2.html" class="logo">
     <!-- mini logo for sidebar mini 50x50 pixels -->
-    <span class="logo-mini"><b>G</b>ARF</span>
+    <span class="logo-mini"><img src="<?php echo base_url();?>assets/dist/img/icono-arife.png" style="height:40px" class="img-circle" alt="User Image"></span>
     <!-- logo for regular state and mobile devices -->
-    <span class="logo-lg"><b>Grupo</b>ARIFE</span>
+    <span class="logo-lg"><img src="<?php echo base_url();?>assets/dist/img/icono-arife.png" style="height:40px" class="img-circle" alt="User Image"><b> Grupo</b>ARIFE</span>
   </a>
   <!-- Header Navbar: style can be found in header.less -->
   <nav class="navbar navbar-static-top">
