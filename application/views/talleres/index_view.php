@@ -125,7 +125,8 @@
 
   $("#btnNuevo").click(function(){
     $("#txttipm").val('N');
-    $("#idtaller").val(0)
+    $("#idtaller").val(0);
+    $("#descripcion").val("");
     $('#modal-default').modal('show');
   });
 </script>

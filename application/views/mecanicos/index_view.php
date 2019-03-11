@@ -234,7 +234,8 @@
   $("#btnNuevo").click(function(){
     $("#txttipm").val('N');
     $("#txtmec").val('M');
-    $("#idactor").val(0)
+    $("#idactor").val(0);
+    dispositivo.limpiar();
     $('#modal-default').modal('show');
   });
 </script>
@@ -311,6 +312,18 @@
               });
     }
     ,event:function()  {}
+    ,limpiar:function(){
+      $("#ruc").val("");
+      $("#CodigoIdentificacion").val("");
+      $("#lastname").val("");
+      $("#lastname1").val("");
+      $("#firstname").val("");
+      $("#firstname1").val("");
+      $("#razonso").val("");
+      $("#telefono").val("");
+      $("#direccion").val("");
+      $("#ubigeo").val("");
+    }
     ,validate:function(){}
     ,some_function:function(strA_valor)
     {
@@ -439,6 +452,7 @@
                             //bootbox.alert(mensajeview);
                             //compras.limpiarcampos();
                             swal(mensajeview, "Clickea para continuar!", "success");
+                            dispositivo.limpiar();
                         }
                     else
                       {

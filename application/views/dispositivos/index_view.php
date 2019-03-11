@@ -160,7 +160,10 @@
 
   $("#btnNuevo").click(function(){
     $("#txttipm").val('N');
-    $("#iddispositivo").val(0)
+    $("#iddispositivo").val(0);
+    dispositivo.limpiar();
+    $("#txtsim").attr('readonly','readonly');
+    $("#txtidn").attr('readonly','readonly');
     $('#modal-default').modal('show');
   });
 </script>
@@ -217,6 +220,12 @@
               });
     }
     ,validate:function(){}
+    ,limpiar:function(){
+      $("#txtserie").val("");
+      $("#txtimei").val("");
+      $("#txtsim").val("");
+      $("#txtidn").val("");
+    }
     ,some_function:function(strA_valor)
     {
 
@@ -260,6 +269,9 @@
 
       //alert(strA_valor);
         $("#txttipm").val('U');
+        $("#txtimei").attr('readonly','readonly');
+        $("#txtsim").removeAttr('readonly');
+        $("#txtidn").removeAttr('readonly');
         $('#modal-default').modal('show');
     }
     ,guardar:function(){
@@ -307,6 +319,7 @@
                           //bootbox.alert(mensajeview);
                           //compras.limpiarcampos();
                           swal(mensajeview, "Clickea para continuar!", "success");
+                          dispositivo.limpiar();
                       }
                   else
                     {

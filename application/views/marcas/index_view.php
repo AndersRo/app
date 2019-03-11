@@ -125,7 +125,8 @@
 
   $("#btnNuevo").click(function(){
     $("#txttipm").val('N');
-    $("#idmarca").val(0)
+    $("#idmarca").val(0);
+    $("#txtmarca").val("");
     $('#modal-default').modal('show');
   });
 </script>
@@ -261,6 +262,7 @@
                           //bootbox.alert(mensajeview);
                           //compras.limpiarcampos();
                           swal(mensajeview, "Clickea para continuar!", "success");
+                          $("#txtmarca").val("");
                       }
                   else
                     {

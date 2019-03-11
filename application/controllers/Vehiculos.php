@@ -57,6 +57,7 @@ class Vehiculos extends My_Controller {
           $vehiculo->rutaref		=isset($request["uploadImage"]) ? $request["uploadImage"] 	: "";
           $vehiculo->rutatar		=isset($request["uploadImage1"]) ? $request["uploadImage1"] 	: "";
           $vehiculo->idempresa		=$this->auth->getidempresa();
+          $vehiculo->marca		=isset($request["txtmarca"]) ? $request["txtmarca"] 	: "";
 
           $data=$this->VehiculosModel->registra($vehiculo);
       if ($data)

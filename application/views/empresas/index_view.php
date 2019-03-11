@@ -200,7 +200,8 @@
 
   $("#btnNuevo").click(function(){
     $("#txttipm").val('N');
-    $("#idempresa").val(0)
+    $("#idempresa").val(0);
+    dispositivo.limpiar();
     $('#modal-default').modal('show');
   });
 </script>
@@ -258,6 +259,17 @@
               });
     }
      ,validate:function(){}
+     ,limpiar:function(){
+       $("#txtruc").val("");
+       $("#razonsocial").val("");
+       $("#nombrecomercial").val("");
+       $("#direccion").val("");
+       $("#ubigeo").val("");
+       $("#tel").val("");
+       $("#cel").val("");
+       $("#representante").val("");
+       $("#uploadImage").val("");
+     }
      ,some_function:function(strA_valor)
     {
           var wurl="<?php echo base_url('empresas/listid'); ?>";
@@ -345,6 +357,7 @@
                           //bootbox.alert(mensajeview);
                           //compras.limpiarcampos();
                           swal(mensajeview, "Clickea para continuar!", "success");
+                          dispositivo.limpiar();
                       }
                   else
                     {
@@ -391,7 +404,7 @@
                     { label: 'Ide. Empresa', name: 'IdEmpresa', key: true, width: 75 },
                     { label: 'RUC', name: 'RUC', width: 100 },
                     { label: 'Razon Social', name: 'RazonSocial', width: 200 },
-              			{ lfabel: 'NombreComercial', name: 'NombreComercial', width: 300 },
+              			{ lfabel: 'NombreComercial', name: 'NombreComercial', width: 200 },
               			{ label: 'Representante', name: 'Representante', width: 300 },
                 ],
                 viewrecords: true,

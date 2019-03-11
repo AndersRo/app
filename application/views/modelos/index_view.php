@@ -154,6 +154,7 @@
   $("#btnNuevo").click(function(){
     $("#txttipm").val('N');
     $("#idmodelo").val(0);
+    $("#txtmodelo").val("");
     $('#modal-default').modal('show');
   });
 </script>
@@ -252,7 +253,7 @@
 
                 $("#idmodelo").val( json[0].IdModelo );
                 $("#txtmodelo").val( json[0].Descripcion );
-                $("#txtmarca").val( json[0].IdMarca );
+                $("#txtmarca").val( json[0].IdMarca ).trigger('change');
 
               }
           });
@@ -305,6 +306,7 @@
                           //bootbox.alert(mensajeview);
                           //compras.limpiarcampos();
                           swal(mensajeview, "Clickea para continuar!", "success");
+                          $("#txtmodelo").val("");
                       }
                   else
                     {

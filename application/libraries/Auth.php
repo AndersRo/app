@@ -28,9 +28,9 @@ class Auth
 	 }
 
 	//función para loguear a los usuarios
-	 public function login_user($login,$password)
+	 public function login_user($login,$password,$empresa)
 	 {
-			$data=$this->ci->LoginModel->getcredenciales($login,$password);
+			$data=$this->ci->LoginModel->getcredenciales($login,$password,$empresa);
 			if ($data)
 			{
 				return $result=array('error'=>$data[0]->Code,'mensaje'=>$data[0]->Message);
@@ -42,11 +42,12 @@ class Auth
 	 }
 
 	 //función para crear sesiones
-	 public function crear_sesiones($login,$password)
+	 public function crear_sesiones($login,$password,$empresa)
 	 {
 
 		 $data = array(
 		 				'login'=>$login
+						,'empresa'=>$empresa
 		 				,'password' => $this->ci->bcrypt->hash_password($password)
 		 			);
 

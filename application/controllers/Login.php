@@ -5,6 +5,7 @@ class Login extends CI_Controller {
 
   public function __construct(){
       parent::__construct();
+      $this->load->model('EmpresasModel');
 
       if ($this->auth->is_logged()== TRUE) {
         redirect(base_url('home_view'));
@@ -13,9 +14,11 @@ class Login extends CI_Controller {
 
   public function index()
   {
-    $data = array('titulo' => 'Login',
- 	   'token'  => $this->auth->token()
- 	 );  
+    $empresas=$this->EmpresasModel->listmodel();
+    $data = array('titulo' => 'Login'
+     ,'token'  => $this->auth->token()
+     ,'empresas'=>$empresas
+ 	 );
      $this->load->view('login/login_view',$data);
   }
 
@@ -34,15 +37,16 @@ class Login extends CI_Controller {
                 //devolvemos al index mostrando los errores
                 $login =$this->input->post('loggin');
                 $password =$this->input->post('password');
+                $empresa=$this->input->post('empresa');
 
                  //si falla la autentificación creamos una sesión flashdata
                  //para mostrar un mensaje y redirigimos con refresh
                  //al login de nuevo
-                $result=$this->auth->login_user($login,$password);
+                $result=$this->auth->login_user($login,$password,$empresa);
                 if($result["error"]=="1"){
                     $response=$result;
                 }else{
-                    $this->auth->crear_sesiones($login,$password);
+                    $this->auth->crear_sesiones($login,$password,$empresa);
                     $response=array('error'=>'0','mensaje'=>'');
                 }
            }

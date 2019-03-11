@@ -53,6 +53,17 @@
       <?php echo form_hidden('token', $token) ?>
 
       <div class="form-group has-feedback">
+          <select id="empresa" name="empresa" class="form-control" data-placeholder="Seleccione empresa" class="form-control" style="width: 100%" required>
+            <?php
+                foreach ($empresas as $row) {
+                    echo '<option value="'.$row->IdEmpresa.'">'.$row->NombreComercial.'</option>';
+                }
+
+             ?>
+          </select>
+      </div>
+
+      <div class="form-group has-feedback">
         <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
         <input name="loggin" type="text" class="form-control" placeholder="Usuario" required>
       </div>

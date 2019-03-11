@@ -143,6 +143,8 @@
   $("#btnNuevo").click(function(){
     $("#txttipm").val('N');
     $("#idvehiculo").val(0);
+    $("#codigo").val("");
+    $("#comandos").val("");
     $('#modal-default').modal('show');
   });
 </script>

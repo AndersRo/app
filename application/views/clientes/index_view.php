@@ -235,7 +235,8 @@
   $("#btnNuevo").click(function(){
     $("#txttipm").val('N');
     $("#txtcli").val('C');
-    $("#idactor").val(0)
+    $("#idactor").val(0);
+    dispositivo.limpiar();
     $('#modal-default').modal('show');
   });
 
@@ -318,6 +319,18 @@
               });
     }
     ,validate:function(){}
+    ,limpiar(){
+      $("#ruc").val();
+      $("#CodigoIdentificacion").val();
+      $("#lastname").val();
+      $("#lastname1").val();
+      $("#firstname").val();
+      $("#firstname1").val();
+      $("#razonso").val();
+      $("#telefono").val();
+      $("#direccion").val();
+      $("#ubigeo").val();
+    }
     ,some_function:function(strA_valor)
     {
           var wurl="<?php echo base_url('clientes/listgg'); ?>";
@@ -509,6 +522,7 @@
                           //bootbox.alert(mensajeview);
                           //compras.limpiarcampos();
                           swal(mensajeview, "Clickea para continuar!", "success");
+                          dispositivo.limpiar();
                       }
                   else
                     {

@@ -276,8 +276,8 @@
                 </div>
 
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-primary btn_savehorarios">Aceptar</button>
+
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Aceptar</button>
                 </div>
             </div>
         </div>
@@ -323,8 +323,6 @@
       dispositivo.validate();
       dispositivo.listar();
       dispositivo.listardetalle();
-
-
 
     }
     ,eventgrid:function(){
@@ -600,7 +598,7 @@
                               responsive: true,
                               datatype: "json",
                               colModel: [
-                                  { label: '...', name: 'accion' , width: 110, formatter:function(cellValue, opts, rowObject){return '<button class="btn btn-primary btn-xs fin-detalle" onclick="dispositivo.ejecutar_detalle('+rowObject.IdOrdenDetalle+')"><span class="fa fa-check-circle"></span></button>';}},
+                                  { label: '...', name: 'accion' , width: 50, formatter:function(cellValue, opts, rowObject){return '<button class="btn btn-primary btn-xs fin-detalle" onclick="dispositivo.ejecutar_detalle('+rowObject.IdOrdenDetalle+')"><span class="fa fa-check-circle"></span></button>';}},
                                   { label: 'Id. Orden', name: 'IdOrden', width: 100 },
                                   { label: 'Id. Detalle', name: 'IdOrdenDetalle',key: true, width: 100 },
                                   //{ label: 'Id. Empresa', name: 'IdEmpresa', width: 100 },

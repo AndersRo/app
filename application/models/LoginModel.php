@@ -6,10 +6,10 @@
   class LoginModel extends CI_Model
   {
 
-    function getcredenciales($login, $password)
+    function getcredenciales($login, $password, $empresa)
     {
-        $sql = 'CALL sp_get_validarcredenciales(?,?)';
-        $parameters = array($login,$password);
+        $sql = 'CALL sp_get_validarcredenciales(?,?,?)';
+        $parameters = array($login,$password, $empresa);
         $q = $this->db->query($sql, $parameters);
         if($q -> num_rows() >= 1)
         {

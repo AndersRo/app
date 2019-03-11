@@ -33,8 +33,9 @@ class VehiculosModel extends CI_Model
              ,$data->rutaref
              ,$data->rutatar
              ,$data->idempresa
+             ,$data->marca
             );
-    $sql = 'CALL sp_set_registravehiculo(?,?,?,?,?,?,?,?,?,?,?,?)';
+    $sql = 'CALL sp_set_registravehiculo(?,?,?,?,?,?,?,?,?,?,?,?,?)';
     $q = $this->db->query($sql, $parameters);
     if($q -> num_rows() >= 1)
     {

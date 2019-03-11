@@ -112,6 +112,13 @@
 
                     <div class="form-group">
                       <div class="col-sm-4">
+                        <label for="txtmarca" class="control-label">Marca</label>
+                        <input type="text" name="txtmarca" class="form-control" id="txtmarca" placeholder="escriba la marca">
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <div class="col-sm-4">
                         <label for="txtmodelo" class="control-label">Modelo</label>
                         <input type="text" name="txtmodelo" class="form-control" id="txtmodelo" placeholder="escriba el modelo">
                       </div>
@@ -133,10 +140,10 @@
                           <div class="file-field big">
                             <a class="btn-floating btn-lg amber darken-2 mt-0 float-left">
                                 <i class="fa fa-cloud-upload" aria-hidden="true"></i>
-                                <input type="file" id="uploadImage" onchange="PreviewImage()" multiple>
+                                <input type="file" name="uploadImage" id="uploadImage" onchange="PreviewImage()" multiple>
                             </a>
                             <div class="form-group col-sm-12">
-                              <img src="#" alt="your image" id="uploadPreview" height="200" width="auto">
+                              <img src="#" alt="your image" name="uploadImage" id="uploadPreview" height="200" width="auto">
                             </div>
 
                           </div>
@@ -191,6 +198,7 @@
   $("#btnNuevo").click(function(){
     $("#txttipm").val('N');
     $("#idvehiculo").val(0);
+    dispositivo.limpiar();
     $('#modal-default').modal('show');
   });
 
@@ -203,7 +211,6 @@
       dispositivo.eventgrid();
       dispositivo.validate();
       dispositivo.listar();
-
       $( "#btnguardar" ).on( "click", function() {
   		dispositivo.guardar();
   		});
@@ -250,6 +257,16 @@
               });
     }
     ,validate:function(){}
+    ,limpiar:function(){
+      $("#txtplaca").val("");
+      $("#txtchasis").val("");
+      $("#txtmotor").val("");
+      $("#txtmarca").val("");
+      $("#txtmodelo").val("");
+      $("#txtcolor").val("");
+      $("#uploadImage").val("");
+      $("#uploadImage1").val("");
+    }
     ,some_function:function(strA_valor)
     {
 
@@ -279,6 +296,7 @@
                 $("#txtmotor").val( json[0].Motor );
                 $("#txtmodelo").val( json[0].Modelo );
                 $("#txtcolor").val( json[0].Color );
+                $("#txtmarca").val( json[0].Marca );
 
               }
           });
@@ -334,6 +352,7 @@
                           //bootbox.alert(mensajeview);
                           //compras.limpiarcampos();
                           swal(mensajeview, "Clickea para continuar!", "success");
+                          dispositivo.limpiar();
                       }
                   else
                     {
@@ -380,6 +399,7 @@
                     { label: 'Placa', name: 'Placa', width: 75 },
                     { label: 'Chasis', name: 'Chasis', width: 200 },
                     { label: 'Motor', name: 'Motor', width: 200 },
+                    { label: 'Marca', name: 'Marca', width: 200 },
               			{ label: 'Modelo', name: 'Modelo', width: 200 },
               			{ label: 'Color', name: 'Color', width: 100 },
                 ],
