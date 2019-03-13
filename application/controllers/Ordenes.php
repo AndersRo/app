@@ -203,7 +203,7 @@ class Ordenes extends My_Controller {
   public function impresion()
   {
 
-    $idorden = 35;//$_GET['idcontrato'];
+    $idorden = $_GET['idorden'];
     $datosorden=array();
     //Información de clientes
     $datosorden=$this->OrdenesModel->Listordpdf($idorden);
@@ -217,10 +217,11 @@ class Ordenes extends My_Controller {
     $ubigeo = $datosorden[0]->Ubigeo;
     $telefono = $datosorden[0]->Telefono;
     $placa = $datosorden[0]->Placa;
+    $marca = $datosorden[0]->Marca;
     $modelo = $datosorden[0]->Modelo;
     $color = $datosorden[0]->Color;
     $chasis = $datosorden[0]->Chasis;
-    $motor = $datosorden[0]->$motor;
+    $motor = $datosorden[0]->Motor;
     $observacion = $datosorden[0]->Obsvacion;
     $fchprog = $datosorden[0]->FechaProgramada;
     $fchejec = $datosorden[0]->FechaEjecutada;
@@ -515,7 +516,7 @@ class Ordenes extends My_Controller {
 
          <td>Marca:</td>
 
-         <td>BAJAJ</td>
+         <td>'.$marca.'</td>
 
          <td>Motor:</td>
 
