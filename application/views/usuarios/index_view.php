@@ -175,6 +175,14 @@
   $.jgrid.defaults.styleUI = 'Bootstrap';
 </script>
 
+<!--<script type="text/javascript">
+$(window).on("resize", function () {
+  var $grid = $("#tdatos"),
+      newWidth = $grid.closest(".ui-jqgrid").parent().width();
+  $grid.jqGrid("setGridWidth", newWidth, true);
+});
+</script>-->
+
 <script type="text/javascript">
   var idgrilla="#tdatos";
   dispositivo={
@@ -548,9 +556,11 @@
                 ],
                 viewrecords: true,
                 height: 300,
+                //width: "100%",
+                //height: "100%",
+                //caption: "Auto height example",
                 rowNum: 100,
                 ShrinkToFit: false,
-                shrinkToFit: false,
                 rownumbers: true,
                 jsonReader: {
                   root: "rows",

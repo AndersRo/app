@@ -57,6 +57,7 @@
   <script>
     $.widget.bridge('uibutton', $.ui.button);
   </script>
+
   <!-- Bootstrap 3.3.7 -->
   <script src="<?php echo base_url();?>assets/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
   <!-- Bootstrap WYSIHTML5 -->
@@ -68,26 +69,18 @@
   <!-- AdminLTE for demo purposes -->
   <script src="<?php echo base_url();?>assets/dist/js/demo.js"></script>
 
-  <script src="<?php echo base_url();?>assets/plugins/jqgrid/grid.locale-es.js" ></script>
-  <script src="<?php echo base_url();?>assets/plugins/jqgrid/jquery.jqGrid.js" ></script>
+  <script src="<?php echo base_url();?>assets/plugins/jqgrid/grid.locale-es.js"></script>
+  <script src="<?php echo base_url();?>assets/plugins/jqgrid/jquery.jqGrid.js"></script>
 
   <script src="<?php echo base_url();?>assets/dist/js/waitingfor.js"></script>
   <script src="<?php echo base_url();?>assets/dist/js/bootbox.min.js"></script>
 
   <script src="<?php echo base_url();?>assets/dist/js/sweetalert.min.js"></script>
-
-  <!--<script src="</?php echo base_url();?>assets/plugins/sweetalert2/sweetalert2.all.js"></script>-->
-
-  <!--<script src="</?php echo base_url();?>assets/dist/js/sweetalert2.all.min.js"></script>-->
-
-  <!--<script src="</?php echo base_url();?>assets/dist/js/sweetalert2.min.js"></script>-->
     <!--Bootstrap Select -->
   <script src="<?php echo base_url();?>assets/dist/js/bootstrap-select.min.js"></script>
 
-
-
   <script src="<?php echo base_url();?>assets/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.js"></script>
-
+  <script src="<?php echo base_url();?>assets/bower_components/bootstrap-timepicker/js/bootstrap-timepicker.js"></script>
   <!-- InputCounter -->
   <script src="<?php echo base_url();?>assets/plugins/Number-InputCounter/dist/js/jquery.input-counter.min.js"></script>
   <!-- InputMask -->

@@ -69,6 +69,7 @@ class OrdenesModel extends CI_Model
              ,$data->estado
              ,$data->observacion
              ,$data->datepicker
+             ,$data->idatepicker
              ,$data->idtaller
              ,$data->cadenadetalle
              //,$data->iddispositivo
@@ -76,7 +77,7 @@ class OrdenesModel extends CI_Model
              //,$data->nrosim
              //,$data->idn
 						);
-		$sql = 'CALL sp_set_registraorden(?,?,?,?,?,?,?,?,?,?,?,?,?)';
+		$sql = 'CALL sp_set_registraorden(?,?,?,?,?,?,?,?,?,?,?,?,?,?)';
 		$q = $this->db->query($sql, $parameters);
 		if($q -> num_rows() >= 1)
 		{

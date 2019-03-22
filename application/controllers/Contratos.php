@@ -31,6 +31,9 @@ class Contratos extends My_Controller {
     $tipestado="005"; //Tabla Tipos Documentos
 		$orden=$this->TablasModel->Listar($tipestado);
 
+    $tipcont="008"; //Tabla Tipos Documentos
+		$contrato=$this->TablasModel->Listar($tipcont);
+
     $docanexo="007"; //Tipos de documento anexo
     $danexos=$this->TablasModel->Listar($docanexo);
 
@@ -40,10 +43,9 @@ class Contratos extends My_Controller {
     $data = array(
     'titulo' => 'Contrato'
     ,'token'  => $this->auth->token()
-  //  ,'empresas'=>$empresas
+    //,'empresas'=>$empresas
     //,'talleres'=>$talleres
-    ,'clientes'=>$clientes
-    ,'vehiculos'=>$vehiculos
+    ,'contrato'=>$contrato
     //,'mecanicos'=>$mecanicos
     ,'trabajo'=>$trabajo
     //,'dispositivos'=>$dispositivos

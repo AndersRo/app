@@ -55,6 +55,26 @@ class Plataforma extends My_Controller {
       }
 	}
 
+  public function listacc()
+	{
+	    $response=array();
+      if ($this->input->server('REQUEST_METHOD') == 'GET')
+      {
+          $sidx =$_GET['sidx'];
+          $sord =$_GET['sord'];
+          //$idacceso = $_GET['idacceso'];
+          $atrr=$this->grilla->param;
+          //$atrr=array('start' => 0 , 'limit' => JQRID_MAXROW, 'filter'=>"");
+          //Obteniendo el Count
+          $datacount=$this->PlataformaModel->Listaracc($sidx,$sord,$atrr,$this->auth->getidempresa()); //count
+          $atrr=$this->grilla->jq_getatributes($this->input->get(),$datacount);
+          //Obteniendo la Data
+          $data=$this->PlataformaModel->Listaracc($sidx,$sord,$atrr,$this->auth->getidempresa()); //data
+          $json=$this->grilla->jq_getdata($this->input->get(),$data);
+          echo $json;
+      }
+	}
+
   public function store() //Create, Update / Delete
   {
     //sleep(5);

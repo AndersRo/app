@@ -237,14 +237,16 @@
                     { label: 'Ide. ContratoOrdenes', name: 'IdContratoOrdenes', width: 100 },
                     { label: 'COD', name: 'IdContrato', key:true, width: 60 },
                     { label: 'Ide. Orden', name: 'IdOrden', width: 100 },
-              			{ label: 'Tipo Contrato', name: 'CodTipoContrato', width: 100 },
+              			{ label: 'COD Contrato', name: 'CodTipoContrato', width: 100 },
+                    { label: 'Contrato', name: 'TipoCont', width: 100 },
                     { label: 'Ide. Cliente', name: 'IdCliente', width: 200 },
               			{ label: 'CLIENTE', name: 'NomCli', width: 200 },
                     { label: 'IdEmpresa', name: 'IdEmpresa', width: 200 },
                     { label: 'EMPRESA', name: 'RazonSocial', width: 200 },
                     { label: 'Ide. Vehiculo', name: 'IdVehiculo', width: 100 },
               			{ label: 'VEHÍCULO', name: 'chasis', width: 150 },
-                    { label: 'ESTADO', name: 'EstadoContrato', width: 100 },
+                    { label: 'COD', name: 'EstadoContrato', width: 100 },
+                    { label: 'ESTADO', name: 'StdCont', width: 100 },
                     { label: 'FECHA INICIO', name: 'FechaInicio', width: 150 },
                     { label: 'FECHA FIN', name: 'FechaFin', width: 150 }
                 ],
@@ -278,7 +280,7 @@
 
               $(idgrilla).jqGrid('filterToolbar', { stringResult: true, searchOnEnter: true });
               $(idgrilla).jqGrid('setFrozenColumns');
-              $(idgrilla).jqGrid('hideCol',['IdContratoOrdenes','IdOrden', 'IdCliente', 'IdEmpresa','IdVehiculo']);
+              $(idgrilla).jqGrid('hideCol',['IdContratoOrdenes','IdOrden', 'IdCliente', 'IdEmpresa','IdVehiculo','CodTipoContrato','EstadoContrato']);
       }
    }
 

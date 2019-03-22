@@ -123,6 +123,30 @@
                       </div>
                     </div>
 
+                    <div class="form-group">
+                        <label for="role" class="col-sm-3 control-label">Inicio:</label>
+
+                        <div class="input-group date col-sm-9">
+                          <div class="input-group-addon">
+                            <i class="fa fa-calendar"></i>
+                          </div>
+                            <input type="text" class="form-control pull-right" id="datepicker">
+                        </div>
+                        <!-- /.input group -->
+                      </div>
+
+                      <div class="form-group">
+                          <label for="role" class="col-sm-3 control-label">Fin:</label>
+
+                          <div class="input-group date col-sm-9">
+                            <div class="input-group-addon">
+                              <i class="fa fa-calendar"></i>
+                            </div>
+                            <input type="text" class="form-control pull-right" id="idatepicker">
+                          </div>
+                          <!-- /.input group -->
+                        </div>
+
                   </form>
                 </div>
                 <!-- /.box-body -->
@@ -439,6 +463,7 @@
             ,'idvehiculo':$("#idvehiculo").val()
             ,'estado':$("#estado").val()
             ,'observacion':$("#observacion").val()
+            ,'datepicker':$("#datepicker").val()
             ,'idatepicker':$("#idatepicker").val()
             ,'idtaller':$("#idtaller").val()
             ,'cadenadetalle':$("#cadenadetalle").val()
@@ -677,6 +702,7 @@
                     { label: 'Estado', name: 'Descripcion', width: 100 },
                     { label: 'Programacion', name: 'FechaProgramada', width: 120 },
                     { label: 'Ejecucion', name: 'FechaEjecutada', width: 120 },
+                    { label: 'Terminado', name: 'FechaFin', width: 120 },
                 ],
                 viewrecords: true,
                 height: 300,

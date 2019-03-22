@@ -150,6 +150,7 @@ class Ordenes extends My_Controller {
           $ordenes->estado		=isset($request["estado"]) ? $request["estado"] 	: "";
           $ordenes->observacion		=isset($request["observacion"]) ? $request["observacion"] 	: "";
           $ordenes->datepicker		=isset($request["datepicker"]) ? $request["datepicker"] 	: "";
+          $ordenes->idatepicker		=isset($request["idatepicker"]) ? $request["idatepicker"] 	: "";
           $ordenes->idtaller		=isset($request["idtaller"]) ? $request["idtaller"] 	: "";
           $ordenes->cadenadetalle		=isset($request["cadenadetalle"]) ? $request["cadenadetalle"] 	: "";
 
@@ -176,7 +177,6 @@ class Ordenes extends My_Controller {
     if ($this->input->server('REQUEST_METHOD') == 'POST')
     {
         $sidx =$_POST['idorden'];
-
          //$rows = array($sidx);
         $datacount=$this->OrdenesModel->lisid($sidx); //count
 
@@ -225,41 +225,42 @@ class Ordenes extends My_Controller {
     $observacion = $datosorden[0]->Obsvacion;
     $fchprog = $datosorden[0]->FechaProgramada;
     $fchejec = $datosorden[0]->FechaEjecutada;
+    $fchfin = $datosorden[0]->FechaFin;
     $taller = $datosorden[0]->Descripcion;
+    $codtipotrabajo = $datosorden[0]->TipoTrabajo;
+    $serie = $datosorden[0]->Serie;
+    $imei = $datosorden[0]->IMEI;
+    $sim = $datosorden[0]->NroSim;
+    $idn = $datosorden[0]->NroIDN;
+    $modelo = $datosorden[0]->Modelo;
 
-    //$idcliente=$datosclientes[0]->IdCliente;
-    //$cliente=$datosclientes[0]->cliente;
-    //$dni=$datosclientes[0]->CodigoIdentificacion;
-    //nro orden de trabajo
-    //fecha de Trabajo
-    //hora de inicio
-    //hora fin
-    //tecnico asignado
-    //#nro de Programacion
-    //empresa
-    //Lugar de instalación
-    /*DATOS DE CLIENTE*/
-    //documento del cliente
-    //cliente
-    //direccion
-    //lugar
-    //telefonos
-    /*DATOS DEL VEHICULO*/
-    //Nro de placa
-    //marca
-    //modelo
-    //chasis
-    //Motor
-    //Año mod
-    //detalle del Trabajo
-      //item
-        //tipo de Trabajo
-        //motivo
-        //Disposito GPS
-        //Serie GPS
-        //IMEI
-        //SIM
-        //Obs. Trabajo
+    $arraycliente = array('','','');
+    $arraymecanico = array('','','');
+    $arraycodid = array('','','');
+    $arrayborder = array('','','');
+
+    foreach ($datosorden as $key => $value) {
+      $arraycliente[$key]=$value->Cliente;
+      $arraymecanico[$key]=$value->Mecanico;
+      $arraycodid[$key]=$value->CodigoIdentificacion;
+      $arraycodidmec[$key]=$value->codmecdni;
+      $arrayborder[$key]="brd1_arr";
+
+    }
+
+    $tblfirmas="<table class='page_contheader'>
+                  <tr>
+                    <td style='width:28%' class='fz11 center ".$arrayborder[0]."'>".$arraycliente[0]."</td>
+                    <td style='width:4%'></td>
+                    <td style='width:28%' class='fz11 center ".$arrayborder[0]."'>".$arraymecanico[0]."</td>
+
+                  </tr>
+                  <tr>
+                    <td style='width:28%' class='fz11 center'>".$arraycodid[0]."</td>
+                    <td style='width:4%'></td>
+                    <td style='width:28%' class='fz11 center'>".$arraycodidmec[0]."</td>
+                  </tr>
+                </table>";
 
 
     ob_start();
@@ -376,7 +377,7 @@ class Ordenes extends My_Controller {
 
                               <div class="wrapbody">
 
-<table class="tablaborder">
+<table class="tablaborder page_contheader">
 
  <thead> <!-- Pasajeros del vuelo 377 -->
 
@@ -429,7 +430,7 @@ class Ordenes extends My_Controller {
 
          <td>Hora inicio:</td>
 
-         <td>'.$fchprog.'</td>
+         <td>'.$fchejec.'</td>
 
          <td>Empresa:</td>
 
@@ -441,7 +442,7 @@ class Ordenes extends My_Controller {
 
          <td>Hora Fin:</td>
 
-         <td>'.$fchejec.'</td>
+         <td>'.$fchfin.'</td>
 
          <td>Lugar de instalacion:</td>
 
@@ -502,7 +503,6 @@ class Ordenes extends My_Controller {
      </tr>
 
      <tr>
-
          <td>Nº Placa:</td>
 
          <td>'.$placa.'</td>
@@ -544,97 +544,73 @@ class Ordenes extends My_Controller {
 
      </tr>
 
- </tbody>
-
-</table>
-
-
-<table class="tablaborder">
-
- <thead> <!-- Pasajeros del vuelo 377 -->
-
      <tr>
 
-         <th colspan="2">DETALLE TRABAJO</th>
+         <th colspan="4">DETALLE TRABAJO</th>
 
      </tr>
 
- </thead>
-
-
- <tfoot> <!-- Pie de tabla -->
-
      <tr>
 
-         <th colspan="2">DETALLE TRABAJO</th>
+         <td colspan="2">Tipo de Trabajo:</td>
 
-     </tr>
-
- </tfoot>
-
-
- <tbody> <!-- Cuerpo de la tabla -->
-
-     <tr>
-
-         <td>Tipo de Trabajo:</td>
-
-         <td>INSTALACION NUEVA</td>
+         <td colspan="2">'.$codtipotrabajo.'</td>
 
     </tr>
 
     <tr>
 
-        <td>Motivo:</td>
+        <td colspan="2">Motivo:</td>
 
-        <td>NINGUNA</td>
+        <td colspan="2">NINGUNA</td>
 
     </tr>
 
     <tr>
 
-         <td>Dispositivo GPS:</td>
+         <td colspan="2">Dispositivo GPS:</td>
 
-         <td>GPS ARIFE GT-08</td>
-
-     </tr>
-
-     <tr>
-
-         <td>Serie GPS:</td>
-
-         <td>00004122233355</td>
+         <td colspan="2">'.$modelo.'</td>
 
      </tr>
 
      <tr>
 
-         <td>IMEI:</td>
+         <td colspan="2">Serie GPS:</td>
 
-         <td>67162035870153</td>
-
-     </tr>
-
-     <tr>
-
-         <td>SIM:</td>
-
-         <td>970511648</td>
+         <td colspan="2">'.$serie.'</td>
 
      </tr>
 
      <tr>
 
-         <td>OBS Trabajo:</td>
+         <td colspan="2">IMEI:</td>
 
-         <td>xxxxxxxxxxxxx</td>
+         <td colspan="2">'.$imei.'</td>
 
      </tr>
 
+     <tr>
 
+         <td colspan="2">SIM:</td>
+
+         <td colspan="2">'.$sim.'</td>
+
+     </tr>
+
+     <tr>
+
+         <td colspan="2">OBS Trabajo:</td>
+
+         <td colspan="2">xxxxxxxxxxxxx</td>
+
+     </tr>
  </tbody>
 
 </table>
+<br>
+<br>
+'.$tblfirmas.'
                               </div>
                             </page>';
 

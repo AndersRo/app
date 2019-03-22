@@ -44,7 +44,7 @@
                                 <div class="form-group">
                                   <label>Cliente</label>
                                   <div class="input-group input-group-sm">
-                                      <input type="text" id="cliente" class="form-control">
+                                      <input type="text" id="cliente" class="form-control" readonly>
                                       <span class="input-group-btn">
                                             <button type="button" class="btn btn-info btn-flat new-modal" data-toggle="modal" data-target="#myModalAsig">...</button>
                                               <!--<a class="btn btn-primary btn-xs new-modal" data-toggle="modal" data-target="#pepe"><span class="fa fa-plus"></span></a>-->
@@ -191,6 +191,11 @@
 
                               </div>
 
+                              <div>
+                                  <table id="tdatosacc"> </table>
+                                  <div id="pageracc"></div>
+                              </div>
+
                               </div>
 
                               </form>
@@ -283,6 +288,7 @@
 
   $("#txttipm").val( "N" );
   $("#txttipmud").val("N");
+  $("#idcontratoud").val("0");
 </script>
 
 <script type="text/javascript">
@@ -292,6 +298,8 @@
       dispositivo.listar();
       dispositivo.listarcontratos();
       dispositivo.listaruser();
+      dispositivo.listaraccdet();
+
 
     $("#accweb").click(function() {
 
@@ -338,7 +346,7 @@
       //Volviendo a pasar los parametros de busqueda
         var myfilter = { groupOp: "AND", rules: []};
         myfilter.rules.push({field:"IdCliente",op:"bw",data:$("#idclienteu").val()});
-        $('#tdatoscont').jqGrid('setGridParam', {search: true
+          $('#tdatoscont').jqGrid('setGridParam', {search: true
             , postData: {
              'filters': JSON.stringify(myfilter)
                         }
@@ -364,11 +372,12 @@
                  var ama = rowDatasel.Apellido_Materno;
                  var nom = rowDatasel.PrimerNombre;
                  var snom = rowDatasel.SegundoNombre;
+                 var dni = rowDatasel.CodigoIdentificacion;
 
                        //$("#iddispositivo"+(trs-1)+"").val(iddis+"-"+modelo);
                        $("#idclienteu").val(idcli);
                        $("#cliente").val(apa+" "+ama+" "+nom);
-                       //$("#nrosim").val(sim);
+                       $("#nombreusuario").val(dni);
                        //$("#idn").val(idn);
                      $('#myModalAsig').modal('hide');
 
@@ -398,12 +407,17 @@
                  var idcont = rowDatasel.IdContrato;
                  var contcli = rowDatasel.NomCli;
 
-                       //$("#iddispositivo"+(trs-1)+"").val(iddis+"-"+modelo);
                        $("#idcontratoud").val(idcont);
                        $("#contratoud").val(contcli);
 
                       dispositivo.some_function(idcont);
-
+                      //var id = $("#idcontratoud").val();
+                      //dispositivo.listaraccdet();
+                      //var id = $("#idcontratoud").val();
+                      //$('#tdatosacc').trigger('reloadGrid');
+                      //$('#tdatosacc').jqGrid('clearGridData');
+                      $('#tdatosacc').jqGrid('clearGridData');
+                      //dispositivo.listaraccdet();
                      $('#myModalCont').modal('hide');
 
                    }else {
@@ -418,6 +432,30 @@
                    }
                });
 
+    }
+    ,carga:function(){
+
+      var myfilter = { groupOp: "AND", rules: []};
+      myfilter.rules.push({field:"IdAcceso",op:"eq",data:$("#idacceso").val()});
+      $('#tdatosacc').jqGrid('setGridParam', {search: true
+          , postData: {
+           'filters': JSON.stringify(myfilter)
+                      }
+                    }
+                );
+        $('#tdatosacc').trigger('reloadGrid');
+
+
+
+      //var id = $("#idcontratoud").val();
+      //alert(id);
+      /*$('#tdatosacc').jqGrid('setGridParam', {postData: {'token':$('input[name=token]').val()
+                                                        ,'idacceso' : $("#idacceso").val()
+                                                        }
+                                            }
+                            );
+
+    $('#tdatosacc').jqGrid('clearGridData');*/
     }
     ,guardar:function()
     {
@@ -610,6 +648,7 @@
                 $("#idclienteud").val( json[0].IdCliente );
                 $("#clienteud").val( json[0].cliente );
                 $("#login").val( json[0].LoginAcceso );
+                dispositivo.carga();
               }
           });
 
@@ -671,7 +710,7 @@
 
                 $("#tdatoscont").jqGrid('filterToolbar', { stringResult: true, searchOnEnter: true });
                 $("#tdatoscont").jqGrid('setFrozenColumns');
-                $("#tdatoscont").jqGrid('hideCol',['IdCliente','IdEmpresa', 'IdVehiculo']);
+                $("#tdatoscont").jqGrid('hideCol',['IdCliente','IdEmpresa', 'IdVehiculo','IdContratoOrdenes','IdOrden']);
         }
 
       ,listaruser:function()
@@ -730,6 +769,59 @@
                 $("#tdatosc").jqGrid('setFrozenColumns');
                 $("#tdatosc").jqGrid('hideCol',['IdActor']);
         }
+        ,listaraccdet:function()
+        {
+            var idacc = $('#idacceso').val();
+            var wurl="<?php echo base_url('plataforma/listacc'); ?>";
+            $("#tdatosacc").jqGrid({
+                    url: wurl,
+                    mtype: "get",
+                    styleUI : 'Bootstrap',
+                    responsive: true,
+                    postData: {'token':$('input[name=token]').val(),'idacceso':idacc},
+                    datatype: "json",
+                    colModel: [
+                        { label: 'COD', name: 'IdAccesoDetalle', width: 75 },
+                        { label: 'Id. Acceso', name: 'IdAcceso', key: true, width: 75 },
+                        { label: 'IdContrato', name: 'IdContrato', width: 75 },
+                        { label: 'Login', name: 'LoginAcceso', width: 200 },
+    					          { label: 'Id.Vehiculo', name: 'IdVehiculo', width: 100 },
+    					          { label: 'Chasis', name: 'Chasis', width: 100 },
+    					          { label: 'CodTipoContrato', name: 'CodTipoContrato', width: 100 },
+                        { label: 'Contrato', name: 'Descripcion', width: 100 },
+                    ],
+                    viewrecords: true,
+                    height: 300,
+                    rowNum: 100,
+                    ShrinkToFit: false,
+                    shrinkToFit: false,
+                    rownumbers: true,
+                    jsonReader: {
+                      root: "rows",
+                      repeatitems: false
+                    },
+                    gridview: true,
+                    gridComplete: function(){
+                        //dispositivo.eventgrid();
+
+                    },
+                    sortname: 'IdAccesoDetalle',
+                    sortorder: 'desc',
+                    pager: "#pageracc",
+                    });
+
+                  $("#tdatosacc").jqGrid('navGrid','#pageracc',
+                  {edit: false, add: false, del: false, search: false, refresh:true},
+                  {},
+                  {},
+                  {},
+                  {multipleSearch:true, multipleGroup:false, showQuery: true}
+                  );
+
+                  $("#tdatosacc").jqGrid('filterToolbar', { stringResult: true, searchOnEnter: true });
+                  $("#tdatosacc").jqGrid('setFrozenColumns');
+                  $("#tdatosacc").jqGrid('hideCol',['IdActor']);
+          }
 
 }
 
