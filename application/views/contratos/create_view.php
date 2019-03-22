@@ -132,7 +132,7 @@
                                   <label for="role" class="col-sm-2 control-label">Orden</label>
                                   <div class="col-sm-10">
                                     <div class="input-group input-group-sm">
-                                            <input type="text" id="idordenc" class="form-control" readonly>
+                                            <input type="text" id="idordenc" name=idordenc class="form-control" readonly>
                                               <span class="input-group-btn">
                                                 <button type="button" class="btn btn-info btn-flat new-modal" id="abrirorden">...</button>
                                                 <!--<a class="btn btn-primary btn-xs new-modal" data-toggle="modal" data-target="#pepe"><span class="fa fa-plus"></span></a>-->
@@ -451,7 +451,7 @@
                       //$("#nrosim").val(sim);
                       //$("#idn").val(idn);
 
-
+                      dispositivo.some_function(idcli);
                     $('#modal-cliente').modal('hide');
 
                   }else {
@@ -601,6 +601,35 @@
   				}
   		  });
   	}
+
+    ,some_function:function(strA_valor)
+    {
+
+          var wurl="<?php echo base_url('contratos/data'); ?>";
+          $.ajax({
+            async: true,
+            url: wurl,
+            type: "post",
+            dataType: 'json',
+            contentType: 'application/x-www-form-urlencoded',
+            data://$("#frm-clientes").serialize(),
+            {
+              'idcliente':strA_valor
+            },
+            beforeSend: function(data){
+
+            },
+            complete: function(data, status){
+
+              var json = JSON.parse(data.responseText);
+
+                $("#idvehiculoc").val(json[0].IdVehiculo);
+                $("#idordenc").val(json[0].IdOrden);
+                $("#vehiculo").val(json[0].Chasis);
+                $("#idord").val(json[0].IdOrden);
+              }
+          });
+    }
 
     ,guardarcontrato:function()
   	{

@@ -118,12 +118,11 @@
                       <label for="role" class="col-sm-2 control-label">Tipo Documento</label>
 
                       <div class="col-sm-4">
-                        <select name="tipodoc" id="tipodoc" class="form-control">
+                        <select name="tipodoc" id="tipodoc" class="form-control" disabled>
                           <?php
                               foreach ($tipodocumento as $row) {
                                   echo '<option value="'.$row->codigo.'">'.$row->Descripcion.'</option>';
                               }
-
                            ?>
                       </select>
                       </div>

@@ -794,9 +794,8 @@
                 postData: {'token':$('input[name=token]').val()},
                 datatype: "json",
                 colModel: [
-
                     { label: 'Ide. Dispositivo', name: 'iddispositivo', key: true, width: 75 },
-                    { label: 'Serie', name: 'serie', formatter:'select', width: 75 },
+                    { label: 'Serie', name: 'serie', width: 75 },
                     { label: 'IMEI', name: 'imei', width: 200 },
               			{ label: 'IdModelo', name: 'idmodelo', width: 200 },
               			{ label: 'Modelo', name: 'modelo', width: 200 },

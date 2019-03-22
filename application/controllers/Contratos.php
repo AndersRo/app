@@ -116,6 +116,22 @@ class Contratos extends My_Controller {
         }
   }
 
+  public function data()
+	{
+    $response=array();
+    if ($this->input->server('REQUEST_METHOD') == 'POST')
+    {
+        $sidx = $_POST['idcliente'];
+         //$rows = array($sidx);
+        $datacount=$this->ContratosModel->dataid($sidx); //count
+
+        header("Content-type:application/json");
+        echo json_encode($datacount);
+
+        //$this->output->set_status_header(200)->set_content_type('Content-type:application/json')->set_output(json_encode($datacount));
+    }
+	}
+
   public function impresion()
   {
 

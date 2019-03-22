@@ -352,6 +352,8 @@
                     { label: 'Conex. Max.', name: 'MaxConexiones', width: 100 },
                     { label: 'Login', name: 'LoginAcceso', width: 100 },
                     { label: 'Acceso', name: 'EstadoAcceso', width: 100 },
+                    { label: 'Acceso', name: 'Descripcion', width: 100 },
+
                 ],
                 viewrecords: true,
                 height: 300,
@@ -382,7 +384,7 @@
 
               $("#tdatos").jqGrid('filterToolbar', { stringResult: true, searchOnEnter: true });
               $("#tdatos").jqGrid('setFrozenColumns');
-              $("#tdatos").jqGrid('hideCol',['IdAcceso']);
+              $("#tdatos").jqGrid('hideCol',['IdAcceso','EstadoAcceso']);
       }
       ,registrar:function(form)
       {

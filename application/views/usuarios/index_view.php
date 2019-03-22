@@ -553,6 +553,7 @@ $(window).on("resize", function () {
                     { label: 'Dirección', name: 'Direccion', width: 200 },
                     { label: 'Telefono', name: 'Telefono', width: 100 },
                     { label: 'Estado', name: 'codestado', width: 100 },
+                    { label: 'Estado', name: 'Descripcion', width: 100 },
                 ],
                 viewrecords: true,
                 height: 300,
@@ -585,7 +586,7 @@ $(window).on("resize", function () {
 
               $("#tdatos").jqGrid('filterToolbar', { stringResult: true, searchOnEnter: true });
               $("#tdatos").jqGrid('setFrozenColumns');
-              $("#tdatos").jqGrid('hideCol',['idactor','id']);
+              $("#tdatos").jqGrid('hideCol',['idactor','id','codestado']);
       }
    }
 

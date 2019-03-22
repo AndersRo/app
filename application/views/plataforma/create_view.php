@@ -497,10 +497,10 @@
                           var wcodigo=JSON.parse(data.responseText).id;
                           var mensajeview=""
                           waitingDialog.hide();
-                          if ($("#txttipmcon").val()=="N")
+                          if ($("#txttipm").val()=="N")
                           {
                             mensajeview="Registro Exitoso!";
-                          }else if($("#txttipmcon").val()=="U"){
+                          }else if($("#txttipm").val()=="U"){
                             mensajeview="Registro actualizado correctamente!";
                           }else{
                             mensajeview="Registro eliminado correctamente!";
@@ -580,10 +580,10 @@
                           var wcodigo=JSON.parse(data.responseText).id;
                           var mensajeview=""
                           waitingDialog.hide();
-                          if ($("#txttipmcon").val()=="N")
+                          if ($("#txttipmud").val()=="N")
                           {
                             mensajeview="Registro Exitoso!";
-                          }else if($("#txttipmcon").val()=="U"){
+                          }else if($("#txttipmud").val()=="U"){
                             mensajeview="Registro actualizado correctamente!";
                           }else{
                             mensajeview="Registro eliminado correctamente!";
