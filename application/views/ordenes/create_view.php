@@ -76,12 +76,12 @@
                 </div>
               </div>
 
-              <div class="form-group">
+              <!--<div class="form-group">
                 <label for="role" class="col-sm-2 control-label">Cliente</label>
 
                 <div class="col-sm-10">
                   <select name="idcliente" id="idcliente" class="form-control selectpicker" data-live-search="true">
-                    <?php
+                    </?php
                         foreach ($clientes as $row) {
                             echo '<option value="'.$row->IdCliente.'">'.$row->Cliente.'</option>';
                         }
@@ -89,14 +89,28 @@
                      ?>
                 </select>
                 </div>
-              </div>
+              </div>-->
 
               <div class="form-group">
+                <label for="role" class="col-sm-2 control-label">Cliente</label>
+                <div class="col-sm-10">
+                  <div class="input-group input-group-sm">
+                          <input type="hidden" name="idcliente" id="idcliente" class="form-control" readonly>
+                          <input type="text" name="cliente" id="cliente" class="form-control" readonly>
+                            <span class="input-group-btn">
+                              <button type="button" class="btn btn-info btn-flat modal-cliente" id="abrircli">...</button>
+                              <!--<a class="btn btn-primary btn-xs new-modal" data-toggle="modal" data-target="#pepe"><span class="fa fa-plus"></span></a>-->
+                            </span>
+                  </div>
+                </div>
+              </div>
+
+              <!--<div class="form-group">
                 <label for="role" class="col-sm-2 control-label">Vehiculo</label>
 
                 <div class="col-sm-10">
                   <select name="idvehiculo" id="idvehiculo" class="form-control selectpicker" data-live-search="true">
-                    <?php
+                    </?php
                         foreach ($vehiculos as $row) {
                             echo '<option value="'.$row->IdVehiculo.'">'.$row->vehiculo.'</option>';
                         }
@@ -104,20 +118,48 @@
                      ?>
                 </select>
                 </div>
-              </div>
+              </div>-->
 
               <div class="form-group">
+                <label for="role" class="col-sm-2 control-label">Vehiculo</label>
+                <div class="col-sm-10">
+                  <div class="input-group input-group-sm">
+                          <input type="hidden" name="idvehiculo" id="idvehiculo" class="form-control" readonly>
+                          <input type="text" name="vehiculo" id="vehiculo" class="form-control" readonly>
+                            <span class="input-group-btn">
+                              <button type="button" class="btn btn-info btn-flat " id="abrirveh">...</button>
+                              <!--<a class="btn btn-primary btn-xs new-modal" data-toggle="modal" data-target="#pepe"><span class="fa fa-plus"></span></a>-->
+                            </span>
+                  </div>
+                </div>
+              </div>
+
+              <!--<div class="form-group">
                 <label for="role" class="col-sm-2 control-label">Mecanico</label>
 
                 <div class="col-sm-10">
                   <select name="idmecanico" id="idmecanico" class="form-control selectpicker" data-live-search="true">
-                    <?php
+                    </?php
                         foreach ($mecanicos as $row) {
                             echo '<option value="'.$row->IdMecanico.'">'.$row->Mecanico.'</option>';
                         }
 
                      ?>
                 </select>
+                </div>
+              </div>-->
+
+              <div class="form-group">
+                <label for="role" class="col-sm-2 control-label">Mecánico</label>
+                <div class="col-sm-10">
+                  <div class="input-group input-group-sm">
+                          <input type="hidden" name="idmecanico" id="idmecanico" class="form-control" readonly>
+                          <input type="text" name="mecanico" id="mecanico" class="form-control" readonly>
+                            <span class="input-group-btn">
+                              <button type="button" class="btn btn-info btn-flat " id="abrirmec">...</button>
+                              <!--<a class="btn btn-primary btn-xs new-modal" data-toggle="modal" data-target="#pepe"><span class="fa fa-plus"></span></a>-->
+                            </span>
+                  </div>
                 </div>
               </div>
 
@@ -266,6 +308,87 @@
                 </div>
             </div>
 
+            <!-- Modal -->
+            <div class="modal fade" id="modal-cliente" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="myModalLabel">Agregar Cliente</h4>
+                        </div>
+
+                        <div class="modal-body">
+                            <!-- form start -->
+                            <!--INICIO DE FILA QUE CONTIENE LA COLUMNA-->
+                            <div>
+                                <table id="tdatoscli"> </table>
+                                <div id="pagercli"></div>
+                            </div>
+
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                            <button type="button" class="btn btn-primary btn_savecli">Aceptar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal -->
+            <div class="modal fade" id="modal-vehiculo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="myModalLabel">Agregar Vehiculo</h4>
+                        </div>
+
+                        <div class="modal-body">
+                            <!-- form start -->
+                            <!--INICIO DE FILA QUE CONTIENE LA COLUMNA-->
+                            <div>
+                                <table id="tdatosveh"> </table>
+                                <div id="pagerveh"></div>
+                            </div>
+
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                            <button type="button" class="btn btn-primary btn_saveveh">Aceptar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal -->
+            <div class="modal fade" id="modal-mecanico" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="myModalLabel">Agregar Mecanico</h4>
+                        </div>
+
+                        <div class="modal-body">
+                            <!-- form start -->
+                            <!--INICIO DE FILA QUE CONTIENE LA COLUMNA-->
+                            <div>
+                                <table id="tdatosm"> </table>
+                                <div id="pagerm"></div>
+                            </div>
+
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                            <button type="button" class="btn btn-primary btn_savemec">Aceptar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
 <script type="text/javascript">
   var $grid = $("#tdatosd"),
   newWidth = $grid.closest(".ui-jqgrid").parent().width();
@@ -284,11 +407,141 @@
       var gdatadetalle=new Array();
       dispositivo.listar();
       dispositivo.mtd_event();
+      dispositivo.listarcli();
+      dispositivo.listarveh();
+      dispositivo.listarmec();
 
     $("#iddispositivo").change(function(){
       var selectValue = $(this).val()
       dispositivo.some_function(selectValue);
 	   });
+
+     $("#abrircli").on("click", function(){
+       $('#tdatoscli').trigger('reloadGrid');
+       $("#modal-cliente").modal('show');
+     });
+
+     $("#abrirveh").on("click", function(){
+       $('#tdatosveh').trigger('reloadGrid');
+       $("#modal-vehiculo").modal('show');
+     });
+
+     $("#abrirmec").on("click", function(){
+       $('#tdatosm').trigger('reloadGrid');
+       $("#modal-mecanico").modal('show');
+     });
+
+     $(".btn_savecli").click(function(event)
+        {
+          event.returnValue = false; /*para I.E.*/
+          if(event.preventDefault) event.preventDefault();
+
+            var selr = $("#tdatoscli").jqGrid('getGridParam', 'selrow');
+              if(selr) {
+                var rowDatasel = $("#tdatoscli").jqGrid('getRowData', selr);
+                var grid = $("#tdatoscli");
+                var rowKey = grid.jqGrid('getGridParam',"selrow");
+
+                  var idcli = rowDatasel.IdCliente;
+                  var apa = rowDatasel.Apellido_Paterno;
+                  var ama = rowDatasel.Apellido_Materno;
+                  var nom = rowDatasel.PrimerNombre;
+
+                        //$("#iddispositivo"+(trs-1)+"").val(iddis+"-"+modelo);
+                        $("#idcliente").val(idcli);
+                        $("#cliente").val(apa+" "+ama+", "+nom);
+                        //$("#nrosim").val(sim);
+                        //$("#idn").val(idn);
+
+
+                      $('#modal-cliente').modal('hide');
+
+                    }else {
+                      waitingDialog.hide();
+                      //bootbox.alert("Error! : . " + wmsg);
+                      swal({
+                        title: "Error!",
+                        text: "Debe seleccionar algun dato!",
+                        type: "warning",
+                      });
+                        return false;
+                    }
+                });
+
+
+    $(".btn_saveveh").click(function(event)
+       {
+         event.returnValue = false; /*para I.E.*/
+         if(event.preventDefault) event.preventDefault();
+
+           var selr = $("#tdatosveh").jqGrid('getGridParam', 'selrow');
+             if(selr) {
+               var rowDatasel = $("#tdatosveh").jqGrid('getRowData', selr);
+               var grid = $("#tdatosveh");
+               var rowKey = grid.jqGrid('getGridParam',"selrow");
+
+                 var idveh = rowDatasel.IdVehiculo;
+                 var placa = rowDatasel.Placa;
+                 var chasis = rowDatasel.Chasis;
+
+                       $("#idvehiculo").val(idveh);
+                       //$("#cliente").val(apa+" "+ama+", "+nom);
+                       if (placa=="") {
+                         $("#vehiculo").val(chasis);
+                       }else{
+                         $("#vehiculo").val(placa);
+                       }/*if(chasis==""){
+                         $("#vehiculo").val(placa);
+                       }else{
+                         $("#vehiculo").val(chasis);
+                       }*/
+
+                     $('#modal-vehiculo').modal('hide');
+
+                   }else {
+                     waitingDialog.hide();
+                     //bootbox.alert("Error! : . " + wmsg);
+                     swal({
+                       title: "Error!",
+                       text: "Debe seleccionar algun dato!",
+                       type: "warning",
+                     });
+                       return false;
+                   }
+               });
+
+       $(".btn_savemec").click(function(event)
+          {
+            event.returnValue = false; /*para I.E.*/
+            if(event.preventDefault) event.preventDefault();
+
+              var selr = $("#tdatosm").jqGrid('getGridParam', 'selrow');
+                if(selr) {
+                  var rowDatasel = $("#tdatosm").jqGrid('getRowData', selr);
+                  var grid = $("#tdatosm");
+                  var rowKey = grid.jqGrid('getGridParam',"selrow");
+
+                    var idmec = rowDatasel.IdMecanico;
+                    var apa = rowDatasel.Apellido_Paterno;
+                    var ama = rowDatasel.Apellido_Materno;
+                    var nom = rowDatasel.PrimerNombre;
+
+                          $("#idmecanico").val(idmec);
+                          $("#mecanico").val(apa+" "+ama+", "+nom);
+
+                        $('#modal-mecanico').modal('hide');
+
+                      }else {
+                        waitingDialog.hide();
+                        //bootbox.alert("Error! : . " + wmsg);
+                        swal({
+                          title: "Error!",
+                          text: "Debe seleccionar algun dato!",
+                          type: "warning",
+                        });
+                          return false;
+                      }
+                  });
 
     }
 
@@ -583,6 +836,164 @@
               $("#tdatosd").jqGrid('setFrozenColumns');
               $("#tdatosd").jqGrid('hideCol',['idmodelo']);
       }
+
+      ,listarcli:function()
+      {
+          var wurl="<?php echo base_url('clientes/list'); ?>";
+          $("#tdatoscli").jqGrid({
+                  url: wurl,
+                  mtype: "get",
+                  styleUI : 'Bootstrap',
+                  responsive: true,
+                  postData: {'token':$('input[name=token]').val()},
+                  datatype: "json",
+                  colModel: [
+                      { label: 'Ide. Cliente', name: 'IdCliente', width: 75 },
+                      { label: 'Id. Actor', name: 'IdActor', key: true, width: 75 },
+                      { label: 'Apellido Paterno', name: 'Apellido_Paterno', width: 200 },
+                      { label: 'Apellido Materno', name: 'Apellido_Materno', width: 200 },
+                      { label: 'Nombre', name: 'PrimerNombre', width: 100 },
+                      { label: 'Razon Social', name: 'RazonSocial', width: 100 },
+                      { label: 'COD Doc', name: 'TipoDocumento', width: 100 },
+                      { label: 'Tipo Doc', name: 'Descripcion', width: 100 },
+                      { label: 'Nro Doc', name: 'CodigoIdentificacion', width: 100 },
+                      { label: 'RUC', name: 'RUC', width: 200 },
+                  ],
+                  viewrecords: true,
+                  height: 300,
+                  rowNum: 100,
+                  ShrinkToFit: false,
+                  shrinkToFit: false,
+                  rownumbers: true,
+                  jsonReader: {
+                    root: "rows",
+                    repeatitems: false
+                  },
+                  gridview: true,
+                  gridComplete: function(){
+
+                  },
+                  sortname: 'idcliente',
+                  sortorder: 'desc',
+                  pager: "#pagercli",
+                  });
+
+                $("#tdatoscli").jqGrid('navGrid','#pagercli',
+                {edit: false, add: false, del: false, search: false, refresh:true},
+                {},
+                {},
+                {},
+                {multipleSearch:true, multipleGroup:false, showQuery: true}
+                );
+
+                $("#tdatoscli").jqGrid('filterToolbar', { stringResult: true, searchOnEnter: true });
+                $("#tdatoscli").jqGrid('setFrozenColumns');
+                $("#tdatoscli").jqGrid('hideCol',['IdActor','TipoDocumento']);
+        }
+        ,listarveh:function()
+        {
+            var wurl="<?php echo base_url('vehiculos/list'); ?>";
+            $("#tdatosveh").jqGrid({
+                    url: wurl,
+                    mtype: "get",
+                    styleUI : 'Bootstrap',
+                    responsive: true,
+                    postData: {'token':$('input[name=token]').val()},
+                    datatype: "json",
+                    colModel: [
+                        { label: 'Ide. Vehiculo', name: 'IdVehiculo', key: true, width: 75 },
+                        { label: 'Placa', name: 'Placa', width: 75 },
+                        { label: 'Chasis', name: 'Chasis', width: 200 },
+                        { label: 'Motor', name: 'Motor', width: 200 },
+                        { label: 'Marca', name: 'Marca', width: 200 },
+                        { label: 'Modelo', name: 'Modelo', width: 200 },
+                        { label: 'Color', name: 'Color', width: 100 },
+                    ],
+                    viewrecords: true,
+                    height: 300,
+                    rowNum: 100,
+                    ShrinkToFit: false,
+                    shrinkToFit: false,
+                    rownumbers: true,
+                    jsonReader: {
+                      root: "rows",
+                      repeatitems: false
+                    },
+                    gridview: true,
+                    gridComplete: function(){
+                    },
+                    sortname: 'idvehiculo',
+                    sortorder: 'desc',
+                    pager: "#pagerveh"
+                        });
+
+                  $("#tdatosveh").jqGrid('navGrid','#pagerveh',
+                  {edit: false, add: false, del: false, search: false, refresh:true},
+                  {},
+                  {},
+                  {},
+                  {multipleSearch:true, multipleGroup:false, showQuery: true}
+                  );
+
+                  $("#tdatosveh").jqGrid('filterToolbar', { stringResult: true, searchOnEnter: true });
+                  $("#tdatosveh").jqGrid('setFrozenColumns');
+                  $("#tdatosveh").jqGrid('hideCol',['idmodelo']);
+          }
+
+
+
+          ,listarmec:function()
+          {
+              var wurl="<?php echo base_url('mecanicos/list'); ?>";
+              $("#tdatosm").jqGrid({
+                      url: wurl,
+                      mtype: "get",
+                      styleUI : 'Bootstrap',
+                      responsive: true,
+                      postData: {'token':$('input[name=token]').val()},
+                      datatype: "json",
+                      colModel: [
+                          { label: 'Ide. Mecanico', name: 'IdMecanico', width: 75 },
+                          { label: 'Id. Actor', name: 'IdActor', key: true, width: 75 },
+                          { label: 'Apellido Paterno', name: 'Apellido_Paterno', width: 200 },
+                          { label: 'Apellido Materno', name: 'Apellido_Materno', width: 200 },
+                    			{ label: 'Nombre', name: 'PrimerNombre', width: 200 },
+                    			{ label: 'Razon Social', name: 'RazonSocial', width: 100 },
+                    			{ label: 'COD Doc', name: 'TipoDocumento', width: 100 },
+                          { label: 'Tipo Doc', name: 'Descripcion', width: 100 },
+                          { label: 'Nro Doc', name: 'CodigoIdentificacion', width: 100 },
+                          { label: 'RUC', name: 'RUC', width: 300 },
+                      ],
+                      viewrecords: true,
+                      height: 300,
+                      rowNum: 100,
+                      ShrinkToFit: false,
+                      shrinkToFit: false,
+                      rownumbers: true,
+                      jsonReader: {
+                        root: "rows",
+                        repeatitems: false
+                      },
+                      gridview: true,
+                      gridComplete: function(){
+                      },
+                      sortname: 'idmecanico',
+                      sortorder: 'desc',
+                      pager: "#pagerm"
+                          });
+
+                    $("#tdatosm").jqGrid('navGrid','#pagerm',
+                    {edit: false, add: false, del: false, search: false, refresh:true},
+                    {},
+                    {},
+                    {},
+                    {multipleSearch:true, multipleGroup:false, showQuery: true}
+                    );
+
+                    $("#tdatosm").jqGrid('filterToolbar', { stringResult: true, searchOnEnter: true });
+                    $("#tdatosm").jqGrid('setFrozenColumns');
+                    $("#tdatosm").jqGrid('hideCol',['IdActor','RUC','RazonSocial']);
+            }
 
 }
 

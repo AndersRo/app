@@ -502,7 +502,8 @@
                     { label: 'Apellido Materno', name: 'Apellido_Materno', width: 200 },
               			{ label: 'Nombre', name: 'PrimerNombre', width: 200 },
               			{ label: 'Razon Social', name: 'RazonSocial', width: 100 },
-              			{ label: 'Tipo Doc', name: 'TipoDocumento', width: 100 },
+              			{ label: 'COD Doc', name: 'TipoDocumento', width: 100 },
+                    { label: 'Tipo Doc', name: 'Descripcion', width: 100 },
                     { label: 'Nro Doc', name: 'CodigoIdentificacion', width: 100 },
                     { label: 'RUC', name: 'RUC', width: 300 },
                 ],
@@ -536,7 +537,7 @@
 
               $("#tdatos").jqGrid('filterToolbar', { stringResult: true, searchOnEnter: true });
               $("#tdatos").jqGrid('setFrozenColumns');
-              $("#tdatos").jqGrid('hideCol',['idmodelo']);
+              $("#tdatos").jqGrid('hideCol',['IdActor','TipoDocumento','RazonSocial','RUC']);
       }
    }
 
