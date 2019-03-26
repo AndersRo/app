@@ -233,7 +233,7 @@
                   event.returnValue = false; /*para I.E.*/
                   if(event.preventDefault) event.preventDefault();
 
-                  $("#opc").val('D');
+                  $("#opcion").val('D');
                   var idrow=$(this).data('id');
                   $("#tdatos").jqGrid('setSelection',idrow, false);
                   var selr = $("#tdatos").jqGrid('getGridParam', 'selrow');

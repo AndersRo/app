@@ -150,14 +150,14 @@
 
     $('#datepicker').datepicker({
       format: 'yyyy/mm/dd',
-      startDate: '-3d',
       language: "es",
       autoclose: true,
       orientation: "auto left",
       forceParse: false,
       todayHighlight: true,
       toggleActive: true
-    });
+    }).datepicker("setDate", new Date());
+
     $('#datepickerinicio').datepicker({
       format: 'yyyy/mm/dd',
       startDate: '-3d',
