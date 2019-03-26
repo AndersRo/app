@@ -90,8 +90,8 @@
 
 </head>
 
-<body class="hold-transition skin-blue sidebar-mini">
-  <div class="wrapper">
+<body class="hold-transition skin-blue fixed sidebar-mini">
+  <div class="mainwrapper">
     <?php
       if($header) echo $header;
       if($left) echo $left;
@@ -99,8 +99,8 @@
       if($footer) echo $footer;
       if($controlsidebar) echo $controlsidebar;
     ?>
-    <div class="control-sidebar-bg"></div>
   </div>
+  <div class="control-sidebar-bg"></div>
   <!-- ./wrapper -->
 </body>
 
@@ -205,5 +205,4 @@
   	    inputSelector: '.input-counter',
   	  }
   	});
-
 </script>

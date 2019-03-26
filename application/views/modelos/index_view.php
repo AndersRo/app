@@ -151,12 +151,11 @@
   $.jgrid.defaults.responsive = true;
   $.jgrid.defaults.styleUI = 'Bootstrap';
 
-  $("#btnNuevo").click(function(){
-    $("#txttipm").val('N');
-    $("#idmodelo").val(0);
-    $("#txtmodelo").val("");
-    $('#modal-default').modal('show');
-  });
+  /*$(window).on("resize", function () {
+    var $grid = $("#tdatos"),
+        newWidth = $grid.closest(".ui-jqgrid").parent().width();
+    $grid.jqGrid("setGridWidth", newWidth, true);*/
+});
 </script>
 
 <script type="text/javascript">
@@ -169,6 +168,12 @@
       $( "#btnguardar" ).on( "click", function() {
   		dispositivo.guardar();
   		});
+      $("#btnNuevo").click(function(){
+        $("#txttipm").val('N');
+        $("#idmodelo").val(0);
+        $("#txtmodelo").val("");
+        $('#modal-default').modal('show');
+      });
     }
     ,eventgrid:function() {
 
@@ -358,6 +363,7 @@
                 viewrecords: true,
                 height: 300,
                 rowNum: 100,
+                width: null,
                 ShrinkToFit: false,
                 shrinkToFit: false,
                 rownumbers: true,

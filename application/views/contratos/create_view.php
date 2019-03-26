@@ -228,7 +228,7 @@
                         <div class="modal-body">
                             <!-- form start -->
                             <!--INICIO DE FILA QUE CONTIENE LA COLUMNA-->
-                            <div>
+                            <div class="contentpanel">
                                 <table id="tdatosd"> </table>
                                 <div id="pagerd"></div>
                             </div>
@@ -742,6 +742,7 @@
                     viewrecords: true,
                     height: 300,
                     rowNum: 100,
+                    width: null,
                     ShrinkToFit: false,
                     shrinkToFit: false,
                     rownumbers: true,
@@ -795,6 +796,7 @@
                       viewrecords: true,
                       height: 300,
                       rowNum: 100,
+                      width: null,
                       ShrinkToFit: false,
                       shrinkToFit: false,
                       rownumbers: true,
@@ -846,6 +848,7 @@
                         viewrecords: true,
                         height: 300,
                         rowNum: 100,
+                        width: null,
                         ShrinkToFit: false,
                         shrinkToFit: false,
                         rownumbers: true,

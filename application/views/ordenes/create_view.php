@@ -395,15 +395,14 @@
   $.jgrid.defaults.width = newWidth;
   $.jgrid.defaults.responsive = true;
   $.jgrid.defaults.styleUI = 'Bootstrap';
-
-  $("#txttipm").val( "N" );
-  $("#idordencon").val( "0" );
 </script>
 
 <script type="text/javascript">
   dispositivo={
     init:function()
     {
+      $("#txttipm").val( "N" );
+      $("#idordencon").val( "0" );
       var gdatadetalle=new Array();
       dispositivo.listar();
       dispositivo.mtd_event();
@@ -806,6 +805,7 @@
                 viewrecords: true,
                 height: 250,
                 rowNum: 100,
+                width: null,
                 ShrinkToFit: false,
                 shrinkToFit: false,
                 rownumbers: true,
@@ -861,6 +861,7 @@
                   viewrecords: true,
                   height: 300,
                   rowNum: 100,
+                  width: null,
                   ShrinkToFit: false,
                   shrinkToFit: false,
                   rownumbers: true,
@@ -911,6 +912,7 @@
                     viewrecords: true,
                     height: 300,
                     rowNum: 100,
+                    width: null,
                     ShrinkToFit: false,
                     shrinkToFit: false,
                     rownumbers: true,
@@ -966,6 +968,7 @@
                       viewrecords: true,
                       height: 300,
                       rowNum: 100,
+                      width: null,
                       ShrinkToFit: false,
                       shrinkToFit: false,
                       rownumbers: true,

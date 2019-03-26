@@ -18,7 +18,7 @@
   <section class="content">
 
     <!-- Default box -->
-    <div class="box">
+    <div class="box box-primary">
       <div class="box-header with-border">
         <h3 class="box-title">Listado</h3>
 
@@ -32,14 +32,14 @@
       </div>
       <div class="box-body">
 
-        <div class="contentpanel">
+
             <?php echo form_hidden('token', $token) ?>
             <!-- CONTENT GOES HERE -->
             <div>
                 <table id="tdatos"></table>
                 <div id="pager"></div>
             </div>
-        </div><!-- contentpanel -->
+
 
 
       </div>
@@ -123,12 +123,7 @@
   $.jgrid.defaults.responsive = true;
   $.jgrid.defaults.styleUI = 'Bootstrap';
 
-  $("#btnNuevo").click(function(){
-    $("#txttipm").val('N');
-    $("#idmarca").val(0);
-    $("#txtmarca").val("");
-    $('#modal-default').modal('show');
-  });
+
 </script>
 
 <script type="text/javascript">
@@ -142,6 +137,12 @@
   		dispositivo.guardar();
 
   		});
+      $("#btnNuevo").click(function(){
+        $("#txttipm").val('N');
+        $("#idmarca").val(0);
+        $("#txtmarca").val("");
+        $('#modal-default').modal('show');
+      });
     }
     ,eventgrid:function() {
 
@@ -311,6 +312,7 @@
                 viewrecords: true,
                 height: 300,
                 rowNum: 100,
+                width: null,
                 ShrinkToFit: false,
                 shrinkToFit: false,
                 rownumbers: true,
@@ -338,7 +340,7 @@
 
               $("#tdatos").jqGrid('filterToolbar', { stringResult: true, searchOnEnter: true });
               $("#tdatos").jqGrid('setFrozenColumns');
-              $("#tdatos").jqGrid('hideCol',['idmodelo']);
+              //$("#tdatos").jqGrid('hideCol',['idmodelo']);
       }
    }
 

@@ -309,6 +309,7 @@
                 viewrecords: true,
                 height: 300,
                 rowNum: 100,
+                width: null,
                 ShrinkToFit: false,
                 shrinkToFit: false,
                 rownumbers: true,

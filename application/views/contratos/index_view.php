@@ -32,19 +32,19 @@
             <i class="fa fa-times"></i></button>
         </div>
       </div>
-      <div class="mainpanel">
 
-        <div class="contentpanel">
+
+        <div class="box-body">
             <?php echo form_hidden('token', $token) ?>
             <!-- CONTENT GOES HERE -->
-            <div>
+            <div class="contentpanel">
                 <table id="tdatos"> </table>
                 <div id="pager"></div>
             </div>
         </div><!-- contentpanel -->
 
 
-      </div>
+
       <!-- /.box-body -->
       <div class="box-footer">
         Footer
@@ -61,10 +61,10 @@
 <script type="text/javascript">
   var $grid = $("#tdatos"),
       newWidth = $grid.closest(".ui-jqgrid").parent().width();
-
   $.jgrid.defaults.width = newWidth;
   $.jgrid.defaults.responsive = true;
   $.jgrid.defaults.styleUI = 'Bootstrap';
+
 
 </script>
 
@@ -233,7 +233,7 @@
                 postData: {'token':$('input[name=token]').val()},
                 datatype: "json",
                 colModel: [
-                    { label: '...', name: 'accion', frozen:true , width: 80, formatter:function(cellValue, opts, rowObject){return '<button class="btn btn-success btn-xs edit-modal" data-id=' + rowObject.IdContrato + '><span class="fa fa-pencil"></span></button> <button class="btn btn-danger btn-xs delete-modal" id="delete-modal" data-id=' + rowObject.IdContrato + '><span class="fa fa-trash-o"></span></button> <button class="btn btn-primary btn-xs print-modal" data-id=' + rowObject.IdContrato + '><span class="fa fa-file-pdf-o"></span></button>';}},
+                    { label: '...', name: 'accion', frozen:true , width: 100, formatter:function(cellValue, opts, rowObject){return '<button class="btn btn-success btn-xs edit-modal" data-id=' + rowObject.IdContrato + '><span class="fa fa-pencil"></span></button> <button class="btn btn-danger btn-xs delete-modal" id="delete-modal" data-id=' + rowObject.IdContrato + '><span class="fa fa-trash-o"></span></button> <button class="btn btn-primary btn-xs print-modal" data-id=' + rowObject.IdContrato + '><span class="fa fa-file-pdf-o"></span></button>';}},
                     { label: 'Ide. ContratoOrdenes', name: 'IdContratoOrdenes', width: 100 },
                     { label: 'COD', name: 'IdContrato', key:true, width: 60 },
                     { label: 'Ide. Orden', name: 'IdOrden', width: 100 },
@@ -253,6 +253,7 @@
                 viewrecords: true,
                 height: 250,
                 rowNum: 100,
+                width: null,
                 ShrinkToFit: false,
                 shrinkToFit: false,
                 rownumbers: true,

@@ -557,10 +557,8 @@ $(window).on("resize", function () {
                 ],
                 viewrecords: true,
                 height: 300,
-                //width: "100%",
-                //height: "100%",
-                //caption: "Auto height example",
                 rowNum: 100,
+                width: null,
                 ShrinkToFit: false,
                 rownumbers: true,
                 jsonReader: {
