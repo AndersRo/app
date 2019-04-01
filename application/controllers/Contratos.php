@@ -21,8 +21,8 @@ class Contratos extends My_Controller {
   }
 
   public function create(){
-    $clientes=$this->ClientesModel->listmodel();
-    $vehiculos=$this->VehiculosModel->listmodel();
+    //$clientes=$this->ClientesModel->listmodel();
+    //$vehiculos=$this->VehiculosModel->listmodel();
     //$empresas=$this->EmpresasModel->listmodel();
 
     $tiposerv="006"; //Tipos de servicio de contrato

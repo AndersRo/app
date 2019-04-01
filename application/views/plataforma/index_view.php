@@ -347,7 +347,7 @@
                     { label: 'Id. Acceso', name: 'IdAcceso', key: true, width: 50 },
                     { label: 'Id. Cliente', name: 'IdCliente', width: 50 },
                     { label: 'Cliente', name: 'Cliente', width: 150 },
-                    { label: 'Acceso App', name: 'FlgAccesoApp', width: 50 },
+                    { label: 'Acceso App', name: 'FlgAccesoApp', width: 100 },
                     { label: 'Acceso web', name: 'FlgAccesoWeb', width: 100 },
                     { label: 'Conex. Max.', name: 'MaxConexiones', width: 100 },
                     { label: 'Login', name: 'LoginAcceso', width: 100 },

@@ -24,10 +24,10 @@ class Ordenes extends My_Controller {
 
   public function create(){
     $talleres=$this->TalleresModel->listmodel();
-    $clientes=$this->ClientesModel->listmodel();
-    $vehiculos=$this->VehiculosModel->listmodel();
-    $mecanicos=$this->MecanicosModel->listmodel();
-    $dispositivos=$this->DispositivosModel->listmodel();
+    //$clientes=$this->ClientesModel->listmodel();
+    //$vehiculos=$this->VehiculosModel->listmodel();
+    //$mecanicos=$this->MecanicosModel->listmodel();
+    //$dispositivos=$this->DispositivosModel->listmodel();
 
     $tiptra="004"; //Tabla Tipos Trabajos
 		$trabajo=$this->TablasModel->Listar($tiptra);
@@ -45,11 +45,11 @@ class Ordenes extends My_Controller {
     'titulo' => 'Ordenes'
     ,'token'  => $this->auth->token()
     ,'talleres'=>$talleres
-    ,'clientes'=>$clientes
-    ,'vehiculos'=>$vehiculos
-    ,'mecanicos'=>$mecanicos
+    //,'clientes'=>$clientes
+    //,'vehiculos'=>$vehiculos
+    //,'mecanicos'=>$mecanicos
     ,'trabajo'=>$trabajo
-    ,'dispositivos'=>$dispositivos
+    //,'dispositivos'=>$dispositivos
     ,'orden'=>$orden
     ,'servicio'=>$servicio
     ,'danexos'=>$danexos

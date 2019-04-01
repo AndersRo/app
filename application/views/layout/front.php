@@ -91,7 +91,7 @@
 </head>
 
 <body class="hold-transition skin-blue fixed sidebar-mini">
-  <div class="mainwrapper">
+  <div class="wrapper">
     <?php
       if($header) echo $header;
       if($left) echo $left;

@@ -177,7 +177,7 @@
                       </div>
                     </div>
 
-                    <div class="form-group" id="razonsoc">
+                    <div class="form-group" id="razonsoc" hidden>
                       <label for="razonso" class="col-sm-2 control-label">Razon Social</label>
 
                       <div class="col-sm-4">

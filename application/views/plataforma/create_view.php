@@ -165,7 +165,7 @@
                                 <div class="form-group">
                                   <label>Contrato</label>
                                   <div class="input-group input-group-sm">
-                                      <input type="text" id="contratoud" class="form-control">
+                                      <input type="text" id="contratoud" class="form-control" readonly>
                                       <span class="input-group-btn">
                                             <button type="button" class="btn btn-info btn-flat contrato-modal" data-toggle="modal">...</button>
                                               <!--<a class="btn btn-primary btn-xs new-modal" data-toggle="modal" data-target="#pepe"><span class="fa fa-plus"></span></a>-->
@@ -289,6 +289,8 @@
   $("#txttipm").val( "N" );
   $("#txttipmud").val("N");
   $("#idcontratoud").val("0");
+  $("#accweb").val(1);
+  $("#accapp").val(1);
 </script>
 
 <script type="text/javascript">
@@ -670,14 +672,16 @@
                       { label: 'Ide. ContratoOrdenes', name: 'IdContratoOrdenes', key: true, width: 100 },
                       { label: 'Ide. Contrato', name: 'IdContrato', width: 100 },
                       { label: 'Ide. Orden', name: 'IdOrden', width: 100 },
-                      { label: 'Tipo Contrato', name: 'CodTipoContrato', width: 200 },
+                      { label: 'COD TCONT', name: 'CodTipoContrato', width: 200 },
+                      { label: 'Tipo Contrato', name: 'TipoCont', width: 200 },
                       { label: 'Ide. Cliente', name: 'IdCliente', width: 200 },
                       { label: 'Cliente', name: 'NomCli', width: 200 },
                       { label: 'IdEmpresa', name: 'IdEmpresa', width: 200 },
                       { label: 'Empresa', name: 'RazonSocial', width: 200 },
                       { label: 'Ide. Vehiculo', name: 'IdVehiculo', width: 200 },
                       { label: 'Vehiculo', name: 'chasis', width: 200 },
-                      { label: 'Estado', name: 'EstadoContrato', width: 200 },
+                      { label: 'COD STD', name: 'EstadoContrato', width: 200 },
+                      { label: 'Estado', name: 'StdCont', width: 200 },
                       { label: 'Fecha Inicio', name: 'FechaInicio', width: 200 },
                       { label: 'Fecha Fin', name: 'FechaFin', width: 200 },
                   ],
@@ -711,7 +715,7 @@
 
                 $("#tdatoscont").jqGrid('filterToolbar', { stringResult: true, searchOnEnter: true });
                 $("#tdatoscont").jqGrid('setFrozenColumns');
-                $("#tdatoscont").jqGrid('hideCol',['IdCliente','IdEmpresa', 'IdVehiculo','IdContratoOrdenes','IdOrden']);
+                $("#tdatoscont").jqGrid('hideCol',['IdCliente','IdEmpresa', 'IdVehiculo','IdContratoOrdenes','IdOrden','CodTipoContrato','EstadoContrato']);
         }
 
       ,listaruser:function()
@@ -786,9 +790,9 @@
                         { label: 'COD', name: 'IdAccesoDetalle', width: 75 },
                         { label: 'Id. Acceso', name: 'IdAcceso', key: true, width: 75 },
                         { label: 'IdContrato', name: 'IdContrato', width: 75 },
-                        { label: 'Login', name: 'LoginAcceso', width: 200 },
+                        { label: 'Login', name: 'LoginAcceso', width: 100 },
     					          { label: 'Id.Vehiculo', name: 'IdVehiculo', width: 100 },
-    					          { label: 'Chasis', name: 'Chasis', width: 100 },
+    					          { label: 'Chasis', name: 'Chasis', width: 200 },
     					          { label: 'CodTipoContrato', name: 'CodTipoContrato', width: 100 },
                         { label: 'Contrato', name: 'Descripcion', width: 100 },
                     ],
@@ -823,7 +827,7 @@
 
                   $("#tdatosacc").jqGrid('filterToolbar', { stringResult: true, searchOnEnter: true });
                   $("#tdatosacc").jqGrid('setFrozenColumns');
-                  $("#tdatosacc").jqGrid('hideCol',['IdActor']);
+                  $("#tdatosacc").jqGrid('hideCol',['IdActor','CodTipoContrato','IdVehiculo']);
           }
 
 }

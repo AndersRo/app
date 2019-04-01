@@ -164,6 +164,7 @@
     dispositivo.limpiar();
     $("#txtsim").attr('readonly','readonly');
     $("#txtidn").attr('readonly','readonly');
+    $("#txtimei").removeAttr('readonly');
     $('#modal-default').modal('show');
   });
 </script>
@@ -228,8 +229,6 @@
     }
     ,some_function:function(strA_valor)
     {
-
-
           var wurl="<?php echo base_url('dispositivos/listgg'); ?>";
 
           $.ajax({

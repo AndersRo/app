@@ -223,7 +223,7 @@
 
                       <td>
                         <div class="input-group input-group-sm">
-                                <input type="text" id="iddispositivo1" class="form-control">
+                                <input type="text" id="iddispositivo1" class="form-control" readonly>
                                   <span class="input-group-btn">
                                     <button type="button" class="btn btn-info btn-flat new-modal" data-toggle="modal" data-target="#modal-dispositivo">...</button>
                                     <!--<a class="btn btn-primary btn-xs new-modal" data-toggle="modal" data-target="#pepe"><span class="fa fa-plus"></span></a>-->
